@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Wolthers & Associates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== TOP HEADER COMPONENT ===== */
+        .top-header {
+            background: #1a3d1e;
+            padding: 10px 0;
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1002;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .top-header.hidden {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+
+        .top-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px 40px 8px 15px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 15px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover,
+        .lang-btn.active {
+            background: #d4af37;
+            border-color: #d4af37;
+        }
+
+        /* ===== MAIN HEADER COMPONENT ===== */
+        header {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%);
+            color: white;
+            padding: 1.5rem 0; /* Increased from 1rem */
+            position: fixed;
+            width: 100%;
+            top: 40px;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: top 0.3s ease;
+        }
+
+        .top-header.hidden + header {
+            top: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 60px; /* Ensure minimum height */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f4f4f4;
+            padding: 0.5rem 0; /* Added padding */
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f4f4f4;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+
+        nav a:hover {
+            color: #a8d4a8;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(44, 85, 48, 0.95);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1003;
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover > a {
+            color: #a8d4a8;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            margin-top: 135px; /* Increased to account for larger header */
+            transition: margin-top 0.3s ease;
+        }
+
+        .top-header.hidden ~ .main-content {
+            margin-top: 95px; /* Adjusted for when top header is hidden */
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 85, 48, 0.8), rgba(74, 124, 74, 0.8)), url('/api/placeholder/1200/600');
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+
+        /* Team Sections */
+        .team-section {
+            padding: 60px 0;
+        }
+
+        .team-section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .location-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .location-title {
+            font-size: 2.5rem;
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .location-info {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            border-left: 4px solid #d4af37;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #2c5530);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .team-card:hover::before {
+            opacity: 1;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .team-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2c5530, #4a7c4a);
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-position {
+            font-size: 1rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .team-specialty {
+            font-size: 0.9rem;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .team-description {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Leadership Section */
+        .leadership-section {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .leadership-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .leadership-card .team-name {
+            color: #d4af37;
+        }
+
+        .leadership-card .team-position {
+            color: white;
+        }
+
+        .leadership-card .team-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Stats Section */
+        .team-stats {
+            background: #2c5530;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* ===== CONTACT SECTION COMPONENT ===== */
+        .contact {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .contact-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c5530;
+            font-weight: 300;
+        }
+
+        .contact-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+
+        .contact-section {
+            padding: 40px 30px;
+            border-right: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .contact-section:last-child {
+            border-right: none;
+        }
+
+        .contact-section:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .contact-section h3 {
+            font-size: 1.2rem;
+            color: #2c5530;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .contact-email {
+            display: inline-block;
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .contact-email:hover {
+            color: #b8941f;
+        }
+
+        .contact-description {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .headquarters {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .headquarters h3 {
+            color: #2c5530;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .headquarters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .headquarters-location h4 {
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+
+        .headquarters-location p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        /* ===== FOOTER COMPONENT ===== */
+        .footer {
+            background: #2c5530;
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .footer-search-input {
+            width: 100%;
+            padding: 8px 40px 8px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .footer-search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .footer-language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-language-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 80px;
+            justify-content: space-between;
+        }
+
+        .footer-language-dropdown-content {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: #1a3d1e;
+            min-width: 100px;
+            box-shadow: 0px -8px 16px 0px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1;
+            margin-bottom: 5px;
+        }
+
+        .footer-language-dropdown-content a {
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+
+        .footer-language-dropdown:hover .footer-language-dropdown-content {
+            display: block;
+        }
+
+        .dropdown-arrow {
+            font-size: 12px;
+        }
+
+        .footer-bottom {
+            background: #1a3d1e;
+            padding: 20px 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Specialty badges */
+        .q-grader { background: #d4af37; }
+        .agronomist { background: #28a745; }
+        .trader { background: #2c5530; }
+        .logistics { background: #17a2b8; }
+        .finance { background: #6f42c1; }
+        .quality { background: #dc3545; }
+        .data { background: #fd7e14; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .top-header-content {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 20px;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .main-content {
+                margin-top: 140px;
+            }
+
+            .top-header.hidden ~ .main-content {
+                margin-top: 80px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .location-title {
+                font-size: 2rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-section {
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+
+            .contact-section:last-child {
+                border-bottom: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== TOP HEADER COMPONENT ===== -->
+    <div class="top-header">
+        <div class="top-header-content">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search our services, locations, or team members..." data-lang-key="searchPlaceholder">
+                <button class="search-btn">🔍</button>
+            </div>
+            <div class="language-switcher">
+                <button class="lang-btn active" onclick="switchLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="switchLanguage('pt')">PT</button>
+                <button class="lang-btn" onclick="switchLanguage('es')">ES</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN HEADER COMPONENT ===== -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="images/wolthers-logo-off-white.svg" alt="Wolthers & Associates Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="logo-text" style="display: none;">Wolthers & Associates</span>
+            </div>
+            <ul>
+                <li><a href="index.html" data-lang-key="navHome">Home</a></li>
+                <li><a href="index.html#about" data-lang-key="navAbout">About</a></li>
+                <li><a href="index.html#services" data-lang-key="navServices">Services</a></li>
+                <li><a href="index.html#quality" data-lang-key="navQuality">Quality Control</a></li>
+                <li><a href="index.html#locations" data-lang-key="navLocations">Locations</a></li>
+                <li class="dropdown">
+                    <a href="#leadership" data-lang-key="navTeam">Our Team</a>
+                    <div class="dropdown-content">
+                        <a href="#leadership" data-lang-key="navLeadership">Leadership</a>
+                        <a href="#santos" data-lang-key="navBrazil">Brazil</a>
+                        <a href="#aaa-team" data-lang-key="navAAABrazil">AAA Brazil</a>
+                        <a href="#colombia" data-lang-key="navColombia">Colombia</a>
+                        <a href="#guatemala" data-lang-key="navGuatemala">Guatemala</a>
+                    </div>
+                </li>
+                <li><a href="#contact" data-lang-key="navContact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-lang-key="heroTitle">Meet Our Global Team</h1>
+                <p data-lang-key="heroSubtitle">Dedicated professionals across three countries, united by our passion for coffee excellence and commitment to quality</p>
+            </div>
+        </section>
+
+        <!-- Team Stats -->
+        <section class="team-stats">
+            <div class="container">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;" data-lang-key="statsTitle">Our Global Expertise</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label" data-lang-key="statsTeamMembers">Team Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label" data-lang-key="statsQGraders">Q Graders</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label" data-lang-key="statsCountries">Countries</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">75+</div>
+                        <div class="stat-label" data-lang-key="statsYearsExperience">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership Section -->
+        <section id="leadership" class="leadership-section">
+            <div class="container">
+                <div class="location-header">
+                    <h2 class="location-title" style="color: white;" data-lang-key="leadershipTitle">Leadership Team</h2>
+                    <p class="location-subtitle" style="color: rgba(255,255,255,0.8);" data-lang-key="leadershipSubtitle">Three generations of coffee expertise guiding our global operations</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card leadership-card">
+                        <div class="team-photo">
+                            <img src="images/members/Rasmus_Wolthers.png" alt="Rasmus Wolthers" onerror="this.style.display='none'; this.parentElement.innerHTML='RW';">
+                        </div>
+                        <div class="team-name">Rasmus Wolthers</div>
+                        <div class="team-position" data-lang-key="ceoTitle">Chief Executive Officer</div>
+                        <div class="team-specialty trader" data-lang-key="generation3rd">3rd Generation Leader</div>
+                        <div class="team-description">Leading Wolthers & Associates into the modern era of coffee trading with a focus on sustainability, transparency, and innovation. Responsible for strategic direction and global expansion.</div>
+                    </div>
+                    <div class="team-card leadership-card">
+                        <div class="team-photo">CW</div>
+                        <div class="team-name">Christian Wolthers</div>
+                        <div class="team-position" data-lang-key="founderTitle">Founder & US Operations</div>
+                        <div class="team-specialty trader" data-lang-key="generation2nd">2nd Generation</div>
+                        <div class="team-description">Founded W&A in 1990 and now operates from the USA, handling imports of the finest Brazilian and Latin American coffees while providing strategic guidance.</div>
+                    </div>
+                    <div class="team-card leadership-card">
+                        <div class="team-photo">
+                            <img src="images/members/Daniel_Wolthers.png" alt="Daniel Wolthers" onerror="this.style.display='none'; this.parentElement.innerHTML='DW';">
+                        </div>
+                        <div class="team-name">Daniel Wolthers</div>
+                        <div class="team-position" data-lang-key="tradingDirectorTitle">Trading & Operations Director</div>
+                        <div class="team-specialty trader" data-lang-key="generation3rdSimple">3rd Generation</div>
+                        <div class="team-description">Experienced trader and operations director specializing in Brazilian coffee markets with deep knowledge of supply chains and strategic business development.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Santos Team -->
+        <section id="santos" class="team-section">
+            <div class="container">
+                <div class="location-header">
+                    <h2 class="location-title" data-lang-key="santosBrazil">Santos, Brazil</h2>
+                    <p class="location-subtitle" data-lang-key="santosSubtitle">Our headquarters and largest operation</p>
+                    <div class="location-info">
+                        <strong>📍 <span data-lang-key="address">Address</span>:</strong> Rua Quinze de Novembro 96, Santos, SP 11010-150, Brasil<br>
+                        <strong>📞 <span data-lang-key="phone">Phone</span>:</strong> +55 (13) 2127-4144<br>
+                        <strong>✉️ <span data-lang-key="email">Email</span>:</strong> trading@wolthers.com | wolthers@wolthers.com
+                    </div>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Anderson_Nunes.png" alt="Anderson Nunes" onerror="this.style.display='none'; this.parentElement.innerHTML='AN';">
+                        </div>
+                        <div class="team-name">Anderson Nunes</div>
+                        <div class="team-position" data-lang-key="labManager">Lab Manager / Quality Analyst</div>
+                        <div class="team-specialty q-grader">Q Grader</div>
+                        <div class="team-description">Certified Q Grader specializing in sensory analysis and quality assessment of green coffee samples.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Petter_Anderson.png" alt="Petter Anderson" onerror="this.style.display='none'; this.parentElement.innerHTML='PA';">
+                        </div>
+                        <div class="team-name">Petter Anderson</div>
+                        <div class="team-position" data-lang-key="qualityAnalyst">Quality Analyst</div>
+                        <div class="team-specialty quality">Quality Expert</div>
+                        <div class="team-description">Skilled quality analyst contributing to our comprehensive quality control processes and standards.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Victor_Paula.png" alt="Victor De Paula" onerror="this.style.display='none'; this.parentElement.innerHTML='VP';">
+                        </div>
+                        <div class="team-name">Victor De Paula</div>
+                        <div class="team-position" data-lang-key="qualityAnalyst">Quality Analyst</div>
+                        <div class="team-specialty quality">Quality Expert</div>
+                        <div class="team-description">Dedicated quality analyst ensuring consistent quality standards across all coffee evaluations.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Boeri_Ferrari.png" alt="Boeri Ferrari" onerror="this.style.display='none'; this.parentElement.innerHTML='BF';">
+                        </div>
+                        <div class="team-name">Boeri Ferrari</div>
+                        <div class="team-position" data-lang-key="internalBroker">Internal Market Broker</div>
+                        <div class="team-specialty trader">Market Broker</div>
+                        <div class="team-description">Specializing in Brazilian internal market operations, connecting local producers with national and international buyers.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">LG</div>
+                        <div class="team-name">Luiz Gustavo</div>
+                        <div class="team-position" data-lang-key="dataAnalyst">Data Analyst</div>
+                        <div class="team-specialty data">Data Expert</div>
+                        <div class="team-description">Analyzing market trends and trading data to provide valuable insights for strategic decision-making and operational optimization.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Patricia_Arakaki.png" alt="Patricia Arakaki" onerror="this.style.display='none'; this.parentElement.innerHTML='PA';">
+                        </div>
+                        <div class="team-name">Patricia Arakaki</div>
+                        <div class="team-position" data-lang-key="finance">Finance</div>
+                        <div class="team-specialty finance">Financial Expert</div>
+                        <div class="team-description">Managing financial operations with precision, ensuring smooth transactions and financial reporting.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Michele_Anderson.png" alt="Michelle Anderson" onerror="this.style.display='none'; this.parentElement.innerHTML='MA';">
+                        </div>
+                        <div class="team-name">Michelle Anderson</div>
+                        <div class="team-position" data-lang-key="finance">Finance</div>
+                        <div class="team-specialty finance">Financial Analyst</div>
+                        <div class="team-description">Supporting financial operations and analysis, contributing to our financial stability and growth.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Debora_Sabino.png" alt="Debora Sabino" onerror="this.style.display='none'; this.parentElement.innerHTML='DS';">
+                        </div>
+                        <div class="team-name">Debora Sabino</div>
+                        <div class="team-position" data-lang-key="logistics">Logistics</div>
+                        <div class="team-specialty logistics">Logistics Coordinator</div>
+                        <div class="team-description">Coordinating logistics operations to ensure timely and efficient movement of coffee shipments.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Kauan_Marcelino.png" alt="Kauan Marcelino" onerror="this.style.display='none'; this.parentElement.innerHTML='KM';">
+                        </div>
+                        <div class="team-name">Kauan Marcelino</div>
+                        <div class="team-position" data-lang-key="logistics">Logistics</div>
+                        <div class="team-specialty logistics">Logistics Specialist</div>
+                        <div class="team-description">Supporting logistics operations with attention to detail and commitment to operational excellence.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Vinicius_Medeiros.png" alt="Vinicius Medeiros" onerror="this.style.display='none'; this.parentElement.innerHTML='VM';">
+                        </div>
+                        <div class="team-name">Vinicius Medeiros</div>
+                        <div class="team-position" data-lang-key="logistics">Logistics</div>
+                        <div class="team-specialty logistics">Logistics Coordinator</div>
+                        <div class="team-description">Ensuring smooth logistics operations and maintaining high standards in supply chain management.</div>
+                    </div>
+                </div>
+                
+                <!-- AAA Team -->
+                <div id="aaa-team" class="location-header" style="margin-top: 4rem;">
+                    <h3 style="color: #2c5530; font-size: 1.8rem;" data-lang-key="aaaTeamTitle">AAA (Responsible Coffee) Team</h3>
+                    <p style="color: #666;" data-lang-key="aaaTeamSubtitle">Dedicated to sustainable and responsible coffee production</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-photo">RG</div>
+                        <div class="team-name">Rhafael Gonçalves</div>
+                        <div class="team-position" data-lang-key="aaaAgronomist">AAA Agronomist</div>
+                        <div class="team-specialty agronomist">Sustainability Expert</div>
+                        <div class="team-description">Leading sustainable agriculture initiatives and promoting responsible farming practices across our producer network.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Caio_Diniz.png" alt="Caio Diniz" onerror="this.style.display='none'; this.parentElement.innerHTML='CD';">
+                        </div>
+                        <div class="team-name">Caio Diniz</div>
+                        <div class="team-position" data-lang-key="aaaFieldCoordinator">AAA Field Coordinator</div>
+                        <div class="team-specialty agronomist">Field Specialist</div>
+                        <div class="team-description">Coordinating field operations and ensuring implementation of sustainable practices at farm level.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Yara_Melo.png" alt="Yara Melo" onerror="this.style.display='none'; this.parentElement.innerHTML='YM';">
+                        </div>
+                        <div class="team-name">Yara Melo</div>
+                        <div class="team-position" data-lang-key="aaaInclusivePartner">AAA Inclusive Partner</div>
+                        <div class="team-specialty agronomist">Inclusion Specialist</div>
+                        <div class="team-description">Promoting inclusive practices and ensuring diverse participation in our sustainable coffee programs.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Luciano_Corsi.png" alt="Luciano Corsi" onerror="this.style.display='none'; this.parentElement.innerHTML='LC';">
+                        </div>
+                        <div class="team-name">Luciano Corsi</div>
+                        <div class="team-position" data-lang-key="aaaAgronomist">AAA Agronomist</div>
+                        <div class="team-specialty agronomist">Agricultural Expert</div>
+                        <div class="team-description">Providing technical expertise in sustainable agriculture and supporting farmers in implementing best practices.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Gabriel_Oliveira.png" alt="Gabriel Oliveira" onerror="this.style.display='none'; this.parentElement.innerHTML='GO';">
+                        </div>
+                        <div class="team-name">Gabriel Oliveira</div>
+                        <div class="team-position" data-lang-key="aaaAgronomist">AAA Agronomist</div>
+                        <div class="team-specialty agronomist">Technical Advisor</div>
+                        <div class="team-description">Technical advisor specializing in regenerative agriculture and sustainable farming methodologies.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Kamila_Cortes.png" alt="Kamila Côrtes" onerror="this.style.display='none'; this.parentElement.innerHTML='KC';">
+                        </div>
+                        <div class="team-name">Kamila Côrtes</div>
+                        <div class="team-position" data-lang-key="aaaInclusivePartner">AAA Inclusive Partner</div>
+                        <div class="team-specialty agronomist">Community Liaison</div>
+                        <div class="team-description">Building inclusive partnerships and fostering community engagement in sustainable coffee initiatives.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Colombia Team -->
+        <section id="colombia" class="team-section">
+            <div class="container">
+                <div class="location-header">
+                    <h2 class="location-title" data-lang-key="buenaventuraColombia">Buenaventura, Colombia</h2>
+                    <p class="location-subtitle" data-lang-key="colombiaSubtitle">Quality control excellence in Colombian coffee</p>
+                    <div class="location-info">
+                        <strong>📍 <span data-lang-key="address">Address</span>:</strong> Street 2 #1a-18, Edificio del Cafe Building, Office 1004, Buenaventura, Colombia<br>
+                        <strong>📞 <span data-lang-key="phone">Phone</span>:</strong> +57 032 297-9189
+                    </div>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Hector_Posada.png" alt="Hector Posada" onerror="this.style.display='none'; this.parentElement.innerHTML='HP';">
+                        </div>
+                        <div class="team-name">Hector Posada</div>
+                        <div class="team-position" data-lang-key="qualityDirector">Quality Control Director</div>
+                        <div class="team-specialty q-grader">Q Grader</div>
+                        <div class="team-description">Leading quality control operations in Colombia with certified Q Grader expertise, ensuring excellence in Colombian coffee evaluation.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Sandra_Bonilla.png" alt="Sandra Bonilla" onerror="this.style.display='none'; this.parentElement.innerHTML='SB';">
+                        </div>
+                        <div class="team-name">Sandra Bonilla</div>
+                        <div class="team-position" data-lang-key="labManager">Lab Manager / Quality Analyst</div>
+                        <div class="team-specialty quality">Lab Expert</div>
+                        <div class="team-description">Managing laboratory operations and conducting comprehensive quality analysis with expertise in Colombian coffee characteristics.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Arishay_Pulgarin.png" alt="Arishay Pulgarin" onerror="this.style.display='none'; this.parentElement.innerHTML='AP';">
+                        </div>
+                        <div class="team-name">Arishay Pulgarin</div>
+                        <div class="team-position" data-lang-key="qualityAnalyst">Quality Analyst</div>
+                        <div class="team-specialty quality">Quality Specialist</div>
+                        <div class="team-description">Skilled quality analyst specializing in sensory evaluation and maintaining quality standards for Colombian coffee.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Ana_Molina.png" alt="Ana Maria Molina" onerror="this.style.display='none'; this.parentElement.innerHTML='AM';">
+                        </div>
+                        <div class="team-name">Ana Maria Molina</div>
+                        <div class="team-position" data-lang-key="adminAssistant">Administrative Assistant</div>
+                        <div class="team-specialty logistics">Administrative Support</div>
+                        <div class="team-description">Providing essential administrative support to ensure smooth operations and effective communication.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="images/members/Diana_Saavedra.png" alt="Diana Marcela Saavedra" onerror="this.style.display='none'; this.parentElement.innerHTML='DS';">
+                        </div>
+                        <div class="team-name">Diana Marcela Saavedra</div>
+                        <div class="team-position" data-lang-key="agronomist">Agronomist / Technical Assistant</div>
+                        <div class="team-specialty agronomist">Technical Expert</div>
+                        <div class="team-description">Providing technical expertise and agronomic support to enhance coffee quality and sustainable practices in Colombia.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guatemala Team -->
+        <section id="guatemala" class="team-section">
+            <div class="container">
+                <div class="location-header">
+                    <h2 class="location-title" data-lang-key="guatemalaCity">Guatemala City, Guatemala</h2>
+                    <p class="location-subtitle" data-lang-key="guatemalaSubtitle">Central American quality control hub</p>
+                    <div class="location-info">
+                        <strong>📍 <span data-lang-key="address">Address</span>:</strong> 12-01 Avenida Reforma, Edificio Reforma Montufar, Oficina 9-01, Guatemala City<br>
+                        <strong>📞 <span data-lang-key="phone">Phone</span>:</strong> +502 4669-0057
+                    </div>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-photo">WL</div>
+                        <div class="team-name">Wilson Larias</div>
+                        <div class="team-position" data-lang-key="labManager">Lab Manager / Quality Analyst</div>
+                        <div class="team-specialty q-grader">Q Grader</div>
+                        <div class="team-description">Managing laboratory operations and quality analysis in Guatemala with certified Q Grader credentials and expertise in Central American coffees.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">HS</div>
+                        <div class="team-name">Hector Subuyuj</div>
+                        <div class="team-position" data-lang-key="qualityAnalyst">Quality Analyst</div>
+                        <div class="team-specialty quality">Quality Expert</div>
+                        <div class="team-description">Dedicated quality analyst specializing in Guatemalan coffee evaluation and maintaining high quality standards.</div>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">EG</div>
+                        <div class="team-name">Edgar Guillen</div>
+                        <div class="team-position" data-lang-key="adminAssistant">Administrative Assistant</div>
+                        <div class="team-specialty logistics">Administrative Support</div>
+                        <div class="team-description">Providing comprehensive administrative support to ensure efficient operations and excellent customer service.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="contact-title" data-lang-key="contactTitle">Contact Us</h2>
+                <p class="contact-subtitle" data-lang-key="contactSubtitle">Connect with our global team of coffee trading experts. We're here to support your business across all origins.</p>
+                
+                <div class="contact-sections">
+                    <div class="contact-section">
+                        <h3 data-lang-key="tradingInquiries">Trading Inquiries</h3>
+                        <a href="mailto:trading@wolthers.com" class="contact-email">trading@wolthers.com</a>
+                        <p class="contact-description" data-lang-key="tradingDesc">For all trading and brokerage related questions and new business opportunities.</p>
+                    </div>
+                    <div class="contact-section">
+                        <h3 data-lang-key="qualityControl">Quality Control</h3>
+                        <a href="mailto:qualitycontrol@wolthers.com" class="contact-email">qualitycontrol@wolthers.com</a>
+                        <p class="contact-description" data-lang-key="qualityDesc">For quality control services and testing across all origins including Brazil, Colombia, and Guatemala.</p>
+                    </div>
+                    <div class="contact-section">
+                        <h3 data-lang-key="logisticsSupport">Logistics Support</h3>
+                        <a href="mailto:wolthers@wolthers.com" class="contact-email">wolthers@wolthers.com</a>
+                        <p class="contact-description" data-lang-key="logisticsDesc">For shipping coordination, sample requests, vessel booking, and logistics assistance.</p>
+                    </div>
+                </div>
+
+                <div class="headquarters">
+                    <h3 data-lang-key="headquarters">Our Global Headquarters</h3>
+                    <div class="headquarters-grid">
+                        <div class="headquarters-location">
+                            <h4 data-lang-key="santosBrazil">Santos, Brazil</h4>
+                            <p>Rua Quinze de Novembro 96</p>
+                            <p>Santos, SP 11010-150</p>
+                            <p>Brasil</p>
+                            <p style="color: #2c5530; font-weight: 500; margin-top: 10px;"><span data-lang-key="tel">Tel</span>: +55 (13) 2127-4144</p>
+                        </div>
+                        <div class="headquarters-location">
+                            <h4 data-lang-key="buenaventuraColombia">Buenaventura, Colombia</h4>
+                            <p>Street 2 #1a-18</p>
+                            <p>Edificio del Cafe Building</p>
+                            <p>Office 1004</p>
+                            <p style="color: #2c5530; font-weight: 500; margin-top: 10px;"><span data-lang-key="tel">Tel</span>: +57 032 297-9189</p>
+                        </div>
+                        <div class="headquarters-location">
+                            <h4 data-lang-key="guatemalaCity">Guatemala City, Guatemala</h4>
+                            <p>12-01 Avenida Reforma</p>
+                            <p>Edificio Reforma Montufar</p>
+                            <p>Oficina 9-01</p>
+                            <p style="color: #2c5530; font-weight: 500; margin-top: 10px;"><span data-lang-key="tel">Tel</span>: +502 4669-0057</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== FOOTER COMPONENT ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4 data-lang-key="footerSearch">Search</h4>
+                <div class="footer-search-container">
+                    <input type="text" class="footer-search-input" placeholder="Search..." data-lang-key="footerSearchPlaceholder">
+                    <button class="footer-search-btn">🔍</button>
+                </div>
+                
+                <div class="footer-language-dropdown">
+                    <button class="footer-language-btn">
+                        <span id="current-lang">EN</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="footer-language-dropdown-content">
+                        <a href="#" onclick="changeFooterLanguage('en')">EN</a>
+                        <a href="#" onclick="changeFooterLanguage('pt')">PT</a>
+                        <a href="#" onclick="changeFooterLanguage('es')">ES</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4 data-lang-key="footerServices">Our Services</h4>
+                <ul>
+                    <li><a href="index.html#services" data-lang-key="footerFOB">FOB Brokerage</a></li>
+                    <li><a href="index.html#quality" data-lang-key="footerQuality">Quality Control</a></li>
+                    <li><a href="index.html#services" data-lang-key="footerSustainable">Sustainable Trading</a></li>
+                    <li><a href="index.html#services" data-lang-key="footerOrigin">Origin Services</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 data-lang-key="footerLocations">Our Locations</h4>
+                <ul>
+                    <li><a href="#santos" data-lang-key="footerSantos">Santos, Brazil</a></li>
+                    <li><a href="#colombia" data-lang-key="footerBuenaventura">Buenaventura, Colombia</a></li>
+                    <li><a href="#guatemala" data-lang-key="footerGuatemala">Guatemala City, Guatemala</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 data-lang-key="footerCompany">Company</h4>
+                <ul>
+                    <li><a href="index.html#about" data-lang-key="footerAbout">About Us</a></li>
+                    <li><a href="#leadership" data-lang-key="footerTeam">Our Team</a></li>
+                    <li><a href="index.html#about" data-lang-key="footerSustainability">Sustainability</a></li>
+                    <li><a href="#contact" data-lang-key="footerContact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <p data-lang-key="footerCopyright">© 2024 Wolthers & Associates. Building coffee relationships since 1949.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translation system
+        const translations = {
+            en: {
+                // Navigation
+                navHome: 'Home',
+                navAbout: 'About',
+                navServices: 'Services',
+                navQuality: 'Quality Control',
+                navLocations: 'Locations',
+                navTeam: 'Our Team',
+                navLeadership: 'Leadership',
+                navBrazil: 'Brazil',
+                navAAABrazil: 'AAA Brazil',
+                navColombia: 'Colombia',
+                navGuatemala: 'Guatemala',
+                navContact: 'Contact',
+                searchPlaceholder: 'Search our services, locations, or team members...',
+                
+                // Hero Section
+                heroTitle: 'Meet Our Global Team',
+                heroSubtitle: 'Dedicated professionals across three countries, united by our passion for coffee excellence and commitment to quality',
+                
+                // Team Stats
+                statsTitle: 'Our Global Expertise',
+                statsTeamMembers: 'Team Members',
+                statsQGraders: 'Q Graders',
+                statsCountries: 'Countries',
+                statsYearsExperience: 'Years Experience',
+                
+                // Leadership Section
+                leadershipTitle: 'Leadership Team',
+                leadershipSubtitle: 'Three generations of coffee expertise guiding our global operations',
+                ceoTitle: 'Chief Executive Officer',
+                founderTitle: 'Founder & US Operations',
+                tradingDirectorTitle: 'Trading & Operations Director',
+                generation2nd: '2nd Generation',
+                generation3rd: '3rd Generation Leader',
+                generation3rdSimple: '3rd Generation',
+                
+                // Location Headers
+                santosBrazil: 'Santos, Brazil',
+                santosSubtitle: 'Our headquarters and largest operation',
+                buenaventuraColombia: 'Buenaventura, Colombia',
+                colombiaSubtitle: 'Quality control excellence in Colombian coffee',
+                guatemalaCity: 'Guatemala City, Guatemala',
+                guatemalaSubtitle: 'Central American quality control hub',
+                
+                // Job Titles
+                labManager: 'Lab Manager / Quality Analyst',
+                qualityAnalyst: 'Quality Analyst',
+                qualityDirector: 'Quality Control Director',
+                internalBroker: 'Internal Market Broker',
+                dataAnalyst: 'Data Analyst',
+                finance: 'Finance',
+                logistics: 'Logistics',
+                adminAssistant: 'Administrative Assistant',
+                agronomist: 'Agronomist / Technical Assistant',
+                
+                // AAA Team
+                aaaTeamTitle: 'AAA (Responsible Coffee) Team',
+                aaaTeamSubtitle: 'Dedicated to sustainable and responsible coffee production',
+                aaaAgronomist: 'AAA Agronomist',
+                aaaFieldCoordinator: 'AAA Field Coordinator',
+                aaaInclusivePartner: 'AAA Inclusive Partner',
+                
+                // Contact Section
+                contactTitle: 'Contact Us',
+                contactSubtitle: 'Connect with our global team of coffee trading experts. We\'re here to support your business across all origins.',
+                tradingInquiries: 'Trading Inquiries',
+                tradingDesc: 'For all trading and brokerage related questions and new business opportunities.',
+                qualityControl: 'Quality Control',
+                qualityDesc: 'For quality control services and testing across all origins including Brazil, Colombia, and Guatemala.',
+                logisticsSupport: 'Logistics Support',
+                logisticsDesc: 'For shipping coordination, sample requests, vessel booking, and logistics assistance.',
+                headquarters: 'Our Global Headquarters',
+                
+                // Common Labels
+                address: 'Address',
+                phone: 'Phone',
+                email: 'Email',
+                tel: 'Tel',
+                
+                // Footer
+                footerSearch: 'Search',
+                footerSearchPlaceholder: 'Search...',
+                footerServices: 'Our Services',
+                footerFOB: 'FOB Brokerage',
+                footerQuality: 'Quality Control',
+                footerSustainable: 'Sustainable Trading',
+                footerOrigin: 'Origin Services',
+                footerLocations: 'Our Locations',
+                footerSantos: 'Santos, Brazil',
+                footerBuenaventura: 'Buenaventura, Colombia',
+                footerGuatemala: 'Guatemala City, Guatemala',
+                footerCompany: 'Company',
+                footerAbout: 'About Us',
+                footerTeam: 'Our Team',
+                footerSustainability: 'Sustainability',
+                footerContact: 'Contact',
+                footerCopyright: '© 2024 Wolthers & Associates. Building coffee relationships since 1949.'
+            },
+            pt: {
+                // Navigation
+                navHome: 'Início',
+                navAbout: 'Sobre',
+                navServices: 'Serviços',
+                navQuality: 'Controle de Qualidade',
+                navLocations: 'Localizações',
+                navTeam: 'Nossa Equipe',
+                navLeadership: 'Liderança',
+                navBrazil: 'Brasil',
+                navAAABrazil: 'AAA Brasil',
+                navColombia: 'Colômbia',
+                navGuatemala: 'Guatemala',
+                navContact: 'Contato',
+                searchPlaceholder: 'Pesquise nossos serviços, locais ou membros da equipe...',
+                
+                // Hero Section
+                heroTitle: 'Conheça Nossa Equipe Global',
+                heroSubtitle: 'Profissionais dedicados em três países, unidos pela nossa paixão pela excelência do café e compromisso com a qualidade',
+                
+                // Team Stats
+                statsTitle: 'Nossa Expertise Global',
+                statsTeamMembers: 'Membros da Equipe',
+                statsQGraders: 'Q Graders',
+                statsCountries: 'Países',
+                statsYearsExperience: 'Anos de Experiência',
+                
+                // Leadership Section
+                leadershipTitle: 'Equipe de Liderança',
+                leadershipSubtitle: 'Três gerações de expertise em café guiando nossas operações globais',
+                ceoTitle: 'Diretor Executivo',
+                founderTitle: 'Fundador e Operações EUA',
+                tradingDirectorTitle: 'Diretor de Trading e Operações',
+                generation2nd: '2ª Geração',
+                generation3rd: 'Líder da 3ª Geração',
+                generation3rdSimple: '3ª Geração',
+                
+                // Location Headers
+                santosBrazil: 'Santos, Brasil',
+                santosSubtitle: 'Nossa sede e maior operação',
+                buenaventuraColombia: 'Buenaventura, Colômbia',
+                colombiaSubtitle: 'Excelência em controle de qualidade do café colombiano',
+                guatemalaCity: 'Cidade da Guatemala, Guatemala',
+                guatemalaSubtitle: 'Centro de controle de qualidade da América Central',
+                
+                // Job Titles
+                labManager: 'Gerente de Laboratório / Analista de Qualidade',
+                qualityAnalyst: 'Analista de Qualidade',
+                qualityDirector: 'Diretor de Controle de Qualidade',
+                internalBroker: 'Corretor do Mercado Interno',
+                dataAnalyst: 'Analista de Dados',
+                finance: 'Financeiro',
+                logistics: 'Logística',
+                adminAssistant: 'Assistente Administrativo',
+                agronomist: 'Agrônomo / Assistente Técnico',
+                
+                // AAA Team
+                aaaTeamTitle: 'Equipe AAA (Café Responsável)',
+                aaaTeamSubtitle: 'Dedicada à produção sustentável e responsável de café',
+                aaaAgronomist: 'Agrônomo AAA',
+                aaaFieldCoordinator: 'Coordenador de Campo AAA',
+                aaaInclusivePartner: 'Parceiro Inclusivo AAA',
+                
+                // Contact Section
+                contactTitle: 'Entre em Contato',
+                contactSubtitle: 'Conecte-se com nossa equipe global de especialistas em comércio de café. Estamos aqui para apoiar seu negócio em todas as origens.',
+                tradingInquiries: 'Consultas de Trading',
+                tradingDesc: 'Para todas as questões relacionadas a trading e corretagem e novas oportunidades de negócios.',
+                qualityControl: 'Controle de Qualidade',
+                qualityDesc: 'Para serviços de controle de qualidade e testes em todas as origens, incluindo Brasil, Colômbia e Guatemala.',
+                logisticsSupport: 'Suporte Logístico',
+                logisticsDesc: 'Para coordenação de envio, solicitações de amostras, reserva de navios e assistência logística.',
+                headquarters: 'Nossa Sede Global',
+                
+                // Common Labels
+                address: 'Endereço',
+                phone: 'Telefone',
+                email: 'E-mail',
+                tel: 'Tel',
+                
+                // Footer
+                footerSearch: 'Buscar',
+                footerSearchPlaceholder: 'Buscar...',
+                footerServices: 'Nossos Serviços',
+                footerFOB: 'Corretagem FOB',
+                footerQuality: 'Controle de Qualidade',
+                footerSustainable: 'Trading Sustentável',
+                footerOrigin: 'Serviços de Origem',
+                footerLocations: 'Nossas Localizações',
+                footerSantos: 'Santos, Brasil',
+                footerBuenaventura: 'Buenaventura, Colômbia',
+                footerGuatemala: 'Cidade da Guatemala, Guatemala',
+                footerCompany: 'Empresa',
+                footerAbout: 'Sobre Nós',
+                footerTeam: 'Nossa Equipe',
+                footerSustainability: 'Sustentabilidade',
+                footerContact: 'Contato',
+                footerCopyright: '© 2024 Wolthers & Associates. Construindo relacionamentos de café desde 1949.'
+            },
+            es: {
+                // Navigation
+                navHome: 'Inicio',
+                navAbout: 'Acerca de',
+                navServices: 'Servicios',
+                navQuality: 'Control de Calidad',
+                navLocations: 'Ubicaciones',
+                navTeam: 'Nuestro Equipo',
+                navLeadership: 'Liderazgo',
+                navBrazil: 'Brasil',
+                navAAABrazil: 'AAA Brasil',
+                navColombia: 'Colombia',
+                navGuatemala: 'Guatemala',
+                navContact: 'Contacto',
+                searchPlaceholder: 'Buscar nuestros servicios, ubicaciones o miembros del equipo...',
+                
+                // Hero Section
+                heroTitle: 'Conoce a Nuestro Equipo Global',
+                heroSubtitle: 'Profesionales dedicados en tres países, unidos por nuestra pasión por la excelencia del café y compromiso con la calidad',
+                
+                // Team Stats
+                statsTitle: 'Nuestra Experiencia Global',
+                statsTeamMembers: 'Miembros del Equipo',
+                statsQGraders: 'Q Graders',
+                statsCountries: 'Países',
+                statsYearsExperience: 'Años de Experiencia',
+                
+                // Leadership Section
+                leadershipTitle: 'Equipo de Liderazgo',
+                leadershipSubtitle: 'Tres generaciones de experiencia en café guiando nuestras operaciones globales',
+                ceoTitle: 'Director Ejecutivo',
+                founderTitle: 'Fundador y Operaciones EEUU',
+                tradingDirectorTitle: 'Director de Trading y Operaciones',
+                generation2nd: '2ª Generación',
+                generation3rd: 'Líder de 3ª Generación',
+                generation3rdSimple: '3ª Generación',
+                
+                // Location Headers
+                santosBrazil: 'Santos, Brasil',
+                santosSubtitle: 'Nuestra sede central y operación más grande',
+                buenaventuraColombia: 'Buenaventura, Colombia',
+                colombiaSubtitle: 'Excelencia en control de calidad del café colombiano',
+                guatemalaCity: 'Ciudad de Guatemala, Guatemala',
+                guatemalaSubtitle: 'Centro de control de calidad de América Central',
+                
+                // Job Titles
+                labManager: 'Gerente de Laboratorio / Analista de Calidad',
+                qualityAnalyst: 'Analista de Calidad',
+                qualityDirector: 'Director de Control de Calidad',
+                internalBroker: 'Corredor del Mercado Interno',
+                dataAnalyst: 'Analista de Datos',
+                finance: 'Finanzas',
+                logistics: 'Logística',
+                adminAssistant: 'Asistente Administrativo',
+                agronomist: 'Agrónomo / Asistente Técnico',
+                
+                // AAA Team
+                aaaTeamTitle: 'Equipo AAA (Café Responsable)',
+                aaaTeamSubtitle: 'Dedicado a la producción sostenible y responsable de café',
+                aaaAgronomist: 'Agrónomo AAA',
+                aaaFieldCoordinator: 'Coordinador de Campo AAA',
+                aaaInclusivePartner: 'Socio Inclusivo AAA',
+                
+                // Contact Section
+                contactTitle: 'Contáctanos',
+                contactSubtitle: 'Conéctate con nuestro equipo global de expertos en comercio de café. Estamos aquí para apoyar tu negocio en todos los orígenes.',
+                tradingInquiries: 'Consultas de Trading',
+                tradingDesc: 'Para todas las preguntas relacionadas con trading y corretaje y nuevas oportunidades de negocio.',
+                qualityControl: 'Control de Calidad',
+                qualityDesc: 'Para servicios de control de calidad y pruebas en todos los orígenes, incluyendo Brasil, Colombia y Guatemala.',
+                logisticsSupport: 'Soporte Logístico',
+                logisticsDesc: 'Para coordinación de envío, solicitudes de muestras, reserva de buques y asistencia logística.',
+                headquarters: 'Nuestra Sede Global',
+                
+                // Common Labels
+                address: 'Dirección',
+                phone: 'Teléfono',
+                email: 'Correo',
+                tel: 'Tel',
+                
+                // Footer
+                footerSearch: 'Buscar',
+                footerSearchPlaceholder: 'Buscar...',
+                footerServices: 'Nuestros Servicios',
+                footerFOB: 'Corretaje FOB',
+                footerQuality: 'Control de Calidad',
+                footerSustainable: 'Trading Sostenible',
+                footerOrigin: 'Servicios de Origen',
+                footerLocations: 'Nuestras Ubicaciones',
+                footerSantos: 'Santos, Brasil',
+                footerBuenaventura: 'Buenaventura, Colombia',
+                footerGuatemala: 'Ciudad de Guatemala, Guatemala',
+                footerCompany: 'Empresa',
+                footerAbout: 'Acerca de Nosotros',
+                footerTeam: 'Nuestro Equipo',
+                footerSustainability: 'Sostenibilidad',
+                footerContact: 'Contacto',
+                footerCopyright: '© 2024 Wolthers & Associates. Construyendo relaciones de café desde 1949.'
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active button in header
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase() === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update all elements with data-lang-key
+            document.querySelectorAll('[data-lang-key]').forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Update footer language button
+            const footerLangBtn = document.getElementById('current-lang');
+            if (footerLangBtn) {
+                footerLangBtn.textContent = lang.toUpperCase();
+            }
+            
+            // Store language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Function to change footer language (syncs with header)
+        function changeFooterLanguage(lang) {
+            switchLanguage(lang);
+        }
+
+        // Load saved language preference on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+            switchLanguage(savedLang);
+        });
+
+        // Scroll functionality for top header
+        let lastScrollTop = 0;
+        const topHeader = document.querySelector('.top-header');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                topHeader.classList.add('hidden');
+            } else {
+                topHeader.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Search functionality
+        function performSearch(searchInput) {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                console.log('Searching for:', searchTerm);
+                alert(`Searching for: ${searchTerm}`);
+            }
+        }
+
+        // Top search
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            performSearch(document.querySelector('.search-input'));
+        });
+
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(this);
+            }
+        });
+
+        // Footer search
+        document.querySelector('.footer-search-btn').addEventListener('click', function() {
+            performSearch(document.querySelector('.footer-search-input'));
+        });
+
+        document.querySelector('.footer-search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(this);
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Team card animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe team cards for animation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.team-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
