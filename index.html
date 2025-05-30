@@ -88,7 +88,7 @@
                         <div data-lang-key="yearsExcellence">Years of Excellence</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">3M+</div>
+                        <div class="stat-number">4M+</div>
                         <div data-lang-key="bagsExported">Bags Exported Yearly</div>
                     </div>
                     <div class="stat">
@@ -104,37 +104,31 @@
                 <h2 class="section-title" data-lang-key="servicesTitle">Our Services</h2>
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">⚖️</div>
                         <h3 data-lang-key="fobBrokerage">FOB Brokerage</h3>
                         <p data-lang-key="fobDescription">Managing on average 3.5 million bags annually with dedicated logistics and price fixation support, connecting buyers and roasters directly to farms and coops.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">🔬</div>
                         <h3 data-lang-key="qualityControlService">Quality Control</h3>
                         <p data-lang-key="qualityControlDescription">State-of-the-art laboratories in Santos/Brazil, Buenaventura/Colombia, and Guatemala City with qualified Q Graders ensuring top quality for major brands.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">🌱</div>
                         <h3 data-lang-key="sustainableTrading">Sustainable Trading</h3>
                         <p data-lang-key="sustainableDescription">Farm cluster management ensuring great workspaces and incentivizing regenerative production practices across our network.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">🌍</div>
                         <h3 data-lang-key="globalConnections">Global Connections</h3>
                         <p data-lang-key="globalDescription">Bridging producers, coops, and exporters to buyers across Europe, Asia, North America, and Australia with comprehensive logistics support.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">📊</div>
                         <h3 data-lang-key="internalMarket">Internal Market</h3>
                         <p data-lang-key="internalDescription">Direct involvement with farms and cooperatives, providing market insights and connecting supply with demand.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon" aria-hidden="true">✈️</div>
                         <h3 data-lang-key="originServices">Origin Services</h3>
                         <p data-lang-key="originDescription">Hosting trips to origin, special farm events, vessel booking assistance, and dedicated sampling request support.</p>
                     </div>
@@ -268,54 +262,65 @@
         <section id="contact" class="contact fade-in">
             <div class="container">
                 <h2 class="section-title" data-lang-key="contactTitle">Contact Us</h2>
-                <div class="contact-flex-wrapper">
-                    <div class="contact-form-container">
-                        <h3 data-lang-key="sendUsMessage">Send Us a Message</h3>
-                        <p data-lang-key="formInstructions">Please fill out the form below and we'll get back to you shortly.</p>
-                        <form class="contact-form">
-                            <div class="form-group">
-                                <label for="name" class="visually-hidden">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Your Name" data-lang-key="formNamePlaceholder" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="visually-hidden">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Your Email" data-lang-key="formEmailPlaceholder" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="subject" class="visually-hidden">Subject</label>
-                                <input type="text" id="subject" name="subject" placeholder="Subject" data-lang-key="formSubjectPlaceholder" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message" class="visually-hidden">Message</label>
-                                <textarea id="message" name="message" rows="5" placeholder="Your Message" data-lang-key="formMessagePlaceholder" required></textarea>
-                            </div>
-                            <button type="submit" class="submit-btn" data-lang-key="formSendButton">Send Message</button>
-                        </form>
+                
+                <!-- Contact Form Container -->
+                <div class="contact-form-container">
+                    <h3 data-lang-key="sendUsMessage">Send Us a Message</h3>
+                    <p data-lang-key="formInstructions">Please fill out the form below and we'll get back to you shortly.</p>
+                    <form class="contact-form" id="contactForm" name="contact" method="POST" action="/?success=true" data-netlify="true" netlify-honeypot="bot-field">
+                        <!-- Hidden honeypot field for spam protection -->
+                        <input type="hidden" name="bot-field">
+                        <!-- Hidden field to capture the selected department email -->
+                        <input type="hidden" name="department-email" id="department-email-hidden">
+                        
+                        <div class="form-group">
+                            <label for="name" class="visually-hidden">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" data-lang-key="formNamePlaceholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="visually-hidden">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" data-lang-key="formEmailPlaceholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="department" class="visually-hidden">Department</label>
+                            <select id="department" name="department" required>
+                                <option value="">Select Department</option>
+                                <option value="Trading Inquiries">Trading Inquiries</option>
+                                <option value="Logistics Support">Logistics Support</option>
+                                <option value="Quality Control Services">Quality Control Services</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="visually-hidden">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="Subject" data-lang-key="formSubjectPlaceholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="visually-hidden">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" data-lang-key="formMessagePlaceholder" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" data-lang-key="formSendButton">Send Message</button>
+                    </form>
+                </div>
+                
+                <!-- Contact Details Container (moved below form) -->
+                <div class="contact-details-container">
+                    <h3 data-lang-key="ourContactDetails">Our Contact Details</h3>
+                    <div class="contact-info-item">
+                        <h4 data-lang-key="tradingInquiries">Trading Inquiries</h4>
+                        <p><strong data-lang-key="email">Email:</strong> <a href="mailto:trading@wolthers.com">trading@wolthers.com</a></p>
+                        <p data-lang-key="tradingDesc">For all trading and brokerage related questions, quality control services, and new business opportunities.</p>
                     </div>
                     
-                    <div class="contact-details-container">
-                        <h3 data-lang-key="ourContactDetails">Our Contact Details</h3>
-                        <div class="contact-info-item">
-                            <h4 data-lang-key="tradingInquiries">Trading Inquiries</h4>
-                            <p><strong data-lang-key="email">Email:</strong> <a href="mailto:trading@wolthers.com">trading@wolthers.com</a></p>
-                            <p data-lang-key="tradingDesc">For all trading and brokerage related questions, quality control services, and new business opportunities.</p>
-                        </div>
-                        
-                        <div class="contact-info-item">
-                            <h4 data-lang-key="logisticsSupport">Logistics Support</h4>
-                            <p><strong data-lang-key="email">Email:</strong> <a href="mailto:wolthers@wolthers.com">wolthers@wolthers.com</a></p>
-                            <p data-lang-key="logisticsDesc">For shipping coordination, sample requests, vessel booking, and logistics assistance.</p>
-                        </div>
-                        
-                        <div class="contact-info-item">
-                            <h4 data-lang-key="headquarters">Headquarters</h4>
-                            <address>
-                                Rua Quinze de Novembro 96<br>
-                                Santos, SP 11010-150<br>
-                                Brasil
-                            </address>
-                            <p><strong data-lang-key="tel">Tel</strong>: +55 (13) 2127-4144</p>
-                        </div>
+                    <div class="contact-info-item">
+                        <h4 data-lang-key="logisticsSupport">Logistics Support</h4>
+                        <p><strong data-lang-key="email">Email:</strong> <a href="mailto:logistics@wolthers.com">logistics@wolthers.com</a></p>
+                        <p data-lang-key="logisticsDesc">For shipping coordination, sample requests, vessel booking, and logistics assistance.</p>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <h4>Quality Control Services</h4>
+                        <p><strong data-lang-key="email">Email:</strong> <a href="mailto:qualitycontrol@wolthers.com">qualitycontrol@wolthers.com</a></p>
+                        <p>For quality control services and testing across all origins including Brazil, Colombia, and Guatemala.</p>
                     </div>
                 </div>
             </div>
