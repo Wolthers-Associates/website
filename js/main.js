@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         document.body.classList.add('loaded');
     }, 100);
+
+    // Initialize EmailJS - Replace with your public key from emailjs.com
+    emailjs.init("YOUR_PUBLIC_KEY"); // Get this free from emailjs.com
     // --- Translation System ---
     const translations = {
         en: {
@@ -634,11 +637,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Contact Form Submission (Netlify Forms) ---
+    // --- Contact Form Submission (EmailJS - FREE) ---
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(event) {
+        contactForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
             const submitBtn = this.querySelector('.submit-btn');
             const nameField = this.querySelector('#name');
             const emailField = this.querySelector('#email');
@@ -646,19 +651,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const subjectField = this.querySelector('#subject');
             const messageField = this.querySelector('#message');
             
-            // Basic validation
+            // Validation
             if (!nameField.value.trim() || !emailField.value.trim() || 
                 !departmentField.value || !subjectField.value.trim() || 
                 !messageField.value.trim()) {
-                event.preventDefault();
                 showFormMessage('Please fill in all required fields.', 'error');
                 return;
             }
             
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailField.value || !emailRegex.test(emailField.value)) {
-                event.preventDefault();
+            if (!emailRegex.test(emailField.value)) {
                 showFormMessage('Please enter a valid email address.', 'error');
                 return;
             }
@@ -667,18 +670,50 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
             
-            // Let Netlify handle the form submission
+            try {
+                // Send email using EmailJS
+                const templateParams = {
+                    from_name: nameField.value,
+                    from_email: emailField.value,
+                    to_email: departmentField.value,
+                    subject: subjectField.value,
+                    message: messageField.value,
+                    department: departmentField.options[departmentField.selectedIndex].text
+                };
+                
+                // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your EmailJS IDs
+                const response = await emailjs.send(
+                    'YOUR_SERVICE_ID',    // Your EmailJS service ID
+                    'YOUR_TEMPLATE_ID',   // Your EmailJS template ID
+                    templateParams
+                );
+                
+                showFormMessage('Thank you! Your message has been sent successfully. We will get back to you soon.', 'success');
+                this.reset(); // Clear form
+                
+            } catch (error) {
+                console.error('EmailJS Error:', error);
+                
+                // Fallback to mailto
+                const toEmail = departmentField.value;
+                const subject = encodeURIComponent(`Website Contact: ${subjectField.value}`);
+                const body = encodeURIComponent(
+                    `Name: ${nameField.value}\n` +
+                    `Email: ${emailField.value}\n` +
+                    `Subject: ${subjectField.value}\n\n` +
+                    `Message:\n${messageField.value}`
+                );
+                
+                const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+                window.location.href = mailtoLink;
+                
+                showFormMessage('Opening your email client as backup...', 'error');
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = translations[currentLang].formSendButton || 'Send Message';
+            }
         });
-        
-        // Check URL for success parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('success')) {
-            showFormMessage('Thank you! Your message has been sent successfully. We will get back to you soon.', 'success');
-            // Reset form
-            contactForm.reset();
-            // Clean up URL
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
     }
     
     /**
