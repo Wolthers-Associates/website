@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     // Initialize EmailJS - Replace with your public key from emailjs.com
-    emailjs.init("YOUR_PUBLIC_KEY"); // Get this free from emailjs.com
+    emailjs.init("cI8gy3hIj0J0zD4Fl"); // Get this free from emailjs.com
     // --- Translation System ---
     const translations = {
         en: {
@@ -683,8 +683,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your EmailJS IDs
                 const response = await emailjs.send(
-                    'YOUR_SERVICE_ID',    // Your EmailJS service ID
-                    'YOUR_TEMPLATE_ID',   // Your EmailJS template ID
+                    'service_h0373h4',    // Your EmailJS service ID
+                    'template_8vxx5yc',   // Your EmailJS template ID
                     templateParams
                 );
                 
