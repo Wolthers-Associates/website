@@ -4,776 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wolthers & Associates - Coffee Trading Excellence Since 1949</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== TOP HEADER COMPONENT ===== */
-        .top-header {
-            background: #1a3d1e;
-            padding: 10px 0;
-            color: white;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1002;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .top-header.hidden {
-            opacity: 0;
-            transform: translateY(-100%);
-        }
-
-        .top-header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .search-container {
-            position: relative;
-            flex: 1;
-            max-width: 400px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 8px 40px 8px 15px;
-            border: none;
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .search-input:focus {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .language-switcher {
-            display: flex;
-            gap: 15px;
-        }
-
-        .lang-btn {
-            background: none;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s;
-        }
-
-        .lang-btn:hover,
-        .lang-btn.active {
-            background: #d4af37;
-            border-color: #d4af37;
-        }
-
-        /* ===== MAIN HEADER COMPONENT ===== */
-        header {
-            background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%);
-            color: white;
-            padding: 1.5rem 0;
-            position: fixed;
-            width: 100%;
-            top: 40px;
-            z-index: 1001;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: top 0.3s ease;
-        }
-
-        .top-header.hidden + header {
-            top: 0;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 60px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #f4f4f4;
-            padding: 0.5rem 0;
-        }
-
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #f4f4f4;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-            padding: 0.5rem 0;
-        }
-
-        nav a:hover {
-            color: #a8d4a8;
-        }
-
-        /* Dropdown Menu */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: rgba(44, 85, 48, 0.95);
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1003;
-            border-radius: 5px;
-            top: 100%;
-            left: 0;
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.3s;
-        }
-
-        .dropdown-content a:hover {
-            background-color: rgba(212, 175, 55, 0.2);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown:hover > a {
-            color: #a8d4a8;
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            margin-top: 135px;
-            transition: margin-top 0.3s ease;
-        }
-
-        .top-header.hidden ~ .main-content {
-            margin-top: 95px;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(44, 85, 48, 0.8), rgba(74, 124, 74, 0.8)), url('images/hero-coffee-bg.png');
-            height: calc(100vh - 100px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-fallback {
-            background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%);
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-        }
-
-        .hero-content p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-        }
-
-        .cta-button {
-            background: #d4af37;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            background: #b8941f;
-        }
-
-        /* Sections */
-        section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2c5530;
-        }
-
-        /* About Section */
-        .about {
-            background: #f8f9fa;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        .about-image {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .image-placeholder {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #2c5530, #4a7c4a);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            text-align: center;
-        }
-
-        .heritage-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #d4af37;
-        }
-
-        /* Services Section */
-        .services {
-            background: white;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .service-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.3s;
-            border-left: 4px solid #d4af37;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: #2c5530;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            color: white;
-            font-size: 24px;
-        }
-
-        /* Quality Control Section */
-        .quality-control {
-            background: #f8f9fa;
-        }
-
-        .process-comparison {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .process-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-top: 1rem;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .process-table th,
-        .process-table td {
-            padding: 1.2rem;
-            text-align: left;
-            border-bottom: 1px solid #e9ecef;
-            transition: all 0.3s ease;
-        }
-
-        .process-table tbody tr {
-            transition: all 0.3s ease;
-        }
-
-        .process-table tbody tr:hover {
-            background: rgba(212, 175, 55, 0.1);
-            transform: scale(1.02);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .process-table th {
-            background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%);
-            color: white;
-            text-align: center;
-            font-weight: bold;
-            position: relative;
-        }
-
-        .process-table th:first-child {
-            text-align: left;
-        }
-
-        .check-mark {
-            text-align: center;
-            color: #28a745;
-            font-size: 1.5rem;
-            font-weight: bold;
-            position: relative;
-            animation: checkPulse 2s infinite;
-        }
-
-        .check-mark:hover {
-            transform: scale(1.3);
-            transition: transform 0.2s;
-        }
-
-        .not-included {
-            text-align: center;
-            color: #6c757d;
-            font-size: 1.2rem;
-            opacity: 0.6;
-        }
-
-        .partial-check {
-            text-align: center;
-            color: #ffc107;
-            font-size: 1.3rem;
-        }
-
-        @keyframes checkPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .service-highlight {
-            background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
-            border-left: 4px solid #d4af37;
-        }
-
-        .process-table tbody tr:nth-child(odd) {
-            background: rgba(248, 249, 250, 0.5);
-        }
-
-        .interactive-tooltip {
-            position: relative;
-            cursor: help;
-        }
-
-        .interactive-tooltip:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            z-index: 1000;
-            opacity: 1;
-        }
-
-        .interactive-tooltip::after {
-            content: '';
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        /* Global Presence Section */
-        .global-presence {
-            background: white;
-        }
-
-        .locations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .location-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 10px;
-            border-top: 4px solid #d4af37;
-        }
-
-        .location-title {
-            color: #2c5530;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-
-        .team-member {
-            margin-bottom: 0.5rem;
-            padding-left: 1rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: #2c5530;
-            color: white;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        .contact-info h3 {
-            color: #d4af37;
-            margin-bottom: 1rem;
-        }
-
-        /* ===== FOOTER COMPONENT ===== */
-        .footer {
-            background: #2c5530;
-            color: white;
-            padding: 60px 0 0;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-section h4 {
-            color: #d4af37;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-section ul li a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .footer-section ul li a:hover {
-            color: white;
-        }
-
-        .footer-search-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .footer-search-input {
-            width: 100%;
-            padding: 8px 40px 8px 15px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 14px;
-            outline: none;
-        }
-
-        .footer-search-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .footer-search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .footer-language-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .footer-language-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            min-width: 80px;
-            justify-content: space-between;
-        }
-
-        .footer-language-dropdown-content {
-            display: none;
-            position: absolute;
-            bottom: 100%;
-            left: 0;
-            background: #1a3d1e;
-            min-width: 100px;
-            box-shadow: 0px -8px 16px 0px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            z-index: 1;
-            margin-bottom: 5px;
-        }
-
-        .footer-language-dropdown-content a {
-            color: white;
-            padding: 10px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-        }
-
-        .footer-language-dropdown:hover .footer-language-dropdown-content {
-            display: block;
-        }
-
-        .dropdown-arrow {
-            font-size: 12px;
-        }
-
-        .footer-bottom {
-            background: #1a3d1e;
-            padding: 20px 0;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        /* Map styling */
-        .map-container {
-            background: #e8f5e8;
-            padding: 2rem;
-            border-radius: 10px;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .map-image {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .top-header-content {
-                flex-direction: column;
-                gap: 10px;
-                padding: 10px 20px;
-            }
-
-            .search-container {
-                max-width: 100%;
-            }
-
-            .main-content {
-                margin-top: 140px;
-            }
-
-            .top-header.hidden ~ .main-content {
-                margin-top: 95px;
-            }
-
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .heritage-stats {
-                grid-template-columns: 1fr;
-            }
-
-            nav ul {
-                display: none;
-            }
-
-            .process-table {
-                font-size: 0.9rem;
-            }
-
-            .process-table th,
-            .process-table td {
-                padding: 0.5rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preload" href="images/hero-coffee-bg.png" as="image">
 </head>
 <body>
-    <!-- ===== TOP HEADER COMPONENT ===== -->
     <div class="top-header">
-        <div class="top-header-content">
+        <div class="top-header-content container">
             <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search our services, locations, or team members..." data-lang-key="searchPlaceholder">
-                <button class="search-btn">🔍</button>
+                <input type="text" class="search-input" placeholder="Search our services, locations, or team members..." data-lang-key="searchPlaceholder" aria-label="Search website">
+                <button class="search-btn" aria-label="Perform search">🔍</button>
             </div>
             <div class="language-switcher">
-                <button class="lang-btn active" onclick="switchLanguage('en')">EN</button>
-                <button class="lang-btn" onclick="switchLanguage('pt')">PT</button>
-                <button class="lang-btn" onclick="switchLanguage('es')">ES</button>
+                <button class="lang-btn active" data-lang="en" aria-label="Switch to English">EN</button>
+                <button class="lang-btn" data-lang="pt" aria-label="Switch to Portuguese">PT</button>
+                <button class="lang-btn" data-lang="es" aria-label="Switch to Spanish">ES</button>
             </div>
         </div>
     </div>
 
-    <!-- ===== MAIN HEADER ===== -->
     <header>
         <nav class="container">
             <div class="logo">
-                <img src="images/wolthers-logo-off-white.svg" alt="Wolthers & Associates Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="logo-text" style="display: none;">Wolthers & Associates</span>
+                <img src="images/wolthers-logo-off-white.svg" alt="Wolthers & Associates Logo" class="logo-img" loading="eager">
+                <span class="logo-text">Wolthers & Associates</span>
             </div>
-            <ul>
+            <ul class="nav-links">
                 <li><a href="#home" data-lang-key="navHome">Home</a></li>
                 <li><a href="#about" data-lang-key="navAbout">About</a></li>
                 <li><a href="#services" data-lang-key="navServices">Services</a></li>
                 <li><a href="#quality" data-lang-key="navQuality">Quality Control</a></li>
                 <li><a href="#locations" data-lang-key="navLocations">Locations</a></li>
                 <li class="dropdown">
-                    <a href="wolthers_team.html" data-lang-key="navTeam">Our Team</a>
+                    <a href="wolthers_team.html" data-lang-key="navTeam" aria-haspopup="true" aria-expanded="false">Our Team</a>
                     <div class="dropdown-content">
                         <a href="wolthers_team.html#leadership" data-lang-key="navLeadership">Leadership</a>
                         <a href="wolthers_team.html#santos" data-lang-key="navBrazil">Brazil</a>
@@ -784,13 +46,16 @@
                 </li>
                 <li><a href="#contact" data-lang-key="navContact">Contact</a></li>
             </ul>
+            <button class="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </nav>
     </header>
 
-    <!-- ===== MAIN CONTENT ===== -->
-    <div class="main-content">
-        <!-- Hero Section -->
-        <section id="home" class="hero">
+    <main class="main-content">
+        <section id="home" class="hero fade-in">
             <div class="hero-content">
                 <h1 data-lang-key="heroTitle">Coffee Trading Excellence Since 1949</h1>
                 <p data-lang-key="heroSubtitle">Trusted partners in green coffee sourcing, quality control, and sustainable trading across Latin America</p>
@@ -798,8 +63,7 @@
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="about">
+        <section id="about" class="about fade-in">
             <div class="container">
                 <h2 class="section-title" data-lang-key="aboutTitle">Our Heritage</h2>
                 <div class="about-content">
@@ -810,12 +74,10 @@
                         
                         <p data-lang-key="aboutText3">Today, Wolthers & Associates is responsible for over 4 million bags exported yearly, as well as over 1 million bags of Quality Control, maintaining our commitment to responsibility, transparency, relationships, and connectivity in the modern coffee industry.</p>
                     </div>
-                    <div>
-                        <img src="images/John_Coffee.jpg" alt="Coffee cupping expertise" class="about-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="image-placeholder" style="display: none;">
-                            <div>
-                                <h3 data-lang-key="cuppingExpertise">Coffee Cupping Expertise</h3>
-                            </div>
+                    <div class="about-image-container">
+                        <img src="images/John_Coffee.jpg" alt="John Wolthers cupping coffee, demonstrating coffee tasting expertise" class="about-image lazyload" loading="lazy">
+                        <div class="image-placeholder">
+                            <h3 data-lang-key="cuppingExpertise">Coffee Cupping Expertise</h3>
                         </div>
                     </div>
                 </div>
@@ -837,43 +99,42 @@
             </div>
         </section>
 
-        <!-- Services Section -->
-        <section id="services" class="services">
+        <section id="services" class="services fade-in">
             <div class="container">
                 <h2 class="section-title" data-lang-key="servicesTitle">Our Services</h2>
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="service-icon">⚖️</div>
+                        <div class="service-icon" aria-hidden="true">⚖️</div>
                         <h3 data-lang-key="fobBrokerage">FOB Brokerage</h3>
                         <p data-lang-key="fobDescription">Managing on average 3.5 million bags annually with dedicated logistics and price fixation support, connecting buyers and roasters directly to farms and coops.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon">🔬</div>
+                        <div class="service-icon" aria-hidden="true">🔬</div>
                         <h3 data-lang-key="qualityControlService">Quality Control</h3>
                         <p data-lang-key="qualityControlDescription">State-of-the-art laboratories in Santos/Brazil, Buenaventura/Colombia, and Guatemala City with qualified Q Graders ensuring top quality for major brands.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon">🌱</div>
+                        <div class="service-icon" aria-hidden="true">🌱</div>
                         <h3 data-lang-key="sustainableTrading">Sustainable Trading</h3>
                         <p data-lang-key="sustainableDescription">Farm cluster management ensuring great workspaces and incentivizing regenerative production practices across our network.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon">🌍</div>
+                        <div class="service-icon" aria-hidden="true">🌍</div>
                         <h3 data-lang-key="globalConnections">Global Connections</h3>
                         <p data-lang-key="globalDescription">Bridging producers, coops, and exporters to buyers across Europe, Asia, North America, and Australia with comprehensive logistics support.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon">📊</div>
+                        <div class="service-icon" aria-hidden="true">📊</div>
                         <h3 data-lang-key="internalMarket">Internal Market</h3>
                         <p data-lang-key="internalDescription">Direct involvement with farms and cooperatives, providing market insights and connecting supply with demand.</p>
                     </div>
                     
                     <div class="service-card">
-                        <div class="service-icon">✈️</div>
+                        <div class="service-icon" aria-hidden="true">✈️</div>
                         <h3 data-lang-key="originServices">Origin Services</h3>
                         <p data-lang-key="originDescription">Hosting trips to origin, special farm events, vessel booking assistance, and dedicated sampling request support.</p>
                     </div>
@@ -881,179 +142,204 @@
             </div>
         </section>
 
-        <!-- Quality Control Section -->
-        <section id="quality" class="quality-control">
+        <section id="quality" class="quality-control fade-in">
             <div class="container">
                 <h2 class="section-title" data-lang-key="qualityTitle">Quality Assurance Excellence</h2>
                 
                 <div class="process-comparison">
-                    <h3 style="text-align: center; margin-bottom: 2rem; color: #2c5530;" data-lang-key="serviceComparison">Service Comparison: PSS vs SS</h3>
-                    <table class="process-table">
-                        <thead>
-                            <tr>
-                                <th style="text-align: left;" data-lang-key="processStep">Process Step</th>
-                                <th class="interactive-tooltip" data-tooltip="Pre-Shipment Sample Service">PSS</th>
-                                <th class="interactive-tooltip" data-tooltip="Shipment Sample Service - Full Quality Assurance">SS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="interactive-tooltip" data-tooltip="Initial reception and cataloging of coffee samples">
-                                <td data-lang-key="sampleReceived">Sample received and registered</td>
-                                <td class="check-mark">✓</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                            <tr class="interactive-tooltip" data-tooltip="Complete quality assessment including visual inspection and taste evaluation">
-                                <td data-lang-key="initialAnalysis">Initial analysis, grading and cupping</td>
-                                <td class="check-mark">✓</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                            <tr class="interactive-tooltip" data-tooltip="Detailed quality report delivered to client">
-                                <td data-lang-key="reportClient">Report to client</td>
-                                <td class="check-mark">✓</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                            <tr class="service-highlight interactive-tooltip" data-tooltip="Independent sample collection directly from shipping containers">
-                                <td data-lang-key="thirdPartyCollection">Third-party sample collection at port</td>
-                                <td class="not-included">—</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                            <tr class="service-highlight interactive-tooltip" data-tooltip="Verification that shipped coffee matches approved pre-shipment sample">
-                                <td data-lang-key="sampleComparison">Sample comparison with approved PSS</td>
-                                <td class="not-included">—</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                            <tr class="service-highlight interactive-tooltip" data-tooltip="Final quality verification with option to reject if standards not met">
-                                <td data-lang-key="finalApproval">Final approval, or reject and restart process</td>
-                                <td class="not-included">—</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                            <tr class="service-highlight interactive-tooltip" data-tooltip="Secure sample storage for future reference and disputes">
-                                <td data-lang-key="ssStorage">SS Storage for 6 months</td>
-                                <td class="not-included">—</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                            <tr class="interactive-tooltip" data-tooltip="Confidence level in quality upon arrival at destination">
-                                <td data-lang-key="highestReliability">Highest reliability on arrival quality</td>
-                                <td class="partial-check">○</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                            <tr class="interactive-tooltip" data-tooltip="Cost-effective quality control solutions">
-                                <td data-lang-key="lowerCost">Lower cost</td>
-                                <td class="check-mark">✓</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                            <tr class="interactive-tooltip" data-tooltip="Comprehensive documentation and regular reporting">
-                                <td data-lang-key="certificates">Certificates and monthly reports</td>
-                                <td class="check-mark">✓</td>
-                                <td class="check-mark">✓</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h3 data-lang-key="serviceComparison">Service Comparison: PSS vs SS</h3>
+                    <div class="table-responsive">
+                        <table class="process-table">
+                            <thead>
+                                <tr>
+                                    <th data-lang-key="processStep">Process Step</th>
+                                    <th class="interactive-tooltip" data-lang-key="tooltipPSS" data-tooltip="Pre-Shipment Sample Service" scope="col">PSS</th>
+                                    <th class="interactive-tooltip" data-lang-key="tooltipSS" data-tooltip="Shipment Sample Service - Full Quality Assurance" scope="col">SS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="interactive-tooltip" data-lang-key="tooltipSampleReceived" data-tooltip="Initial reception and cataloging of coffee samples">
+                                    <td data-lang-key="sampleReceived">Sample received and registered</td>
+                                    <td class="check-mark" aria-label="Included in PSS">✓</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                                <tr class="interactive-tooltip" data-lang-key="tooltipInitialAnalysis" data-tooltip="Complete quality assessment including visual inspection and taste evaluation">
+                                    <td data-lang-key="initialAnalysis">Initial analysis, grading and cupping</td>
+                                    <td class="check-mark" aria-label="Included in PSS">✓</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                                <tr class="interactive-tooltip" data-lang-key="tooltipReportClient" data-tooltip="Detailed quality report delivered to client">
+                                    <td data-lang-key="reportClient">Report to client</td>
+                                    <td class="check-mark" aria-label="Included in PSS">✓</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                                <tr class="service-highlight interactive-tooltip" data-lang-key="tooltipThirdPartyCollection" data-tooltip="Independent sample collection directly from shipping containers">
+                                    <td data-lang-key="thirdPartyCollection">Third-party sample collection at port</td>
+                                    <td class="not-included" aria-label="Not included in PSS">—</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                                <tr class="service-highlight interactive-tooltip" data-lang-key="tooltipSampleComparison" data-tooltip="Verification that shipped coffee matches approved pre-shipment sample">
+                                    <td data-lang-key="sampleComparison">Sample comparison with approved PSS</td>
+                                    <td class="not-included" aria-label="Not included in PSS">—</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                                <tr class="service-highlight interactive-tooltip" data-lang-key="tooltipFinalApproval" data-tooltip="Final quality verification with option to reject if standards not met">
+                                    <td data-lang-key="finalApproval">Final approval, or reject and restart process</td>
+                                    <td class="not-included" aria-label="Not included in PSS">—</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                                <tr class="service-highlight interactive-tooltip" data-lang-key="tooltipSSStorage" data-tooltip="Secure sample storage for future reference and disputes">
+                                    <td data-lang-key="ssStorage">SS Storage for 6 months</td>
+                                    <td class="not-included" aria-label="Not included in PSS">—</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                                <tr class="interactive-tooltip" data-lang-key="tooltipHighestReliability" data-tooltip="Confidence level in quality upon arrival at destination">
+                                    <td data-lang-key="highestReliability">Highest reliability on arrival quality</td>
+                                    <td class="partial-check" aria-label="Partial inclusion in PSS">○</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                                <tr class="interactive-tooltip" data-lang-key="tooltipLowerCost" data-tooltip="Cost-effective quality control solutions">
+                                    <td data-lang-key="lowerCost">Lower cost</td>
+                                    <td class="check-mark" aria-label="Included in PSS">✓</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                                <tr class="interactive-tooltip" data-lang-key="tooltipCertificates" data-tooltip="Comprehensive documentation and regular reporting">
+                                    <td data-lang-key="certificates">Certificates and monthly reports</td>
+                                    <td class="check-mark" aria-label="Included in PSS">✓</td>
+                                    <td class="check-mark" aria-label="Included in SS">✓</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
-                    <div style="background: white; padding: 2rem; border-radius: 10px; text-align: center;">
-                        <h4 style="color: #d4af37; margin-bottom: 1rem;" data-lang-key="riskReduction">Risk Reduction</h4>
+                <div class="quality-features-grid">
+                    <div class="quality-feature-card">
+                        <h4 data-lang-key="riskReduction">Risk Reduction</h4>
                         <p data-lang-key="riskDescription">Helps reduce business risks and avoids costly rejections through comprehensive quality assurance.</p>
                     </div>
-                    <div style="background: white; padding: 2rem; border-radius: 10px; text-align: center;">
-                        <h4 style="color: #d4af37; margin-bottom: 1rem;" data-lang-key="fastLogistics">Fast Logistics</h4>
+                    <div class="quality-feature-card">
+                        <h4 data-lang-key="fastLogistics">Fast Logistics</h4>
                         <p data-lang-key="logisticsDescription">Quick sample logistics resulting in faster shipments and improved supply chain efficiency.</p>
                     </div>
-                    <div style="background: white; padding: 2rem; border-radius: 10px; text-align: center;">
-                        <h4 style="color: #d4af37; margin-bottom: 1rem;" data-lang-key="trustBuilding">Trust Building</h4>
+                    <div class="quality-feature-card">
+                        <h4 data-lang-key="trustBuilding">Trust Building</h4>
                         <p data-lang-key="trustDescription">Builds long-term trust with buyers and roasters through consistent quality and reliability.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Global Presence Section -->
-        <section id="locations" class="global-presence">
+        <section id="locations" class="global-presence fade-in">
             <div class="container">
                 <h2 class="section-title" data-lang-key="globalPresenceTitle">Global Presence</h2>
                 
                 <div class="map-container">
-                    <h3 style="color: #2c5530; margin-bottom: 1rem;" data-lang-key="strategicLocations">Our Strategic Locations Across Latin America</h3>
-                    <img src="images/Latam-with-ocean.png" alt="Map showing Wolthers & Associates locations across Latin America" class="map-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-placeholder" style="display: none; height: 300px;">
-                        <div>
-                            <h3 data-lang-key="mapOfLocations">Map of Our Locations</h3>
-                        </div>
+                    <h3 data-lang-key="strategicLocations">Our Strategic Locations Across Latin America</h3>
+                    <img src="images/Latam-with-ocean.png" alt="Map showing Wolthers & Associates locations across Latin America: Santos, Brazil; Buenaventura, Colombia; Guatemala City, Guatemala" class="map-image lazyload" loading="lazy">
+                    <div class="image-placeholder">
+                        <h3 data-lang-key="mapOfLocations">Map of Our Locations</h3>
                     </div>
-                    <p style="margin-top: 1rem; color: #666;">Santos • Buenaventura • Guatemala City</p>
+                    <p class="map-caption">Santos • Buenaventura • Guatemala City</p>
                 </div>
                 
                 <div class="locations-grid">
                     <div class="location-card">
-                        <div class="location-title" data-lang-key="santosBrazil">Santos, Brazil</div>
+                        <h3 class="location-title" data-lang-key="santosBrazil">Santos, Brazil</h3>
                         <p><strong data-lang-key="tel">Tel:</strong> +55 (13) 2127-4144</p>
-                        <p><strong data-lang-key="address">Address:</strong> Rua Quinze de Novembro 96, Santos, SP 11010-150, Brasil</p>
+                        <address><strong data-lang-key="address">Address:</strong> Rua Quinze de Novembro 96, Santos, SP 11010-150, Brasil</address>
                     </div>
                     
                     <div class="location-card">
-                        <div class="location-title" data-lang-key="buenaventuraColombia">Buenaventura, Colombia</div>
+                        <h3 class="location-title" data-lang-key="buenaventuraColombia">Buenaventura, Colombia</h3>
                         <p><strong data-lang-key="tel">Tel:</strong> +57 032 297-9189</p>
-                        <p><strong data-lang-key="address">Address:</strong> Street 2 #1a-18, Edificio del Cafe Building, Office 1004</p>
+                        <address><strong data-lang-key="address">Address:</strong> Street 2 #1a-18, Edificio del Cafe Building, Office 1004</address>
                     </div>
                     
                     <div class="location-card">
-                        <div class="location-title" data-lang-key="guatemalaCity">Guatemala City, Guatemala</div>
+                        <h3 class="location-title" data-lang-key="guatemalaCity">Guatemala City, Guatemala</h3>
                         <p><strong data-lang-key="tel">Tel:</strong> +502 4669-0057</p>
-                        <p><strong data-lang-key="address">Address:</strong> 12-01 Avenida Reforma, Edificio Reforma Montufar, Oficina 9-01</p>
+                        <address><strong data-lang-key="address">Address:</strong> 12-01 Avenida Reforma, Edificio Reforma Montufar, Oficina 9-01</address>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
+        <section id="contact" class="contact fade-in">
             <div class="container">
-                <h2 class="section-title" style="color: white;" data-lang-key="contactTitle">Contact Us</h2>
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h3 data-lang-key="tradingInquiries">Trading Inquiries</h3>
-                        <p data-lang-key="email">Email: <a href="mailto:trading@wolthers.com" style="color: #d4af37;">trading@wolthers.com</a></p>
-                        <p data-lang-key="tradingDesc">For all trading and brokerage related questions, quality control services, and new business opportunities.</p>
+                <h2 class="section-title" data-lang-key="contactTitle">Contact Us</h2>
+                <div class="contact-flex-wrapper">
+                    <div class="contact-form-container">
+                        <h3 data-lang-key="sendUsMessage">Send Us a Message</h3>
+                        <p data-lang-key="formInstructions">Please fill out the form below and we'll get back to you shortly.</p>
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <label for="name" class="visually-hidden">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your Name" data-lang-key="formNamePlaceholder" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="visually-hidden">Email</label>
+                                <input type="email" id="email" name="email" placeholder="Your Email" data-lang-key="formEmailPlaceholder" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject" class="visually-hidden">Subject</label>
+                                <input type="text" id="subject" name="subject" placeholder="Subject" data-lang-key="formSubjectPlaceholder" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="visually-hidden">Message</label>
+                                <textarea id="message" name="message" rows="5" placeholder="Your Message" data-lang-key="formMessagePlaceholder" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn" data-lang-key="formSendButton">Send Message</button>
+                        </form>
                     </div>
                     
-                    <div class="contact-info">
-                        <h3 data-lang-key="logisticsSupport">Logistics Support</h3>
-                        <p data-lang-key="email">Email: <a href="mailto:wolthers@wolthers.com" style="color: #d4af37;">wolthers@wolthers.com</a></p>
-                        <p data-lang-key="logisticsDesc">For shipping coordination, sample requests, vessel booking, and logistics assistance.</p>
-                    </div>
-                    
-                    <div class="contact-info">
-                        <h3 data-lang-key="headquarters">Headquarters</h3>
-                        <p>Rua Quinze de Novembro 96<br>
-                        Santos, SP 11010-150<br>
-                        Brasil</p>
-                        <p><span data-lang-key="tel">Tel</span>: +55 (13) 2127-4144</p>
+                    <div class="contact-details-container">
+                        <h3 data-lang-key="ourContactDetails">Our Contact Details</h3>
+                        <div class="contact-info-item">
+                            <h4 data-lang-key="tradingInquiries">Trading Inquiries</h4>
+                            <p><strong data-lang-key="email">Email:</strong> <a href="mailto:trading@wolthers.com">trading@wolthers.com</a></p>
+                            <p data-lang-key="tradingDesc">For all trading and brokerage related questions, quality control services, and new business opportunities.</p>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <h4 data-lang-key="logisticsSupport">Logistics Support</h4>
+                            <p><strong data-lang-key="email">Email:</strong> <a href="mailto:wolthers@wolthers.com">wolthers@wolthers.com</a></p>
+                            <p data-lang-key="logisticsDesc">For shipping coordination, sample requests, vessel booking, and logistics assistance.</p>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <h4 data-lang-key="headquarters">Headquarters</h4>
+                            <address>
+                                Rua Quinze de Novembro 96<br>
+                                Santos, SP 11010-150<br>
+                                Brasil
+                            </address>
+                            <p><strong data-lang-key="tel">Tel</strong>: +55 (13) 2127-4144</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-    </div>
+    </main>
 
-    <!-- ===== FOOTER COMPONENT ===== -->
     <footer class="footer">
-        <div class="footer-content">
+        <div class="footer-content container">
             <div class="footer-section">
                 <h4 data-lang-key="footerSearch">Search</h4>
                 <div class="footer-search-container">
-                    <input type="text" class="footer-search-input" placeholder="Search..." data-lang-key="footerSearchPlaceholder">
-                    <button class="footer-search-btn">🔍</button>
+                    <input type="text" class="footer-search-input" placeholder="Search..." data-lang-key="footerSearchPlaceholder" aria-label="Search website from footer">
+                    <button class="footer-search-btn" aria-label="Perform footer search">🔍</button>
                 </div>
                 
                 <div class="footer-language-dropdown">
-                    <button class="footer-language-btn">
+                    <button class="footer-language-btn" aria-haspopup="true" aria-expanded="false">
                         <span id="current-lang">EN</span>
-                        <span class="dropdown-arrow">▼</span>
+                        <span class="dropdown-arrow" aria-hidden="true">▼</span>
                     </button>
                     <div class="footer-language-dropdown-content">
-                        <a href="#" onclick="changeFooterLanguage('en')">EN</a>
-                        <a href="#" onclick="changeFooterLanguage('pt')">PT</a>
-                        <a href="#" onclick="changeFooterLanguage('es')">ES</a>
+                        <a href="#" data-lang="en">EN</a>
+                        <a href="#" data-lang="pt">PT</a>
+                        <a href="#" data-lang="es">ES</a>
                     </div>
                 </div>
             </div>
@@ -1089,271 +375,12 @@
         </div>
         
         <div class="footer-bottom">
-            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div class="container">
                 <p data-lang-key="footerCopyright">© 2024 Wolthers & Associates. Building coffee relationships since 1949.</p>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Translation system
-        const translations = {
-            en: {
-                // Navigation
-                navHome: 'Home',
-                navAbout: 'About',
-                navServices: 'Services',
-                navQuality: 'Quality Control',
-                navLocations: 'Locations',
-                navTeam: 'Our Team',
-                navLeadership: 'Leadership',
-                navBrazil: 'Brazil',
-                navAAABrazil: 'AAA Brazil',
-                navColombia: 'Colombia',
-                navGuatemala: 'Guatemala',
-                navContact: 'Contact',
-                searchPlaceholder: 'Search our services, locations, or team members...',
-                
-                // Hero
-                heroTitle: 'Coffee Trading Excellence Since 1949',
-                heroSubtitle: 'Trusted partners in green coffee sourcing, quality control, and sustainable trading across Latin America',
-                ctaButton: 'Get in Touch',
-                
-                // About
-                aboutTitle: 'Our Heritage',
-                aboutText1: 'It all started back in 1949 with John-Aage Bendz Erreboe Wolthers, known more commonly as John Wolthers. What began as a young food purchase Junior Buyer\'s opportunity to move to Brazil and become the green coffee buyer for the Coop Group has evolved into a multi-generational legacy of excellence in coffee trading.',
-                aboutText2: 'From John Wolthers Sr.\'s pioneering work in Santos, Brazil, to Christian Wolthers\' expansion into specialty coffee markets, and now under Rasmus Wolthers\' leadership as CEO, we have built lasting relationships with producers, exporters, and buyers worldwide.',
-                aboutText3: 'Today, Wolthers & Associates is responsible for over 4 million bags exported yearly, as well as over 1 million bags of Quality Control, maintaining our commitment to responsibility, transparency, relationships, and connectivity in the modern coffee industry.',
-                cuppingExpertise: 'Coffee Cupping Expertise',
-                yearsExcellence: 'Years of Excellence',
-                bagsExported: 'Bags Exported Yearly',
-                qualityControlBags: 'Quality Control Bags',
-                
-                // Services
-                servicesTitle: 'Our Services',
-                fobBrokerage: 'FOB Brokerage',
-                fobDescription: 'Managing on average 3.5 million bags annually with dedicated logistics and price fixation support, connecting buyers and roasters directly to farms and coops.',
-                qualityControlService: 'Quality Control',
-                qualityControlDescription: 'State-of-the-art laboratories in Santos/Brazil, Buenaventura/Colombia, and Guatemala City with qualified Q Graders ensuring top quality for major brands.',
-                sustainableTrading: 'Sustainable Trading',
-                sustainableDescription: 'Farm cluster management ensuring great workspaces and incentivizing regenerative production practices across our network.',
-                globalConnections: 'Global Connections',
-                globalDescription: 'Bridging producers, coops, and exporters to buyers across Europe, Asia, North America, and Australia with comprehensive logistics support.',
-                internalMarket: 'Internal Market',
-                internalDescription: 'Direct involvement with farms and cooperatives, providing market insights and connecting supply with demand.',
-                originServices: 'Origin Services',
-                originDescription: 'Hosting trips to origin, special farm events, vessel booking assistance, and dedicated sampling request support.',
-                
-                // Quality Control
-                qualityTitle: 'Quality Assurance Excellence',
-                serviceComparison: 'Service Comparison: PSS vs SS',
-                processStep: 'Process Step',
-                sampleReceived: 'Sample received and registered',
-                initialAnalysis: 'Initial analysis, grading and cupping',
-                reportClient: 'Report to client',
-                thirdPartyCollection: 'Third-party sample collection at port',
-                sampleComparison: 'Sample comparison with approved PSS',
-                finalApproval: 'Final approval, or reject and restart process',
-                ssStorage: 'SS Storage for 6 months',
-                highestReliability: 'Highest reliability on arrival quality',
-                lowerCost: 'Lower cost',
-                certificates: 'Certificates and monthly reports',
-                riskReduction: 'Risk Reduction',
-                riskDescription: 'Helps reduce business risks and avoids costly rejections through comprehensive quality assurance.',
-                fastLogistics: 'Fast Logistics',
-                logisticsDescription: 'Quick sample logistics resulting in faster shipments and improved supply chain efficiency.',
-                trustBuilding: 'Trust Building',
-                trustDescription: 'Builds long-term trust with buyers and roasters through consistent quality and reliability.',
-                
-                // Locations
-                globalPresenceTitle: 'Global Presence',
-                strategicLocations: 'Our Strategic Locations Across Latin America',
-                mapOfLocations: 'Map of Our Locations',
-                santosBrazil: 'Santos, Brazil',
-                buenaventuraColombia: 'Buenaventura, Colombia',
-                guatemalaCity: 'Guatemala City, Guatemala',
-                
-                // Contact
-                contactTitle: 'Contact Us',
-                tradingInquiries: 'Trading Inquiries',
-                tradingDesc: 'For all trading and brokerage related questions, quality control services, and new business opportunities.',
-                logisticsSupport: 'Logistics Support',
-                logisticsDesc: 'For shipping coordination, sample requests, vessel booking, and logistics assistance.',
-                headquarters: 'Headquarters',
-                
-                // Common
-                tel: 'Tel',
-                address: 'Address',
-                email: 'Email',
-                
-                // Footer
-                footerSearch: 'Search',
-                footerSearchPlaceholder: 'Search...',
-                footerServices: 'Our Services',
-                footerFOB: 'FOB Brokerage',
-                footerQuality: 'Quality Control',
-                footerSustainable: 'Sustainable Trading',
-                footerOrigin: 'Origin Services',
-                footerLocations: 'Our Locations',
-                footerSantos: 'Santos, Brazil',
-                footerBuenaventura: 'Buenaventura, Colombia',
-                footerGuatemala: 'Guatemala City, Guatemala',
-                footerCompany: 'Company',
-                footerAbout: 'About Us',
-                footerTeam: 'Our Team',
-                footerSustainability: 'Sustainability',
-                footerContact: 'Contact',
-                footerCopyright: '© 2024 Wolthers & Associates. Building coffee relationships since 1949.'
-            },
-            pt: {
-                // Navigation
-                navHome: 'Início',
-                navAbout: 'Sobre',
-                navServices: 'Serviços',
-                navQuality: 'Controle de Qualidade',
-                navLocations: 'Localizações',
-                navTeam: 'Nossa Equipe',
-                navLeadership: 'Liderança',
-                navBrazil: 'Brasil',
-                navAAABrazil: 'AAA Brasil',
-                navColombia: 'Colômbia',
-                navGuatemala: 'Guatemala',
-                navContact: 'Contato',
-                searchPlaceholder: 'Pesquise nossos serviços, locais ou membros da equipe...',
-                
-                // Hero
-                heroTitle: 'Excelência em Comércio de Café Desde 1949',
-                heroSubtitle: 'Parceiros confiáveis em fornecimento de café verde, controle de qualidade e comércio sustentável em toda a América Latina',
-                ctaButton: 'Entre em Contato',
-                
-                // About
-                aboutTitle: 'Nossa Herança',
-                aboutText1: 'Tudo começou em 1949 com John-Aage Bendz Erreboe Wolthers, conhecido mais comumente como John Wolthers. O que começou como uma oportunidade de um jovem comprador júnior de alimentos de se mudar para o Brasil e se tornar o comprador de café verde do Grupo Coop evoluiu para um legado multigeracional de excelência no comércio de café.',
-                aboutText2: 'Do trabalho pioneiro de John Wolthers Sr. em Santos, Brasil, à expansão de Christian Wolthers para mercados de café especial, e agora sob a liderança de Rasmus Wolthers como CEO, construímos relacionamentos duradouros com produtores, exportadores e compradores em todo o mundo.',
-                aboutText3: 'Hoje, a Wolthers & Associates é responsável por mais de 4 milhões de sacas exportadas anualmente, bem como mais de 1 milhão de sacas de Controle de Qualidade, mantendo nosso compromisso com responsabilidade, transparência, relacionamentos e conectividade na indústria moderna de café.',
-                cuppingExpertise: 'Expertise em Prova de Café',
-                yearsExcellence: 'Anos de Excelência',
-                bagsExported: 'Sacas Exportadas Anualmente',
-                qualityControlBags: 'Sacas de Controle de Qualidade',
-                
-                // Services
-                servicesTitle: 'Nossos Serviços',
-                fobBrokerage: 'Corretagem FOB',
-                fobDescription: 'Gerenciando em média 3,5 milhões de sacas anualmente com suporte dedicado de logística e fixação de preços, conectando compradores e torrefadores diretamente a fazendas e cooperativas.',
-                qualityControlService: 'Controle de Qualidade',
-                qualityControlDescription: 'Laboratórios de última geração em Santos/Brasil, Buenaventura/Colômbia e Cidade da Guatemala com Q Graders qualificados garantindo qualidade superior para grandes marcas.',
-                sustainableTrading: 'Comércio Sustentável',
-                sustainableDescription: 'Gestão de clusters de fazendas garantindo ótimos espaços de trabalho e incentivando práticas de produção regenerativa em toda nossa rede.',
-                globalConnections: 'Conexões Globais',
-                globalDescription: 'Conectando produtores, cooperativas e exportadores a compradores em toda Europa, Ásia, América do Norte e Austrália com suporte logístico abrangente.',
-                internalMarket: 'Mercado Interno',
-                internalDescription: 'Envolvimento direto com fazendas e cooperativas, fornecendo insights de mercado e conectando oferta com demanda.',
-                originServices: 'Serviços de Origem',
-                originDescription: 'Hospedando viagens à origem, eventos especiais em fazendas, assistência para reserva de navios e suporte dedicado para solicitações de amostras.',
-                
-                // Quality Control
-                qualityTitle: 'Excelência em Garantia de Qualidade',
-                serviceComparison: 'Comparação de Serviços: PSS vs SS',
-                processStep: 'Etapa do Processo',
-                sampleReceived: 'Amostra recebida e registrada',
-                initialAnalysis: 'Análise inicial, classificação e cupping',
-                reportClient: 'Relatório ao cliente',
-                thirdPartyCollection: 'Coleta de amostra por terceiros no porto',
-                sampleComparison: 'Comparação de amostra com PSS aprovado',
-                finalApproval: 'Aprovação final, ou rejeitar e reiniciar processo',
-                ssStorage: 'Armazenamento SS por 6 meses',
-                highestReliability: 'Maior confiabilidade na qualidade de chegada',
-                lowerCost: 'Menor custo',
-                certificates: 'Certificados e relatórios mensais',
-                riskReduction: 'Redução de Riscos',
-                riskDescription: 'Ajuda a reduzir riscos comerciais e evita rejeições custosas através de garantia de qualidade abrangente.',
-                fastLogistics: 'Logística Rápida',
-                logisticsDescription: 'Logística rápida de amostras resultando em envios mais rápidos e melhor eficiência da cadeia de suprimentos.',
-                trustBuilding: 'Construção de Confiança',
-                trustDescription: 'Constrói confiança de longo prazo com compradores e torrefadores através de qualidade e confiabilidade consistentes.',
-                
-                // Locations
-                globalPresenceTitle: 'Presença Global',
-                strategicLocations: 'Nossas Localizações Estratégicas na América Latina',
-                mapOfLocations: 'Mapa de Nossas Localizações',
-                santosBrazil: 'Santos, Brasil',
-                buenaventuraColombia: 'Buenaventura, Colômbia',
-                guatemalaCity: 'Cidade da Guatemala, Guatemala',
-                
-                // Contact
-                contactTitle: 'Entre em Contato',
-                tradingInquiries: 'Consultas de Trading',
-                tradingDesc: 'Para todas as questões relacionadas a trading e corretagem, serviços de controle de qualidade e novas oportunidades de negócios.',
-                logisticsSupport: 'Suporte Logístico',
-                logisticsDesc: 'Para coordenação de envio, solicitações de amostras, reserva de navios e assistência logística.',
-                headquarters: 'Sede',
-                
-                // Common
-                tel: 'Tel',
-                address: 'Endereço',
-                email: 'E-mail',
-                
-                // Footer
-                footerSearch: 'Buscar',
-                footerSearchPlaceholder: 'Buscar...',
-                footerServices: 'Nossos Serviços',
-                footerFOB: 'Corretagem FOB',
-                footerQuality: 'Controle de Qualidade',
-                footerSustainable: 'Trading Sustentável',
-                footerOrigin: 'Serviços de Origem',
-                footerLocations: 'Nossas Localizações',
-                footerSantos: 'Santos, Brasil',
-                footerBuenaventura: 'Buenaventura, Colômbia',
-                footerGuatemala: 'Cidade da Guatemala, Guatemala',
-                footerCompany: 'Empresa',
-                footerAbout: 'Sobre Nós',
-                footerTeam: 'Nossa Equipe',
-                footerSustainability: 'Sustentabilidade',
-                footerContact: 'Contato',
-                footerCopyright: '© 2024 Wolthers & Associates. Construindo relacionamentos de café desde 1949.'
-            },
-            es: {
-                // Navigation
-                navHome: 'Inicio',
-                navAbout: 'Acerca de',
-                navServices: 'Servicios',
-                navQuality: 'Control de Calidad',
-                navLocations: 'Ubicaciones',
-                navTeam: 'Nuestro Equipo',
-                navLeadership: 'Liderazgo',
-                navBrazil: 'Brasil',
-                navAAABrazil: 'AAA Brasil',
-                navColombia: 'Colombia',
-                navGuatemala: 'Guatemala',
-                navContact: 'Contacto',
-                searchPlaceholder: 'Buscar nuestros servicios, ubicaciones o miembros del equipo...',
-                
-                // Hero
-                heroTitle: 'Excelencia en Comercio de Café Desde 1949',
-                heroSubtitle: 'Socios confiables en abastecimiento de café verde, control de calidad y comercio sostenible en toda América Latina',
-                ctaButton: 'Contáctanos',
-                
-                // About
-                aboutTitle: 'Nuestra Herencia',
-                aboutText1: 'Todo comenzó en 1949 con John-Aage Bendz Erreboe Wolthers, conocido más comúnmente como John Wolthers. Lo que comenzó como una oportunidad para un joven comprador junior de alimentos de mudarse a Brasil y convertirse en el comprador de café verde del Grupo Coop ha evolucionado en un legado multigeneracional de excelencia en el comercio del café.',
-                aboutText2: 'Desde el trabajo pionero de John Wolthers Sr. en Santos, Brasil, hasta la expansión de Christian Wolthers en los mercados de café especial, y ahora bajo el liderazgo de Rasmus Wolthers como CEO, hemos construido relaciones duraderas con productores, exportadores y compradores en todo el mundo.',
-                aboutText3: 'Hoy, Wolthers & Associates es responsable de más de 4 millones de sacos exportados anualmente, así como más de 1 millón de sacos de Control de Calidad, manteniendo nuestro compromiso con la responsabilidad, transparencia, relaciones y conectividad en la industria moderna del café.',
-                cuppingExpertise: 'Experiencia en Catación de Café',
-                yearsExcellence: 'Años de Excelencia',
-                bagsExported: 'Sacos Exportados Anualmente',
-                qualityControlBags: 'Sacos de Control de Calidad',
-                
-                // Services
-                servicesTitle: 'Nuestros Servicios',
-                fobBrokerage: 'Corretaje FOB',
-                fobDescription: 'Gestionando en promedio 3.5 millones de sacos anualmente con soporte dedicado de logística y fijación de precios, conectando compradores y tostadores directamente con fincas y cooperativas.',
-                qualityControlService: 'Control de Calidad',
-                qualityControlDescription: 'Laboratorios de última generación en Santos/Brasil, Buenaventura/Colombia y Ciudad de Guatemala con Q Graders calificados asegurando la mejor calidad para grandes marcas.',
-                sustainableTrading: 'Comercio Sostenible',
-                sustainableDescription: 'Gestión de clusters de fincas asegurando excelentes espacios de trabajo e incentivando prácticas de producción regenerativa en toda nuestra red.',
-                globalConnections: 'Conexiones Globales',
-                globalDescription: 'Conectando productores, cooperativas y exportadores con compradores en toda Europa, Asia, América del Norte y Australia con soporte logístico integral.',
-                internalMarket: 'Mercado Interno',
-                internalDescription: 'Participación directa con fincas y cooperativas, proporcionando información del mercado y conectando la oferta con la demanda.',
-                originServices: 'Servicios de Origen',
-                originDescription: 'Organizando viajes al origen, eventos espec
+    <script src="js/main.js"></script>
+</body>
+</html>
