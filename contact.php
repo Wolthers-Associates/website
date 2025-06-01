@@ -37,12 +37,18 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-// Department email mapping
+// Updated department email mapping with your specified addresses
 $departmentEmails = [
     'trading@wolthers.com' => 'Trading Inquiries',
-    'logistics@wolthers.com' => 'Logistics Support',
+    'logistics@wolthers.com' => 'Logistics Support', // This should be wolthers@wolthers.com based on your request
     'qualitycontrol@wolthers.com' => 'Quality Control Services'
 ];
+
+// Fix the logistics email as per your request
+if ($department === 'logistics@wolthers.com') {
+    $department = 'wolthers@wolthers.com';
+    $departmentEmails['wolthers@wolthers.com'] = 'Logistics Support';
+}
 
 if (!array_key_exists($department, $departmentEmails)) {
     echo json_encode(['success' => false, 'message' => 'Invalid department']);
