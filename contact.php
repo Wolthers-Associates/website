@@ -1,168 +1,127 @@
-// --- Contact Form Submission (PHP Backend) ---
-const contactForm = document.getElementById('contactForm');
+<?php
+require_once 'phpmailer/PHPMailer.php';
+require_once 'phpmailer/SMTP.php';
+require_once 'phpmailer/Exception.php';
 
-if (contactForm) {
-    contactForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        
-        // Get form elements
-        const submitBtn = this.querySelector('.submit-btn');
-        const nameField = this.querySelector('#name');
-        const emailField = this.querySelector('#email');
-        const departmentField = this.querySelector('#department');
-        const subjectField = this.querySelector('#subject');
-        const messageField = this.querySelector('#message');
-        
-        // Validation
-        if (!nameField.value.trim() || !emailField.value.trim() || 
-            !departmentField.value || !subjectField.value.trim() || 
-            !messageField.value.trim()) {
-            showFormMessage('Please fill in all required fields.', 'error');
-            return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(emailField.value)) {
-            showFormMessage('Please enter a valid email address.', 'error');
-            return;
-        }
-        
-        // Disable submit button
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-        
-        try {
-            // Prepare form data
-            const formData = {
-                name: nameField.value.trim(),
-                email: emailField.value.trim(),
-                department: departmentField.value,
-                subject: subjectField.value.trim(),
-                message: messageField.value.trim()
-            };
-            
-            console.log('Attempting to send form data:', formData);
-            console.log('Current URL:', window.location.href);
-            
-            // Try different PHP paths
-            const paths = ['./contact.php', '/contact.php', 'contact.php'];
-            let response = null;
-            let lastError = null;
-            
-            for (const path of paths) {
-                try {
-                    console.log(`Trying path: ${path}`);
-                    response = await fetch(path, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData)
-                    });
-                    
-                    console.log(`Response status for ${path}:`, response.status);
-                    
-                    if (response.ok) {
-                        break; // Success, exit loop
-                    }
-                } catch (fetchError) {
-                    console.log(`Fetch error for ${path}:`, fetchError.message);
-                    lastError = fetchError;
-                    continue; // Try next path
-                }
-            }
-            
-            if (!response || !response.ok) {
-                throw new Error(`All paths failed. Last error: ${lastError?.message || 'Unknown error'}`);
-            }
-            
-            const contentType = response.headers.get('content-type');
-            console.log('Response content type:', contentType);
-            
-            if (contentType && contentType.includes('application/json')) {
-                const result = await response.json();
-                console.log('Server response:', result);
-                
-                if (result.success) {
-                    showFormMessage(result.message, 'success');
-                    this.reset(); // Reset form on success
-                } else {
-                    showFormMessage(result.message, 'error');
-                }
-            } else {
-                // Not JSON response, probably an error page
-                const text = await response.text();
-                console.log('Non-JSON response:', text);
-                throw new Error('Server returned non-JSON response');
-            }
-            
-        } catch (error) {
-            console.error('Error sending form:', error);
-            
-            // Updated fallback to mailto with correct email addresses
-            let toEmail = departmentField.value;
-            
-            // Map to correct email addresses as per your requirements
-            const emailMapping = {
-                'trading@wolthers.com': 'trading@wolthers.com',
-                'logistics@wolthers.com': 'wolthers@wolthers.com',
-                'qualitycontrol@wolthers.com': 'qualitycontrol@wolthers.com'
-            };
-            
-            toEmail = emailMapping[toEmail] || toEmail;
-            
-            const subject = encodeURIComponent(`Website Contact: ${subjectField.value}`);
-            const body = encodeURIComponent(
-                `Name: ${nameField.value}\n` +
-                `Email: ${emailField.value}\n` +
-                `Subject: ${subjectField.value}\n\n` +
-                `Message:\n${messageField.value}\n\n` +
-                `---\n` +
-                `This message was sent from the Wolthers & Associates website contact form.`
-            );
-            
-            const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-            console.log('Opening mailto link:', mailtoLink);
-            window.location.href = mailtoLink;
-            
-            showFormMessage('Server temporarily unavailable. Your email client has been opened with your message.', 'info');
-        } finally {
-            // Re-enable submit button
-            submitBtn.disabled = false;
-            submitBtn.textContent = translations[currentLang].formSendButton || 'Send Message';
-        }
-    });
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Only allow POST requests
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+    exit;
 }
 
-/**
- * Shows form success/error messages
- * @param {string} message - The message to display
- * @param {string} type - 'success', 'error', or 'info'
- */
-function showFormMessage(message, type) {
-    // Remove existing messages
-    const existingMessage = document.querySelector('.form-message');
-    if (existingMessage) {
-        existingMessage.remove();
-    }
-    
-    // Create new message element
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `form-message ${type}`;
-    messageDiv.textContent = message;
-    
-    // Insert at the top of the form
-    const form = document.getElementById('contactForm');
-    form.insertBefore(messageDiv, form.firstChild);
-    
-    // Auto-remove after 5 seconds
-    setTimeout(() => {
-        if (messageDiv.parentNode) {
-            messageDiv.remove();
-        }
-    }, 5000);
-    
-    // Scroll to message
-    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+// Get JSON input
+$input = json_decode(file_get_contents('php://input'), true);
+
+// Validate input
+if (!$input) {
+    echo json_encode(['success' => false, 'message' => 'Invalid JSON data']);
+    exit;
 }
+
+$name = trim($input['name'] ?? '');
+$email = trim($input['email'] ?? '');
+$department = trim($input['department'] ?? '');
+$subject = trim($input['subject'] ?? '');
+$message = trim($input['message'] ?? '');
+
+// Validation
+if (empty($name) || empty($email) || empty($department) || empty($subject) || empty($message)) {
+    echo json_encode(['success' => false, 'message' => 'All fields are required']);
+    exit;
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode(['success' => false, 'message' => 'Invalid email address']);
+    exit;
+}
+
+// Department email mapping
+$departmentEmails = [
+    'trading@wolthers.com' => 'Trading Inquiries',
+    'logistics@wolthers.com' => 'Logistics Support',
+    'qualitycontrol@wolthers.com' => 'Quality Control Services'
+];
+
+// Map logistics to the correct email
+$recipientEmail = $department;
+if ($department === 'logistics@wolthers.com') {
+    $recipientEmail = 'wolthers@wolthers.com';
+}
+
+if (!array_key_exists($department, $departmentEmails) && $department !== 'logistics@wolthers.com') {
+    echo json_encode(['success' => false, 'message' => 'Invalid department']);
+    exit;
+}
+
+// ============================================
+// IMPORTANT: Configure these settings for your Office 365 account
+// ============================================
+$smtp_host = 'smtp.office365.com';
+$smtp_port = 587;
+$smtp_username = 'daniel@wolthers.com'; // Replace with your actual Office 365 email
+$smtp_password = '4^ZbCqCKgQ8W!AT'; // Replace with your app password (see instructions below)
+$from_email = 'daniel@wolthers.com'; // Same as username
+$from_name = 'Wolthers & Associates Website contact';
+
+try {
+    $mail = new PHPMailer(true);
+    
+    // Server settings
+    $mail->isSMTP();
+    $mail->Host = $smtp_host;
+    $mail->SMTPAuth = true;
+    $mail->Username = $smtp_username;
+    $mail->Password = $smtp_password;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = $smtp_port;
+    
+    // Sender and recipient
+    $mail->setFrom($from_email, $from_name);
+    $mail->addTo($recipientEmail);
+    $mail->addReplyTo($email, $name);
+    
+    // Content
+    $mail->isHTML(false); // Set to true if you want HTML email
+    $mail->Subject = "Website Contact: " . $subject;
+    
+    $emailBody = "New contact form submission from Wolthers & Associates website\n\n";
+    $emailBody .= "Name: " . $name . "\n";
+    $emailBody .= "Email: " . $email . "\n";
+    $emailBody .= "Department: " . ($departmentEmails[$department] ?? 'Logistics Support') . "\n";
+    $emailBody .= "Subject: " . $subject . "\n\n";
+    $emailBody .= "Message:\n" . $message . "\n\n";
+    $emailBody .= "---\n";
+    $emailBody .= "This message was sent from the Wolthers & Associates website contact form.\n";
+    $emailBody .= "Timestamp: " . date('Y-m-d H:i:s') . " UTC\n";
+    $emailBody .= "IP Address: " . ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR']) . "\n";
+    
+    $mail->Body = $emailBody;
+    
+    $mail->send();
+    
+    // Log successful submission
+    error_log("Contact form submitted successfully to: $recipientEmail from: $email");
+    
+    echo json_encode([
+        'success' => true,
+        'message' => 'Thank you! Your message has been sent successfully. We will get back to you soon.'
+    ]);
+    
+} catch (Exception $e) {
+    error_log("Contact form error: " . $e->getMessage());
+    echo json_encode([
+        'success' => false,
+        'message' => 'Failed to send email. Please try again or contact us directly.'
+    ]);
+}
+?>
