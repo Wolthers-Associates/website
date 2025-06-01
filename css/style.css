@@ -957,6 +957,12 @@ section {
     border: 1px solid #f5c6cb;
 }
 
+.form-message.info {
+    background: #cce7ff;
+    color: #004085;
+    border: 1px solid #b8daff;
+}
+
 /* ===== FOOTER COMPONENT ===== */
 .footer {
     background: #2c5530;
