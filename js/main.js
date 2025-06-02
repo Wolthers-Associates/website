@@ -727,7 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Fallback to mailto with correct email addresses
                 const emailMapping = {
                     'trading@wolthers.com': 'trading@wolthers.com',
-                    'logistics@wolthers.com': 'wolthers@wolthers.com',
+                    'wolthers@wolthers.com': 'wolthers@wolthers.com',
                     'qualitycontrol@wolthers.com': 'qualitycontrol@wolthers.com'
                 };
                 
