@@ -69,7 +69,7 @@ if (!array_key_exists($department, $departmentEmails) && $department !== 'logist
 $smtp_host = 'smtp.office365.com';
 $smtp_port = 587;
 $smtp_username = 'daniel@wolthers.com'; // Replace with your actual Office 365 email
-$smtp_password = 'wzvybdvfvzdwdvwc'; // Replace with your app password (see instructions below)
+$smtp_password = ''; // Replace with your app password (see instructions below)
 $from_email = 'daniel@wolthers.com'; // Same as username
 $from_name = 'Wolthers & Associates Website contact';
 
