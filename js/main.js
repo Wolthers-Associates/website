@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('loaded');
     }, 100);
 
-    // Initialize EmailJS - Replace with your public key from emailjs.com
-    emailjs.init("cI8gy3hIj0J0zD4Fl"); // Get this free from emailjs.com
+  
+
+    
     // --- Translation System ---
     const translations = {
         en: {
@@ -637,116 +638,130 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Contact Form Submission (EmailJS - FREE) ---
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            
-            const submitBtn = this.querySelector('.submit-btn');
-            const nameField = this.querySelector('#name');
-            const emailField = this.querySelector('#email');
-            const departmentField = this.querySelector('#department');
-            const subjectField = this.querySelector('#subject');
-            const messageField = this.querySelector('#message');
-            
-            // Validation
-            if (!nameField.value.trim() || !emailField.value.trim() || 
-                !departmentField.value || !subjectField.value.trim() || 
-                !messageField.value.trim()) {
-                showFormMessage('Please fill in all required fields.', 'error');
-                return;
-            }
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(emailField.value)) {
-                showFormMessage('Please enter a valid email address.', 'error');
-                return;
-            }
-            
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-            
-            try {
-                // Send email using EmailJS
-                const templateParams = {
-                    from_name: nameField.value,
-                    from_email: emailField.value,
-                    to_email: departmentField.value,
-                    subject: subjectField.value,
-                    message: messageField.value,
-                    department: departmentField.options[departmentField.selectedIndex].text
-                };
-                
-                // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your EmailJS IDs
-                const response = await emailjs.send(
-                    'service_h0373h4',    // Your EmailJS service ID
-                    'template_8vxx5yc',   // Your EmailJS template ID
-                    templateParams
-                );
-                
-                showFormMessage('Thank you! Your message has been sent successfully. We will get back to you soon.', 'success');
-                this.reset(); // Clear form
-                
-            } catch (error) {
-                console.error('EmailJS Error:', error);
-                
-                // Fallback to mailto
-                const toEmail = departmentField.value;
-                const subject = encodeURIComponent(`Website Contact: ${subjectField.value}`);
-                const body = encodeURIComponent(
-                    `Name: ${nameField.value}\n` +
-                    `Email: ${emailField.value}\n` +
-                    `Subject: ${subjectField.value}\n\n` +
-                    `Message:\n${messageField.value}`
-                );
-                
-                const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-                window.location.href = mailtoLink;
-                
-                showFormMessage('Opening your email client as backup...', 'error');
-            } finally {
-                // Re-enable button
-                submitBtn.disabled = false;
-                submitBtn.textContent = translations[currentLang].formSendButton || 'Send Message';
-            }
-        });
-    }
-    
-    /**
-     * Shows form success/error messages
-     * @param {string} message - The message to display
-     * @param {string} type - 'success' or 'error'
-     */
-    function showFormMessage(message, type) {
-        // Remove existing messages
-        const existingMessage = document.querySelector('.form-message');
-        if (existingMessage) {
-            existingMessage.remove();
+   // --- Contact Form Submission (Microsoft Graph API) ---
+const contactForm = document.getElementById('contactForm');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        // Get form elements
+        const submitBtn = this.querySelector('.submit-btn');
+        const nameField = this.querySelector('#name');
+        const emailField = this.querySelector('#email');
+        const departmentField = this.querySelector('#department');
+        const subjectField = this.querySelector('#subject');
+        const messageField = this.querySelector('#message');
+        
+        // Validation
+        if (!nameField.value.trim() || !emailField.value.trim() || 
+            !departmentField.value || !subjectField.value.trim() || 
+            !messageField.value.trim()) {
+            showFormMessage('Please fill in all required fields.', 'error');
+            return;
         }
         
-        // Create new message element
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `form-message ${type}`;
-        messageDiv.textContent = message;
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailField.value)) {
+            showFormMessage('Please enter a valid email address.', 'error');
+            return;
+        }
         
-        // Insert at the top of the form
-        const form = document.getElementById('contactForm');
-        form.insertBefore(messageDiv, form.firstChild);
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
         
-        // Auto-remove after 5 seconds
-        setTimeout(() => {
-            if (messageDiv.parentNode) {
-                messageDiv.remove();
+        try {
+            // Prepare form data
+            const formData = {
+                name: nameField.value.trim(),
+                email: emailField.value.trim(),
+                department: departmentField.value,
+                subject: subjectField.value.trim(),
+                message: messageField.value.trim()
+            };
+            
+            console.log('Sending form data:', formData);
+            
+            // Send to PHP backend (Microsoft Graph API)
+            const response = await fetch('./contact.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            console.log('Response status:', response.status);
+            
+            const result = await response.json();
+            console.log('Server response:', result);
+            
+            if (result.success) {
+                showFormMessage(result.message, 'success');
+                this.reset(); // Reset form on success
+            } else {
+                showFormMessage(result.message, 'error');
             }
-        }, 5000);
-        
-        // Scroll to message
-        messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+        } catch (error) {
+            console.error('Error sending form:', error);
+            
+            // Fallback to mailto with correct email addresses
+            const emailMapping = {
+                'trading@wolthers.com': 'trading@wolthers.com',
+                'logistics@wolthers.com': 'wolthers@wolthers.com',
+                'qualitycontrol@wolthers.com': 'qualitycontrol@wolthers.com'
+            };
+            
+            const toEmail = emailMapping[departmentField.value] || departmentField.value;
+            const subject = encodeURIComponent(`Website Contact: ${subjectField.value}`);
+            const body = encodeURIComponent(
+                `Name: ${nameField.value}\n` +
+                `Email: ${emailField.value}\n` +
+                `Subject: ${subjectField.value}\n\n` +
+                `Message:\n${messageField.value}\n\n` +
+                `---\n` +
+                `This message was sent from the Wolthers & Associates website contact form.`
+            );
+            
+            const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+            
+            showFormMessage('Server temporarily unavailable. Your email client has been opened with your message.', 'info');
+        } finally {
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.textContent = translations[currentLang].formSendButton || 'Send Message';
+        }
+    });
+}
+
+/**
+ * Shows form success/error messages
+ */
+function showFormMessage(message, type) {
+    const existingMessage = document.querySelector('.form-message');
+    if (existingMessage) {
+        existingMessage.remove();
     }
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `form-message ${type}`;
+    messageDiv.textContent = message;
+    
+    const form = document.getElementById('contactForm');
+    form.insertBefore(messageDiv, form.firstChild);
+    
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.remove();
+        }
+    }, 5000);
+    
+    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
     
     // --- Search Functionality (Basic) ---
     const setupSearch = (searchInput, searchBtn) => {
