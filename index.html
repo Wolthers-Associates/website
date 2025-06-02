@@ -570,3 +570,159 @@
                     <button class="footer-language-btn" aria-haspopup="true" aria-expanded="false">
                         <span id="current-lang">EN</span>
                         <span class="dropdown-arrow" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="footer-language-dropdown-content">
+                        <a href="#" data-lang="en">EN</a>
+                        <a href="#" data-lang="pt">PT</a>
+                        <a href="#" data-lang="es">ES</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4 data-lang-key="footerServices">Our Services</h4>
+                <ul>
+                    <li><a href="#services" data-lang-key="footerFOB">FOB Brokerage</a></li>
+                    <li><a href="#quality" data-lang-key="footerQuality">Quality Control</a></li>
+                    <li><a href="#services" data-lang-key="footerSustainable">Sustainable Trading</a></li>
+                    <li><a href="#services" data-lang-key="footerOrigin">Origin Services</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 data-lang-key="footerLocations">Our Locations</h4>
+                <ul>
+                    <li><a href="#locations" data-lang-key="footerSantos">Santos, Brazil</a></li>
+                    <li><a href="#locations" data-lang-key="footerBuenaventura">Buenaventura, Colombia</a></li>
+                    <li><a href="#locations" data-lang-key="footerGuatemala">Guatemala City, Guatemala</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 data-lang-key="footerCompany">Company</h4>
+                <ul>
+                    <li><a href="#about" data-lang-key="footerAbout">About Us</a></li>
+                    <li><a href="wolthers_team.html" data-lang-key="footerTeam">Our Team</a></li>
+                    <li><a href="#about" data-lang-key="footerSustainability">Sustainability</a></li>
+                    <li><a href="#contact" data-lang-key="footerContact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container">
+                <p data-lang-key="footerCopyright">© 2024 Wolthers & Associates. Building coffee relationships since 1949.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    
+    <!-- Interactive Map Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mapTooltip = document.getElementById('mapTooltip');
+            const regionInfoPanel = document.getElementById('regionInfoPanel');
+            const mapWrapper = document.querySelector('.interactive-map-wrapper');
+            
+            // Location data with detailed information
+            const locationData = {
+                'Guatemala City': {
+                    name: 'Guatemala City, Guatemala',
+                    icon: '🇬🇹',
+                    description: 'Our state-of-the-art quality control laboratory ensures premium standards for Central American coffee exports. Equipped with certified Q Graders and advanced testing facilities to maintain the highest quality coffee standards for our global partners.',
+                    stats: ['QC Laboratory', 'Certified Q Graders', 'Central America Hub', 'Tel: +502 4669-0057']
+                },
+                'Buenaventura': {
+                    name: 'Buenaventura, Colombia',
+                    icon: '🇨🇴',
+                    description: 'Strategic Pacific port location handling Colombian coffee exports with excellence. Our experienced team provides comprehensive quality control services, logistics coordination, and export facilitation for all South American operations.',
+                    stats: ['Pacific Port', 'Export Hub', 'Logistics Center', 'Tel: +57 032 297-9189']
+                },
+                'Santos': {
+                    name: 'Santos, Brazil',
+                    icon: '🇧🇷',
+                    description: 'Our headquarters and primary operations center since 1949. Managing over 3.5 million bags annually with complete trading services, quality control, and logistics coordination. The heart of our global coffee trading empire.',
+                    stats: ['Headquarters', '3.5M+ Bags/Year', 'Since 1949', 'Tel: +55 (13) 2127-4144']
+                }
+            };
+            
+            // Handle hotspot interactions
+            document.querySelectorAll('.hotspot').forEach(hotspot => {
+                hotspot.addEventListener('mouseenter', function(e) {
+                    const location = this.getAttribute('data-location');
+                    const details = this.getAttribute('data-details');
+                    const highlight = this.getAttribute('data-highlight');
+                    
+                    // Show tooltip
+                    mapTooltip.textContent = `${location} - ${details}`;
+                    mapTooltip.classList.add('show');
+                    
+                    // Highlight region
+                    if (highlight) {
+                        document.getElementById(highlight).classList.add('show');
+                    }
+                    
+                    // Update info panel
+                    if (locationData[location]) {
+                        const data = locationData[location];
+                        const statsHtml = data.stats.map(stat => `<div class="stat-item-display">${stat}</div>`).join('');
+                        
+                        regionInfoPanel.innerHTML = `
+                            <div class="region-name-display">
+                                <div class="region-icon-display">${data.icon}</div>
+                                ${data.name}
+                            </div>
+                            <div class="region-description-display">${data.description}</div>
+                            <div class="region-stats-display">${statsHtml}</div>
+                        `;
+                    }
+                });
+                
+                hotspot.addEventListener('mouseleave', function() {
+                    mapTooltip.classList.remove('show');
+                    
+                    // Hide all highlights
+                    document.querySelectorAll('.coffee-highlight').forEach(highlight => {
+                        highlight.classList.remove('show');
+                    });
+                });
+                
+                hotspot.addEventListener('mousemove', function(e) {
+                    const rect = mapWrapper.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    mapTooltip.style.left = x + 'px';
+                    mapTooltip.style.top = y + 'px';
+                });
+                
+                // Optional: Add click functionality for future enhancements
+                hotspot.addEventListener('click', function() {
+                    const location = this.getAttribute('data-location');
+                    const country = this.getAttribute('data-country');
+                    
+                    // You can add navigation to detailed pages here
+                    console.log(`Clicked on ${location}, ${country}`);
+                    
+                    // Example: Navigate to team page for that country
+                    // window.location.href = `wolthers_team.html#${country.toLowerCase()}`;
+                });
+            });
+            
+            // Reset info panel when leaving map area
+            mapWrapper.addEventListener('mouseleave', function() {
+                regionInfoPanel.innerHTML = `
+                    <div class="region-name-display">
+                        <div class="region-icon-display">☕</div>
+                        Welcome to Our Coffee Trading Network
+                    </div>
+                    <div class="region-description-display">
+                        Hover over any location marker to discover our strategic operations across Latin America's premier coffee regions. Each location represents decades of expertise in coffee trading, quality control, and logistics.
+                    </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
