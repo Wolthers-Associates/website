@@ -4,9 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('loaded');
     }, 100);
 
-  
-
-    
     // --- Translation System ---
     const translations = {
         en: {
@@ -638,131 +635,142 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-   // --- Contact Form Submission (Microsoft Graph API) ---
-const contactForm = document.getElementById('contactForm');
+    // --- Contact Form Submission (Microsoft Graph API) ---
+    const contactForm = document.getElementById('contactForm');
 
-if (contactForm) {
-    contactForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        
-        // Get form elements
-        const submitBtn = this.querySelector('.submit-btn');
-        const nameField = this.querySelector('#name');
-        const emailField = this.querySelector('#email');
-        const departmentField = this.querySelector('#department');
-        const subjectField = this.querySelector('#subject');
-        const messageField = this.querySelector('#message');
-        
-        // Validation
-        if (!nameField.value.trim() || !emailField.value.trim() || 
-            !departmentField.value || !subjectField.value.trim() || 
-            !messageField.value.trim()) {
-            showFormMessage('Please fill in all required fields.', 'error');
-            return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(emailField.value)) {
-            showFormMessage('Please enter a valid email address.', 'error');
-            return;
-        }
-        
-        // Disable submit button
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-        
-        try {
-            // Prepare form data
-            const formData = {
-                name: nameField.value.trim(),
-                email: emailField.value.trim(),
-                department: departmentField.value,
-                subject: subjectField.value.trim(),
-                message: messageField.value.trim()
-            };
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
             
-            console.log('Sending form data:', formData);
+            // Get form elements
+            const submitBtn = this.querySelector('.submit-btn');
+            const nameField = this.querySelector('#name');
+            const emailField = this.querySelector('#email');
+            const departmentField = this.querySelector('#department');
+            const subjectField = this.querySelector('#subject');
+            const messageField = this.querySelector('#message');
             
-            // Send to PHP backend (Microsoft Graph API)
-            const response = await fetch('./contact.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
-            
-            console.log('Response status:', response.status);
-            
-            const result = await response.json();
-            console.log('Server response:', result);
-            
-            if (result.success) {
-                showFormMessage(result.message, 'success');
-                this.reset(); // Reset form on success
-            } else {
-                showFormMessage(result.message, 'error');
+            // Validation
+            if (!nameField.value.trim() || !emailField.value.trim() || 
+                !departmentField.value || !subjectField.value.trim() || 
+                !messageField.value.trim()) {
+                showFormMessage('Please fill in all required fields.', 'error');
+                return;
             }
             
-        } catch (error) {
-            console.error('Error sending form:', error);
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailField.value)) {
+                showFormMessage('Please enter a valid email address.', 'error');
+                return;
+            }
             
-            // Fallback to mailto with correct email addresses
-            const emailMapping = {
-                'trading@wolthers.com': 'trading@wolthers.com',
-                'logistics@wolthers.com': 'wolthers@wolthers.com',
-                'qualitycontrol@wolthers.com': 'qualitycontrol@wolthers.com'
-            };
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
             
-            const toEmail = emailMapping[departmentField.value] || departmentField.value;
-            const subject = encodeURIComponent(`Website Contact: ${subjectField.value}`);
-            const body = encodeURIComponent(
-                `Name: ${nameField.value}\n` +
-                `Email: ${emailField.value}\n` +
-                `Subject: ${subjectField.value}\n\n` +
-                `Message:\n${messageField.value}\n\n` +
-                `---\n` +
-                `This message was sent from the Wolthers & Associates website contact form.`
-            );
-            
-            const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-            window.location.href = mailtoLink;
-            
-            showFormMessage('Server temporarily unavailable. Your email client has been opened with your message.', 'info');
-        } finally {
-            // Re-enable submit button
-            submitBtn.disabled = false;
-            submitBtn.textContent = translations[currentLang].formSendButton || 'Send Message';
-        }
-    });
-}
-
-/**
- * Shows form success/error messages
- */
-function showFormMessage(message, type) {
-    const existingMessage = document.querySelector('.form-message');
-    if (existingMessage) {
-        existingMessage.remove();
+            try {
+                // Prepare form data
+                const formData = {
+                    name: nameField.value.trim(),
+                    email: emailField.value.trim(),
+                    department: departmentField.value,
+                    subject: subjectField.value.trim(),
+                    message: messageField.value.trim()
+                };
+                
+                console.log('Sending form data:', formData);
+                
+                // Send to PHP backend (Microsoft Graph API)
+                const response = await fetch('./contact.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                // Check if response is actually JSON
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const textResponse = await response.text();
+                    console.error('Non-JSON response received:', textResponse);
+                    throw new Error('Server returned non-JSON response');
+                }
+                
+                const result = await response.json();
+                console.log('Server response:', result);
+                
+                if (result.success) {
+                    showFormMessage(result.message, 'success');
+                    this.reset(); // Reset form on success
+                } else {
+                    showFormMessage(result.message || 'Unknown error occurred', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error sending form:', error);
+                
+                // Fallback to mailto with correct email addresses
+                const emailMapping = {
+                    'trading@wolthers.com': 'trading@wolthers.com',
+                    'logistics@wolthers.com': 'wolthers@wolthers.com',
+                    'qualitycontrol@wolthers.com': 'qualitycontrol@wolthers.com'
+                };
+                
+                const toEmail = emailMapping[departmentField.value] || departmentField.value;
+                const subject = encodeURIComponent(`Website Contact: ${subjectField.value}`);
+                const body = encodeURIComponent(
+                    `Name: ${nameField.value}\n` +
+                    `Email: ${emailField.value}\n` +
+                    `Subject: ${subjectField.value}\n\n` +
+                    `Message:\n${messageField.value}\n\n` +
+                    `---\n` +
+                    `This message was sent from the Wolthers & Associates website contact form.`
+                );
+                
+                const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+                window.location.href = mailtoLink;
+                
+                showFormMessage('Server temporarily unavailable. Your email client has been opened with your message.', 'info');
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = translations[currentLang].formSendButton || 'Send Message';
+            }
+        });
     }
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `form-message ${type}`;
-    messageDiv.textContent = message;
-    
-    const form = document.getElementById('contactForm');
-    form.insertBefore(messageDiv, form.firstChild);
-    
-    setTimeout(() => {
-        if (messageDiv.parentNode) {
-            messageDiv.remove();
+
+    /**
+     * Shows form success/error messages - FIXED: No auto-scroll
+     */
+    function showFormMessage(message, type) {
+        const existingMessage = document.querySelector('.form-message');
+        if (existingMessage) {
+            existingMessage.remove();
         }
-    }, 5000);
-    
-    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-    
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `form-message ${type}`;
+        messageDiv.textContent = message;
+        
+        const form = document.getElementById('contactForm');
+        form.insertBefore(messageDiv, form.firstChild);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
+            }
+        }, 5000);
+        
+        // REMOVED: The scrollIntoView that was causing unwanted scrolling
+        // messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+        
     // --- Search Functionality (Basic) ---
     const setupSearch = (searchInput, searchBtn) => {
         if (!searchInput || !searchBtn) return;
