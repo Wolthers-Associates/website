@@ -894,3 +894,38 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log('Wolthers & Associates website initialized successfully');
 });
+
+// Add this JavaScript to your main.js file (after the existing mobile navigation code):
+
+// --- Mobile Team Menu Fix ---
+function handleMobileTeamMenu() {
+    const teamDropdown = document.querySelector('.nav-links .dropdown');
+    const teamLink = teamDropdown?.querySelector('a[data-lang-key="navTeam"]');
+    
+    if (teamDropdown && teamLink) {
+        // Function to check if we're on mobile
+        const isMobile = () => window.innerWidth <= 768;
+        
+        // Function to update team menu behavior
+        const updateTeamMenu = () => {
+            if (isMobile()) {
+                // On mobile: make team link go directly to team page, no dropdown
+                teamLink.href = 'wolthers_team.html';
+                teamDropdown.classList.add('mobile-no-dropdown');
+            } else {
+                // On desktop: restore dropdown functionality
+                teamLink.href = 'wolthers_team.html';
+                teamDropdown.classList.remove('mobile-no-dropdown');
+            }
+        };
+        
+        // Initial setup
+        updateTeamMenu();
+        
+        // Update on window resize
+        window.addEventListener('resize', debounce(updateTeamMenu, 100));
+    }
+}
+
+// Call the function after DOM is loaded
+handleMobileTeamMenu();
