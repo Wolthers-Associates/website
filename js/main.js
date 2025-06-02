@@ -3,7 +3,143 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         document.body.classList.add('loaded');
     }, 100);
+// Add this JavaScript function to your main.js file
+// Place it after the existing DOMContentLoaded event listener
 
+// Mobile Team Menu Fix - Enhanced Version
+function handleMobileTeamMenu() {
+    const teamDropdown = document.querySelector('.nav-links .dropdown');
+    const teamLink = teamDropdown?.querySelector('a[data-lang-key="navTeam"]');
+    
+    if (teamDropdown && teamLink) {
+        // Function to check if we're on mobile
+        const isMobile = () => window.innerWidth <= 768;
+        
+        // Function to update team menu behavior
+        const updateTeamMenu = () => {
+            if (isMobile()) {
+                // On mobile: make team link go directly to team page, hide dropdown
+                teamLink.href = 'wolthers_team.html';
+                teamDropdown.classList.add('mobile-no-dropdown');
+                
+                // Remove any existing event listeners that might show dropdown
+                teamDropdown.removeEventListener('mouseenter', showDropdown);
+                teamDropdown.removeEventListener('mouseleave', hideDropdown);
+                
+                // Ensure dropdown content is hidden
+                const dropdownContent = teamDropdown.querySelector('.dropdown-content');
+                if (dropdownContent) {
+                    dropdownContent.style.display = 'none';
+                }
+            } else {
+                // On desktop: restore dropdown functionality
+                teamLink.href = 'wolthers_team.html';
+                teamDropdown.classList.remove('mobile-no-dropdown');
+                
+                // Restore dropdown content visibility
+                const dropdownContent = teamDropdown.querySelector('.dropdown-content');
+                if (dropdownContent) {
+                    dropdownContent.style.display = '';
+                }
+            }
+        };
+        
+        // Dummy functions for event listener removal
+        function showDropdown() {}
+        function hideDropdown() {}
+        
+        // Initial setup
+        updateTeamMenu();
+        
+        // Update on window resize with debounce
+        const debouncedUpdate = debounce(updateTeamMenu, 100);
+        window.addEventListener('resize', debouncedUpdate);
+        
+        // Prevent dropdown from showing on mobile touch events
+        teamDropdown.addEventListener('touchstart', function(e) {
+            if (isMobile()) {
+                // Allow the link click to proceed normally, but prevent dropdown
+                const dropdownContent = this.querySelector('.dropdown-content');
+                if (dropdownContent) {
+                    dropdownContent.style.display = 'none';
+                }
+            }
+        });
+    }
+}
+
+// Enhanced mobile navigation handler
+function setupMobileNavigation() {
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (hamburgerMenu && navLinks) {
+        hamburgerMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburgerMenu.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                // Calculate proper padding based on header height
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 100;
+                navLinks.style.paddingTop = `${headerHeight + 20}px`;
+                
+                // Add opening animation
+                setTimeout(() => {
+                    navLinks.classList.add('open');
+                }, 10);
+                
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = 'hidden';
+            } else {
+                navLinks.classList.remove('open');
+                // Restore body scroll
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('open');
+                    hamburgerMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                    
+                    setTimeout(() => {
+                        navLinks.classList.remove('active');
+                    }, 400);
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                !hamburgerMenu.contains(e.target)) {
+                
+                navLinks.classList.remove('open');
+                hamburgerMenu.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                setTimeout(() => {
+                    navLinks.classList.remove('active');
+                }, 400);
+            }
+        });
+    }
+}
+
+// Call these functions after DOM is loaded
+// Add this to your existing DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', () => {
+    // ... your existing code ...
+    
+    // Add these new function calls
+    handleMobileTeamMenu();
+    setupMobileNavigation();
+});
     // --- Translation System ---
     const translations = {
         en: {
