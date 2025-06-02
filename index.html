@@ -6,193 +6,6 @@
     <title>Wolthers & Associates - Coffee Trading Excellence Since 1949</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preload" href="images/hero-coffee-bg.png" as="image">
-    <style>
-        /* Interactive Map Styles */
-        .interactive-map-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 100%;
-            margin: 0 auto;
-            display: inline-block;
-        }
-
-        .map-image {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            display: block;
-            margin: 0 auto;
-        }
-
-        .hotspot {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: rgba(212, 175, 55, 0.8);
-            border: 3px solid #2c5530;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
-            }
-        }
-
-        .hotspot:hover {
-            transform: translate(-50%, -50%) scale(1.5);
-            background: #d4af37;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: none;
-        }
-
-        .map-tooltip {
-            position: absolute;
-            background: rgba(44, 85, 48, 0.95);
-            color: white;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            pointer-events: none;
-            z-index: 1000;
-            opacity: 0;
-            transform: translate(-50%, -100%) translateY(-15px);
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            min-width: 140px;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        .map-tooltip.show {
-            opacity: 1;
-            transform: translate(-50%, -100%) translateY(-10px);
-        }
-
-        .map-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 6px solid transparent;
-            border-top-color: rgba(44, 85, 48, 0.95);
-        }
-
-        .region-info-panel {
-            margin-top: 20px;
-            padding: 20px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 10px;
-            border-left: 5px solid #d4af37;
-            transition: all 0.3s ease;
-        }
-
-        .region-name-display {
-            font-size: 1.4rem;
-            color: #2c5530;
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .region-icon-display {
-            width: 24px;
-            height: 24px;
-            background: #d4af37;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .region-description-display {
-            color: #666;
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-
-        .region-stats-display {
-            margin-top: 15px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item-display {
-            background: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: #2c5530;
-            font-weight: 500;
-            border: 1px solid #e9ecef;
-        }
-
-        .coffee-highlight {
-            position: absolute;
-            background: rgba(212, 175, 55, 0.15);
-            border: 2px solid rgba(212, 175, 55, 0.5);
-            border-radius: 15px;
-            pointer-events: none;
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 5;
-        }
-
-        .coffee-highlight.show {
-            opacity: 1;
-        }
-
-        /* Mobile adjustments for interactive map */
-        @media (max-width: 768px) {
-            .hotspot {
-                width: 18px;
-                height: 18px;
-            }
-            
-            .map-tooltip {
-                font-size: 12px;
-                min-width: 120px;
-                padding: 10px 12px;
-            }
-            
-            .region-info-panel {
-                padding: 15px;
-            }
-            
-            .region-name-display {
-                font-size: 1.2rem;
-            }
-            
-            .region-description-display {
-                font-size: 0.95rem;
-            }
-            
-            .stat-item-display {
-                font-size: 0.8rem;
-                padding: 6px 10px;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="top-header">
@@ -417,55 +230,10 @@
                 
                 <div class="map-container">
                     <h3 data-lang-key="strategicLocations">Our Strategic Locations Across Latin America</h3>
-                    
-                    <!-- Interactive Map with Hotspots -->
-                    <div class="interactive-map-wrapper">
-                        <img src="images/LATAM.svg" alt="Map showing Wolthers & Associates locations across Latin America: Santos, Brazil; Buenaventura, Colombia; Guatemala City, Guatemala" class="map-image">
-                        
-                        <!-- Coffee region highlights (optional) -->
-                        <div class="coffee-highlight" id="guatemalaHighlight" style="top: 15%; left: 27%; width: 8%; height: 12%;"></div>
-                        <div class="coffee-highlight" id="colombiaHighlight" style="top: 42%; left: 37%; width: 12%; height: 15%;"></div>
-                        <div class="coffee-highlight" id="brazilHighlight" style="top: 52%; left: 68%; width: 20%; height: 25%;"></div>
-                        
-                        <!-- Interactive hotspots - Adjust these percentages to match your SVG -->
-                        <div class="hotspot" 
-                             style="top: 21%; left: 29%;" 
-                             data-location="Guatemala City"
-                             data-country="Guatemala"
-                             data-details="Quality Control Laboratory"
-                             data-highlight="guatemalaHighlight">
-                        </div>
-                        
-                        <div class="hotspot" 
-                             style="top: 49%; left: 39%;" 
-                             data-location="Buenaventura"
-                             data-country="Colombia"
-                             data-details="Pacific Port Operations"
-                             data-highlight="colombiaHighlight">
-                        </div>
-                        
-                        <div class="hotspot" 
-                             style="top: 66%; left: 78%;" 
-                             data-location="Santos"
-                             data-country="Brazil"
-                             data-details="Headquarters & Main Operations"
-                             data-highlight="brazilHighlight">
-                        </div>
-                        
-                        <div class="map-tooltip" id="mapTooltip"></div>
+                    <img src="images/Latam-with-ocean.png" alt="Map showing Wolthers & Associates locations across Latin America: Santos, Brazil; Buenaventura, Colombia; Guatemala City, Guatemala" class="map-image lazyload" loading="lazy">
+                    <div class="image-placeholder">
+                        <h3 data-lang-key="mapOfLocations">Map of Our Locations</h3>
                     </div>
-
-                    <!-- Interactive Information Panel -->
-                    <div class="region-info-panel" id="regionInfoPanel">
-                        <div class="region-name-display">
-                            <div class="region-icon-display">☕</div>
-                            Welcome to Our Coffee Trading Network
-                        </div>
-                        <div class="region-description-display">
-                            Hover over any location marker to discover our strategic operations across Latin America's premier coffee regions. Each location represents decades of expertise in coffee trading, quality control, and logistics.
-                        </div>
-                    </div>
-                    
                     <p class="map-caption">Santos • Buenaventura • Guatemala City</p>
                 </div>
                 
@@ -499,9 +267,11 @@
                 <div class="contact-form-container">
                     <h3 data-lang-key="sendUsMessage">Send Us a Message</h3>
                     <p data-lang-key="formInstructions">Please fill out the form below and we'll get back to you shortly.</p>
-                    <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <form class="contact-form" id="contactForm" name="contact" method="POST" action="/?success=true" data-netlify="true" netlify-honeypot="bot-field">
                         <!-- Hidden honeypot field for spam protection -->
                         <input type="hidden" name="bot-field">
+                        <!-- Hidden field to capture the selected department email -->
+                        <input type="hidden" name="department-email" id="department-email-hidden">
                         
                         <div class="form-group">
                             <label for="name" class="visually-hidden">Name</label>
@@ -532,7 +302,7 @@
                     </form>
                 </div>
                 
-                <!-- Contact Details Container -->
+                <!-- Contact Details Container (moved below form) -->
                 <div class="contact-details-container">
                     <h3 data-lang-key="ourContactDetails">Our Contact Details</h3>
                     <div class="contact-info-item">
@@ -543,7 +313,7 @@
                     
                     <div class="contact-info-item">
                         <h4 data-lang-key="logisticsSupport">Logistics Support</h4>
-                        <p><strong data-lang-key="email">Email:</strong> <a href="mailto:wolthers@wolthers.com">wolthers@wolthers.com</a></p>
+                        <p><strong data-lang-key="email">Email:</strong> <a href="mailto:logistics@wolthers.com">logistics@wolthers.com</a></p>
                         <p data-lang-key="logisticsDesc">For shipping coordination, sample requests, vessel booking, and logistics assistance.</p>
                     </div>
                     
@@ -615,114 +385,6 @@
             </div>
         </div>
     </footer>
-
-    <script src="js/main.js"></script>
-    
-    <!-- Interactive Map Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mapTooltip = document.getElementById('mapTooltip');
-            const regionInfoPanel = document.getElementById('regionInfoPanel');
-            const mapWrapper = document.querySelector('.interactive-map-wrapper');
-            
-            // Location data with detailed information
-            const locationData = {
-                'Guatemala City': {
-                    name: 'Guatemala City, Guatemala',
-                    icon: '🇬🇹',
-                    description: 'Our state-of-the-art quality control laboratory ensures premium standards for Central American coffee exports. Equipped with certified Q Graders and advanced testing facilities to maintain the highest quality coffee standards for our global partners.',
-                    stats: ['QC Laboratory', 'Certified Q Graders', 'Central America Hub', 'Tel: +502 4669-0057']
-                },
-                'Buenaventura': {
-                    name: 'Buenaventura, Colombia',
-                    icon: '🇨🇴',
-                    description: 'Strategic Pacific port location handling Colombian coffee exports with excellence. Our experienced team provides comprehensive quality control services, logistics coordination, and export facilitation for all South American operations.',
-                    stats: ['Pacific Port', 'Export Hub', 'Logistics Center', 'Tel: +57 032 297-9189']
-                },
-                'Santos': {
-                    name: 'Santos, Brazil',
-                    icon: '🇧🇷',
-                    description: 'Our headquarters and primary operations center since 1949. Managing over 3.5 million bags annually with complete trading services, quality control, and logistics coordination. The heart of our global coffee trading empire.',
-                    stats: ['Headquarters', '3.5M+ Bags/Year', 'Since 1949', 'Tel: +55 (13) 2127-4144']
-                }
-            };
-            
-            // Handle hotspot interactions
-            document.querySelectorAll('.hotspot').forEach(hotspot => {
-                hotspot.addEventListener('mouseenter', function(e) {
-                    const location = this.getAttribute('data-location');
-                    const details = this.getAttribute('data-details');
-                    const highlight = this.getAttribute('data-highlight');
-                    
-                    // Show tooltip
-                    mapTooltip.textContent = `${location} - ${details}`;
-                    mapTooltip.classList.add('show');
-                    
-                    // Highlight region
-                    if (highlight) {
-                        document.getElementById(highlight).classList.add('show');
-                    }
-                    
-                    // Update info panel
-                    if (locationData[location]) {
-                        const data = locationData[location];
-                        const statsHtml = data.stats.map(stat => `<div class="stat-item-display">${stat}</div>`).join('');
-                        
-                        regionInfoPanel.innerHTML = `
-                            <div class="region-name-display">
-                                <div class="region-icon-display">${data.icon}</div>
-                                ${data.name}
-                            </div>
-                            <div class="region-description-display">${data.description}</div>
-                            <div class="region-stats-display">${statsHtml}</div>
-                        `;
-                    }
-                });
-                
-                hotspot.addEventListener('mouseleave', function() {
-                    mapTooltip.classList.remove('show');
-                    
-                    // Hide all highlights
-                    document.querySelectorAll('.coffee-highlight').forEach(highlight => {
-                        highlight.classList.remove('show');
-                    });
-                });
-                
-                hotspot.addEventListener('mousemove', function(e) {
-                    const rect = mapWrapper.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    mapTooltip.style.left = x + 'px';
-                    mapTooltip.style.top = y + 'px';
-                });
-                
-                // Optional: Add click functionality for future enhancements
-                hotspot.addEventListener('click', function() {
-                    const location = this.getAttribute('data-location');
-                    const country = this.getAttribute('data-country');
-                    
-                    // You can add navigation to detailed pages here
-                    console.log(`Clicked on ${location}, ${country}`);
-                    
-                    // Example: Navigate to team page for that country
-                    // window.location.href = `wolthers_team.html#${country.toLowerCase()}`;
-                });
-            });
-            
-            // Reset info panel when leaving map area
-            mapWrapper.addEventListener('mouseleave', function() {
-                regionInfoPanel.innerHTML = `
-                    <div class="region-name-display">
-                        <div class="region-icon-display">☕</div>
-                        Welcome to Our Coffee Trading Network
-                    </div>
-                    <div class="region-description-display">
-                        Hover over any location marker to discover our strategic operations across Latin America's premier coffee regions. Each location represents decades of expertise in coffee trading, quality control, and logistics.
-                    </div>
-                `;
-            });
-        });
-    </script>
+ <script src="js/main.js"></script>
 </body>
 </html>
