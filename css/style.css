@@ -330,7 +330,140 @@ nav {
 .nav-links.active .dropdown-content a {
     padding: 8px 0;
 }
+/* Add these CSS rules to your existing style.css file */
 
+/* Mobile Navigation Improvements */
+@media (max-width: 768px) {
+    /* Center the logo and adjust header layout on mobile */
+    nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        gap: 1rem;
+        position: relative;
+    }
+
+    .logo {
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 0.5rem;
+        order: 1; /* Logo appears first */
+    }
+
+    /* Position hamburger menu in top right */
+    .hamburger-menu {
+        position: absolute;
+        top: 1.5rem;
+        right: 20px;
+        z-index: 1005;
+        order: 2; /* Hamburger appears after logo */
+    }
+
+    /* Hide team dropdown on mobile - make it a simple link */
+    .nav-links .dropdown .dropdown-content {
+        display: none !important;
+    }
+
+    .nav-links .dropdown > a::after {
+        display: none; /* Remove dropdown arrow on mobile */
+    }
+
+    /* Remove hover effects for team dropdown on mobile */
+    .nav-links .dropdown:hover .dropdown-content {
+        display: none !important;
+    }
+
+    /* Make team link behave like regular link on mobile */
+    .nav-links .dropdown > a {
+        pointer-events: all;
+    }
+
+    /* Adjust mobile menu positioning with centered logo */
+    .nav-links.active {
+        padding-top: 140px; /* Increased to account for centered logo */
+    }
+
+    /* Make logo responsive on mobile */
+    .logo-img {
+        height: 30px; /* Smaller on mobile */
+    }
+
+    .logo {
+        font-size: 1.3rem; /* Smaller text on mobile */
+    }
+
+    /* Ensure proper spacing and layout */
+    header {
+        min-height: auto;
+    }
+
+    /* Remove any flex properties that might interfere */
+    nav .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        width: 100%;
+    }
+}
+
+/* Fine-tune for very small screens */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    .logo-img {
+        height: 25px;
+    }
+
+    nav {
+        padding: 0.75rem 0;
+    }
+
+    .hamburger-menu {
+        top: 1rem;
+        right: 15px;
+    }
+
+    /* Adjust mobile menu for smaller screens */
+    .nav-links.active {
+        padding-top: 120px;
+    }
+}
+/* Add this CSS class to handle mobile dropdown state */
+
+.mobile-no-dropdown .dropdown-content {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.mobile-no-dropdown:hover .dropdown-content {
+    display: none !important;
+}
+
+/* Ensure the team link works properly on mobile */
+@media (max-width: 768px) {
+    .mobile-no-dropdown > a {
+        pointer-events: all !important;
+        cursor: pointer !important;
+    }
+    
+    /* Remove any pseudo-elements (dropdown arrows) on mobile */
+    .mobile-no-dropdown > a::after {
+        display: none !important;
+    }
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
 /* ===== MAIN CONTENT ADJUSTMENT ===== */
 .main-content {
     margin-top: 135px;
