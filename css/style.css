@@ -17,7 +17,6 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #2c5530; /* Start with header color to prevent flash */
-    /* Prevent flash of white content */
     min-height: 100vh;
     overflow-x: hidden;
     transition: background-color 0.3s ease;
@@ -312,251 +311,6 @@ nav {
     transform: translateX(0);
 }
 
-.nav-links.active .dropdown-content {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    background: transparent;
-    box-shadow: none;
-    min-width: unset;
-    border-radius: 0;
-    opacity: 1;
-    transform: none;
-    pointer-events: all;
-    width: 100%;
-    text-align: center;
-}
-
-.nav-links.active .dropdown-content a {
-    padding: 8px 0;
-}
-/* Add these specific fixes to your CSS - Replace the mobile section */
-
-@media (max-width: 768px) {
-    /* Fix 1: Ensure logo shows immediately and is centered */
-    .logo {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-        padding: 1rem 0 !important;
-        font-size: 2.6rem !important;
-        order: 1;
-        /* Ensure logo is visible immediately */
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-    
-    .logo-img {
-        height: 60px !important;
-        width: auto !important;
-        display: block !important;
-        /* Ensure image loads and displays properly */
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-    
-    /* If logo image fails to load, show text immediately */
-    .logo-text {
-        display: block !important;
-        font-size: 2.6rem !important;
-        color: #f4f4f4 !important;
-        text-align: center !important;
-    }
-    
-    /* Fix 2: Properly center navigation layout */
-    nav {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100% !important;
-        padding: 0.5rem 0 !important;
-        position: relative !important;
-    }
-    
-    nav .container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        position: relative !important;
-    }
-    
-    /* Fix 3: Hide ALL dropdown submenus on mobile */
-    .nav-links.active .dropdown-content,
-    .nav-links .dropdown-content,
-    .dropdown-content {
-        display: none !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-        height: 0 !important;
-        overflow: hidden !important;
-    }
-    
-    /* Ensure no dropdown shows on hover on mobile */
-    .nav-links.active .dropdown:hover .dropdown-content,
-    .nav-links .dropdown:hover .dropdown-content,
-    .dropdown:hover .dropdown-content {
-        display: none !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-    }
-    
-    /* Remove dropdown arrows completely on mobile */
-    .nav-links .dropdown > a::after,
-    .nav-links.active .dropdown > a::after {
-        display: none !important;
-        content: none !important;
-    }
-    
-    /* Make main dropdown links work as regular links */
-    .nav-links .dropdown > a,
-    .nav-links.active .dropdown > a {
-        pointer-events: all !important;
-        cursor: pointer !important;
-        display: block !important;
-    }
-    
-    /* Position hamburger correctly */
-    .hamburger-menu {
-        position: absolute !important;
-        top: 50% !important;
-        right: 20px !important;
-        transform: translateY(-50%) !important;
-        z-index: 1005 !important;
-        display: flex !important;
-    }
-    
-    /* Mobile menu adjustments */
-    .nav-links {
-        display: none;
-    }
-    
-    .nav-links.active {
-        display: flex !important;
-        flex-direction: column !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100vh !important;
-        background: rgba(44, 85, 48, 0.95) !important;
-        padding-top: 160px !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        gap: 1.5rem !important;
-        z-index: 1000 !important;
-        transform: translateX(100%) !important;
-        transition: transform 0.4s ease-out !important;
-    }
-    
-    .nav-links.active.open {
-        transform: translateX(0) !important;
-    }
-    
-    /* Header spacing fixes */
-    header {
-        padding: 0.5rem 0 !important;
-        position: fixed !important;
-        top: 40px !important;
-        width: 100% !important;
-        z-index: 1001 !important;
-        background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%) !important;
-    }
-    
-    /* Content spacing */
-    .main-content {
-        margin-top: calc(40px + 100px) !important; /* top-header + main-header */
-    }
-    
-    .top-header.hidden + header {
-        top: 0 !important;
-    }
-    
-    .top-header.hidden ~ .main-content {
-        margin-top: 100px !important; /* just main-header height */
-    }
-    
-    /* Remove white space */
-    .hero {
-        margin-top: 0 !important;
-        padding-top: 2rem !important;
-    }
-    
-    section {
-        margin-top: 0 !important;
-    }
-    
-    /* Top header adjustments */
-    .top-header-content {
-        flex-direction: column !important;
-        gap: 15px !important;
-        padding: 8px 20px !important;
-    }
-
-    .search-container {
-        max-width: 100% !important;
-        min-width: unset !important;
-    }
-
-    .language-switcher {
-        width: 100% !important;
-        justify-content: center !important;
-    }
-}
-
-/* Very small screens */
-@media (max-width: 480px) {
-    .logo {
-        font-size: 2.2rem !important;
-        padding: 0.75rem 0 !important;
-    }
-    
-    .logo-img {
-        height: 50px !important;
-    }
-    
-    .logo-text {
-        font-size: 2.2rem !important;
-    }
-    
-    .hamburger-menu {
-        right: 15px !important;
-    }
-    
-    .nav-links.active {
-        padding-top: 140px !important;
-    }
-}
-
-/* Force logo visibility on page load */
-@media (max-width: 768px) {
-    .logo,
-    .logo-img,
-    .logo-text {
-        opacity: 1 !important;
-        visibility: visible !important;
-        display: flex !important;
-    }
-    
-    /* Ensure logo text shows if image doesn't load */
-    .logo-img[src=""],
-    .logo-img:not([src]) {
-        display: none !important;
-    }
-    
-    .logo-img[src=""]:not(:only-child) + .logo-text,
-    .logo-img:not([src]):not(:only-child) + .logo-text {
-        display: block !important;
-    }
-}
 /* ===== MAIN CONTENT ADJUSTMENT ===== */
 .main-content {
     margin-top: 135px;
@@ -1350,6 +1104,14 @@ section {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Search highlighting */
+.search-highlight {
+    background-color: rgba(212, 175, 55, 0.3);
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 1024px) {
     .nav-links {
@@ -1363,11 +1125,17 @@ section {
     }
 }
 
+/* ===== MOBILE RESPONSIVE (CLEAN VERSION) ===== */
 @media (max-width: 768px) {
+    /* Top header mobile adjustments */
+    .top-header {
+        padding: 8px 0;
+    }
+    
     .top-header-content {
         flex-direction: column;
         gap: 15px;
-        padding: 10px 20px;
+        padding: 8px 20px;
     }
 
     .search-container {
@@ -1380,14 +1148,155 @@ section {
         justify-content: center;
     }
 
+    /* Main header mobile layout - CENTERED LOGO */
+    header {
+        padding: 0.5rem 0;
+        position: fixed;
+        top: 40px;
+        width: 100%;
+        z-index: 1001;
+    }
+    
+    .top-header.hidden + header {
+        top: 0;
+    }
+
+    /* Center navigation layout */
+    nav {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0.5rem 0;
+        position: relative;
+        min-height: 80px;
+    }
+
+    /* Center and enlarge logo */
+    .logo {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 1rem 0 !important;
+        font-size: 2.2rem !important; /* Doubled from desktop */
+        order: 1;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .logo-img {
+        height: 50px !important; /* Increased from 40px */
+        width: auto !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .logo-text {
+        display: block !important;
+        font-size: 2.2rem !important;
+        color: #f4f4f4 !important;
+        text-align: center !important;
+    }
+
+    /* Position hamburger in top right */
+    .hamburger-menu {
+        display: flex !important;
+        position: absolute !important;
+        top: 50% !important;
+        right: 20px !important;
+        transform: translateY(-50%) !important;
+        z-index: 1005 !important;
+    }
+
+    /* Hide navigation links by default on mobile */
+    .nav-links {
+        display: none;
+    }
+
+    /* Mobile menu overlay */
+    .nav-links.active {
+        display: flex !important;
+        flex-direction: column !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+        background: rgba(44, 85, 48, 0.95) !important;
+        padding-top: 150px !important; /* Account for larger logo */
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 1.5rem !important;
+        z-index: 1000 !important;
+        transform: translateX(100%) !important;
+        transition: transform 0.4s ease-out !important;
+    }
+
+    .nav-links.active.open {
+        transform: translateX(0) !important;
+    }
+
+    /* COMPLETELY HIDE DROPDOWNS ON MOBILE */
+    .nav-links .dropdown-content,
+    .nav-links.active .dropdown-content,
+    .dropdown-content {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    /* Remove dropdown arrows on mobile */
+    .nav-links .dropdown > a::after,
+    .nav-links.active .dropdown > a::after {
+        display: none !important;
+        content: none !important;
+    }
+    
+    /* Ensure no dropdown shows on hover on mobile */
+    .nav-links.active .dropdown:hover .dropdown-content,
+    .nav-links .dropdown:hover .dropdown-content,
+    .dropdown:hover .dropdown-content {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+    
+    /* Make dropdown parent links work as regular links */
+    .nav-links .dropdown > a,
+    .nav-links.active .dropdown > a {
+        pointer-events: all !important;
+        cursor: pointer !important;
+        display: block !important;
+    }
+
+    /* Content spacing adjustments */
     .main-content {
-        margin-top: 140px;
+        margin-top: calc(40px + 100px) !important; /* top-header + main-header */
     }
-
+    
     .top-header.hidden ~ .main-content {
-        margin-top: 95px;
+        margin-top: 100px !important; /* just main-header height */
     }
 
+    /* Remove any white space */
+    .hero {
+        margin-top: 0 !important;
+        padding-top: 2rem !important;
+    }
+    
+    section {
+        margin-top: 0 !important;
+    }
+
+    /* Responsive text and elements */
     .hero-content h1 {
         font-size: 2.8rem;
     }
@@ -1426,46 +1335,6 @@ section {
         padding: 0.8rem;
     }
 
-    /* Mobile Navigation */
-    .nav-links {
-        display: none;
-    }
-
-    .hamburger-menu {
-        display: flex;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-    }
-
-    .logo-img {
-        height: 35px;
-    }
-
-    .dropdown-content {
-        position: static;
-        display: flex;
-        flex-direction: column;
-        background: transparent;
-        box-shadow: none;
-        min-width: unset;
-        border-radius: 0;
-        opacity: 1;
-        transform: none;
-        pointer-events: all;
-    }
-
-    .dropdown-content a {
-        padding: 8px 0;
-    }
-
-    .footer-language-dropdown,
-    .footer-language-btn,
-    .footer-language-dropdown-content {
-        width: 100%;
-    }
-
     .contact-form-container {
         padding: 2rem;
     }
@@ -1481,93 +1350,37 @@ section {
     .contact-details-container h3 {
         font-size: 1.6rem;
     }
-}
-/* Add these styles to your existing CSS file (style.css) */
 
-/* Mobile Navigation Improvements */
-@media (max-width: 768px) {
-    /* Center the logo on mobile */
-    nav {
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem 0;
-        gap: 1rem;
-    }
-
-    .logo {
-        justify-content: center;
-        text-align: center;
+    .footer-language-dropdown,
+    .footer-language-btn,
+    .footer-language-dropdown-content {
         width: 100%;
-        margin-bottom: 0.5rem;
-    }
-
-    /* Move hamburger to top right */
-    .hamburger-menu {
-        position: absolute;
-        top: 1.5rem;
-        right: 20px;
-        z-index: 1005;
-    }
-
-    /* Hide team dropdown on mobile - make it a simple link */
-    .nav-links .dropdown .dropdown-content {
-        display: none !important;
-    }
-
-    .nav-links .dropdown > a::after {
-        display: none; /* Remove dropdown arrow */
-    }
-
-    /* Remove hover effects for team dropdown on mobile */
-    .nav-links .dropdown:hover .dropdown-content {
-        display: none !important;
-    }
-
-    /* Make team link behave like regular link on mobile */
-    .nav-links .dropdown > a {
-        pointer-events: all;
-    }
-
-    /* Adjust mobile menu positioning with centered logo */
-    .nav-links.active {
-        padding-top: 140px; /* Increased to account for centered logo */
-    }
-
-    /* Ensure hamburger stays visible above everything */
-    header {
-        position: relative;
-    }
-
-    /* Make logo responsive on mobile */
-    .logo-img {
-        height: 30px; /* Smaller on mobile */
-    }
-
-    .logo {
-        font-size: 1.3rem; /* Smaller text on mobile */
     }
 }
 
 /* Fine-tune for very small screens */
 @media (max-width: 480px) {
     .logo {
-        font-size: 1.1rem;
+        font-size: 1.8rem !important;
+        padding: 0.75rem 0 !important;
     }
-
+    
     .logo-img {
-        height: 25px;
+        height: 40px !important;
     }
-
-    nav {
-        padding: 0.75rem 0;
+    
+    .logo-text {
+        font-size: 1.8rem !important;
     }
-
+    
     .hamburger-menu {
-        top: 1rem;
-        right: 15px;
+        right: 15px !important;
     }
-}
-@media (max-width: 480px) {
+    
+    .nav-links.active {
+        padding-top: 130px !important;
+    }
+
     .hero-content h1 {
         font-size: 2.2rem;
     }
@@ -1612,5 +1425,3 @@ section {
         padding: 1.5rem;
     }
 }
-
-    
