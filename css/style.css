@@ -1125,13 +1125,10 @@ section {
     }
 }
 
-/* ===== MOBILE RESPONSIVE (CLEAN VERSION) ===== */
+/* REPLACE the entire @media (max-width: 768px) section with this: */
+
 @media (max-width: 768px) {
-    /* Top header mobile adjustments */
-    .top-header {
-        padding: 8px 0;
-    }
-    
+    /* Top header adjustments */
     .top-header-content {
         flex-direction: column;
         gap: 15px;
@@ -1148,20 +1145,22 @@ section {
         justify-content: center;
     }
 
-    /* Main header mobile layout - CENTERED LOGO */
+    /* Header and navigation layout fixes */
     header {
         padding: 0.5rem 0;
+        margin-bottom: 0;
         position: fixed;
         top: 40px;
         width: 100%;
         z-index: 1001;
+        background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%);
     }
     
     .top-header.hidden + header {
         top: 0;
     }
-
-    /* Center navigation layout */
+    
+    /* Center navigation and logo */
     nav {
         display: flex !important;
         flex-direction: column !important;
@@ -1169,10 +1168,19 @@ section {
         justify-content: center !important;
         padding: 0.5rem 0;
         position: relative;
-        min-height: 80px;
+        width: 100%;
     }
-
-    /* Center and enlarge logo */
+    
+    nav .container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100%;
+        position: relative;
+    }
+    
+    /* Logo centering and sizing */
     .logo {
         display: flex !important;
         justify-content: center !important;
@@ -1181,14 +1189,14 @@ section {
         width: 100% !important;
         margin: 0 auto !important;
         padding: 1rem 0 !important;
-        font-size: 2.2rem !important; /* Doubled from desktop */
+        font-size: 2.6rem !important;
         order: 1;
         opacity: 1 !important;
         visibility: visible !important;
     }
     
     .logo-img {
-        height: 50px !important; /* Increased from 40px */
+        height: 60px !important;
         width: auto !important;
         display: block !important;
         opacity: 1 !important;
@@ -1196,13 +1204,19 @@ section {
     }
     
     .logo-text {
-        display: block !important;
-        font-size: 2.2rem !important;
+        display: none;
+        font-size: 2.6rem !important;
         color: #f4f4f4 !important;
         text-align: center !important;
     }
-
-    /* Position hamburger in top right */
+    
+    /* Show logo text if image fails */
+    .logo-img:not([src]) + .logo-text,
+    .logo-img[src=""] + .logo-text {
+        display: block !important;
+    }
+    
+    /* Hide hamburger menu initially, show on mobile */
     .hamburger-menu {
         display: flex !important;
         position: absolute !important;
@@ -1210,14 +1224,22 @@ section {
         right: 20px !important;
         transform: translateY(-50%) !important;
         z-index: 1005 !important;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 20px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
     }
-
-    /* Hide navigation links by default on mobile */
+    
+    /* Hide main navigation links on mobile */
     .nav-links {
         display: none;
     }
-
-    /* Mobile menu overlay */
+    
+    /* Mobile navigation overlay */
     .nav-links.active {
         display: flex !important;
         flex-direction: column !important;
@@ -1227,7 +1249,7 @@ section {
         width: 100% !important;
         height: 100vh !important;
         background: rgba(44, 85, 48, 0.95) !important;
-        padding-top: 150px !important; /* Account for larger logo */
+        padding-top: 160px !important;
         align-items: center !important;
         justify-content: flex-start !important;
         gap: 1.5rem !important;
@@ -1235,12 +1257,12 @@ section {
         transform: translateX(100%) !important;
         transition: transform 0.4s ease-out !important;
     }
-
+    
     .nav-links.active.open {
         transform: translateX(0) !important;
     }
-
-    /* COMPLETELY HIDE DROPDOWNS ON MOBILE */
+    
+    /* COMPLETELY HIDE ALL DROPDOWNS ON MOBILE */
     .nav-links .dropdown-content,
     .nav-links.active .dropdown-content,
     .dropdown-content {
@@ -1250,18 +1272,13 @@ section {
         pointer-events: none !important;
         height: 0 !important;
         overflow: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
     }
     
-    /* Remove dropdown arrows on mobile */
-    .nav-links .dropdown > a::after,
-    .nav-links.active .dropdown > a::after {
-        display: none !important;
-        content: none !important;
-    }
-    
-    /* Ensure no dropdown shows on hover on mobile */
-    .nav-links.active .dropdown:hover .dropdown-content,
+    /* Remove dropdown hover effects */
     .nav-links .dropdown:hover .dropdown-content,
+    .nav-links.active .dropdown:hover .dropdown-content,
     .dropdown:hover .dropdown-content {
         display: none !important;
         opacity: 0 !important;
@@ -1269,24 +1286,33 @@ section {
         pointer-events: none !important;
     }
     
-    /* Make dropdown parent links work as regular links */
+    /* Remove dropdown arrows */
+    .nav-links .dropdown > a::after,
+    .nav-links.active .dropdown > a::after {
+        display: none !important;
+        content: none !important;
+    }
+    
+    /* Make dropdown links work as regular links */
     .nav-links .dropdown > a,
     .nav-links.active .dropdown > a {
         pointer-events: all !important;
         cursor: pointer !important;
         display: block !important;
     }
-
-    /* Content spacing adjustments */
+    
+    /* Content spacing fixes */
     .main-content {
-        margin-top: calc(40px + 100px) !important; /* top-header + main-header */
+        margin-top: calc(40px + 100px) !important;
+        position: relative;
+        z-index: 1;
     }
     
     .top-header.hidden ~ .main-content {
-        margin-top: 100px !important; /* just main-header height */
+        margin-top: 100px !important;
     }
-
-    /* Remove any white space */
+    
+    /* Remove white space */
     .hero {
         margin-top: 0 !important;
         padding-top: 2rem !important;
@@ -1295,8 +1321,14 @@ section {
     section {
         margin-top: 0 !important;
     }
+    
+    /* Remove any default margins that might cause white space */
+    body {
+        margin: 0;
+        padding: 0;
+    }
 
-    /* Responsive text and elements */
+    /* Other mobile adjustments */
     .hero-content h1 {
         font-size: 2.8rem;
     }
@@ -1335,6 +1367,12 @@ section {
         padding: 0.8rem;
     }
 
+    .footer-language-dropdown,
+    .footer-language-btn,
+    .footer-language-dropdown-content {
+        width: 100%;
+    }
+
     .contact-form-container {
         padding: 2rem;
     }
@@ -1350,35 +1388,29 @@ section {
     .contact-details-container h3 {
         font-size: 1.6rem;
     }
-
-    .footer-language-dropdown,
-    .footer-language-btn,
-    .footer-language-dropdown-content {
-        width: 100%;
-    }
 }
 
 /* Fine-tune for very small screens */
 @media (max-width: 480px) {
     .logo {
-        font-size: 1.8rem !important;
+        font-size: 2.2rem !important;
         padding: 0.75rem 0 !important;
     }
-    
+
     .logo-img {
-        height: 40px !important;
+        height: 50px !important;
     }
     
     .logo-text {
-        font-size: 1.8rem !important;
+        font-size: 2.2rem !important;
     }
-    
+
     .hamburger-menu {
         right: 15px !important;
     }
-    
+
     .nav-links.active {
-        padding-top: 130px !important;
+        padding-top: 140px !important;
     }
 
     .hero-content h1 {
@@ -1423,5 +1455,89 @@ section {
     .contact-form-container,
     .contact-details-container {
         padding: 1.5rem;
+    }
+    
+    nav {
+        padding: 0.75rem 0;
+    }
+    
+    .hero {
+        padding-top: 1rem;
+    }
+}
+
+/* Fine-tune for very small screens */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 2.2rem !important;
+        padding: 0.75rem 0 !important;
+    }
+
+    .logo-img {
+        height: 50px !important;
+    }
+    
+    .logo-text {
+        font-size: 2.2rem !important;
+    }
+
+    .hamburger-menu {
+        right: 15px !important;
+    }
+
+    .nav-links.active {
+        padding-top: 140px !important;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .about-text, .service-card p, .quality-feature-card p, .location-card p, .location-card address, .contact-info-item p {
+        font-size: 0.95rem;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    .process-table th,
+    .process-table td {
+        padding: 0.6rem;
+    }
+
+    .contact-form-container h3,
+    .contact-details-container h3 {
+        font-size: 1.4rem;
+    }
+
+    .contact-info-item h4 {
+        font-size: 1.2rem;
+    }
+
+    .contact-form-container,
+    .contact-details-container {
+        padding: 1.5rem;
+    }
+    
+    nav {
+        padding: 0.75rem 0;
+    }
+    
+    .hero {
+        padding-top: 1rem;
     }
 }
