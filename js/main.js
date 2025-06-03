@@ -226,3 +226,152 @@ const mobileCSS = `
 const styleSheet = document.createElement('style');
 styleSheet.textContent = mobileCSS;
 document.head.appendChild(styleSheet);
+
+// ADD this code to the END of your main.js file
+
+// Mobile fixes for logo and menu
+function applyMobileFixes() {
+    const isMobile = () => window.innerWidth <= 768;
+    
+    if (isMobile()) {
+        // Force logo visibility and centering
+        const logo = document.querySelector('.logo');
+        const logoImg = document.querySelector('.logo-img');
+        const logoText = document.querySelector('.logo-text');
+        const nav = document.querySelector('nav');
+        const navContainer = document.querySelector('nav .container');
+        
+        // Fix logo display
+        if (logo) {
+            logo.style.setProperty('display', 'flex', 'important');
+            logo.style.setProperty('justify-content', 'center', 'important');
+            logo.style.setProperty('align-items', 'center', 'important');
+            logo.style.setProperty('width', '100%', 'important');
+            logo.style.setProperty('text-align', 'center', 'important');
+            logo.style.setProperty('opacity', '1', 'important');
+            logo.style.setProperty('visibility', 'visible', 'important');
+        }
+        
+        // Fix nav layout
+        if (nav) {
+            nav.style.setProperty('display', 'flex', 'important');
+            nav.style.setProperty('flex-direction', 'column', 'important');
+            nav.style.setProperty('align-items', 'center', 'important');
+        }
+        
+        if (navContainer) {
+            navContainer.style.setProperty('display', 'flex', 'important');
+            navContainer.style.setProperty('flex-direction', 'column', 'important');
+            navContainer.style.setProperty('align-items', 'center', 'important');
+        }
+        
+        // Handle logo image
+        if (logoImg) {
+            logoImg.style.setProperty('opacity', '1', 'important');
+            logoImg.style.setProperty('visibility', 'visible', 'important');
+            
+            logoImg.addEventListener('error', () => {
+                logoImg.style.display = 'none';
+                if (logoText) {
+                    logoText.style.setProperty('display', 'block', 'important');
+                }
+            });
+        }
+        
+        // Hide all dropdowns
+        const dropdowns = document.querySelectorAll('.dropdown-content');
+        dropdowns.forEach(dropdown => {
+            dropdown.style.setProperty('display', 'none', 'important');
+            dropdown.style.setProperty('opacity', '0', 'important');
+            dropdown.style.setProperty('visibility', 'hidden', 'important');
+            dropdown.style.setProperty('pointer-events', 'none', 'important');
+            dropdown.style.setProperty('height', '0', 'important');
+            dropdown.style.setProperty('overflow', 'hidden', 'important');
+        });
+        
+        // Remove dropdown arrows
+        const dropdownLinks = document.querySelectorAll('.dropdown > a');
+        dropdownLinks.forEach(link => {
+            const style = window.getComputedStyle(link, '::after');
+            link.style.setProperty('--after-display', 'none', 'important');
+        });
+    }
+}
+
+// Enhanced mobile navigation
+function setupEnhancedMobileNav() {
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (hamburger && navLinks) {
+        // Remove existing listeners
+        hamburger.replaceWith(hamburger.cloneNode(true));
+        const newHamburger = document.querySelector('.hamburger-menu');
+        
+        newHamburger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            navLinks.classList.toggle('active');
+            newHamburger.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 100;
+                navLinks.style.paddingTop = `${headerHeight + 40}px`;
+                
+                setTimeout(() => navLinks.classList.add('open'), 10);
+                document.body.style.overflow = 'hidden';
+                
+                // Force hide dropdowns
+                const dropdowns = document.querySelectorAll('.dropdown-content');
+                dropdowns.forEach(dropdown => {
+                    dropdown.style.setProperty('display', 'none', 'important');
+                });
+            } else {
+                navLinks.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('open');
+                    newHamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                    setTimeout(() => navLinks.classList.remove('active'), 400);
+                }
+            });
+        });
+    }
+}
+
+// Apply fixes immediately and on resize
+applyMobileFixes();
+setupEnhancedMobileNav();
+
+window.addEventListener('resize', () => {
+    applyMobileFixes();
+    setupEnhancedMobileNav();
+});
+
+// Apply fixes after DOM changes
+const observer = new MutationObserver(() => {
+    if (window.innerWidth <= 768) {
+        applyMobileFixes();
+    }
+});
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+// Force apply fixes multiple times to ensure they stick
+setTimeout(applyMobileFixes, 100);
+setTimeout(applyMobileFixes, 500);
+setTimeout(applyMobileFixes, 1000);
+
+console.log('Mobile fixes applied');
