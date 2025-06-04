@@ -200,10 +200,8 @@ function sendEmailViaGraph($access_token, $sender_email, $recipient_email, $subj
     
     $options = [
         'http' => [
-            'header' => [
-                "Authorization: Bearer $access_token",
-                "Content-Type: application/json"
-            ],
+            'header' => "Authorization: Bearer $access_token\r\n" .
+                        "Content-Type: application/json\r\n",
             'method' => 'POST',
             'content' => json_encode($email_data),
             'ignore_errors' => true
