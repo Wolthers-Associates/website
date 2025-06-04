@@ -218,7 +218,7 @@ nav {
 }
 
 .dropdown-content {
-    display: none;
+    display: none; /* Hidden by default */
     position: absolute;
     background-color: rgba(44, 85, 48, 0.98);
     min-width: 180px;
@@ -230,15 +230,15 @@ nav {
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
+    pointer-events: none; /* Prevents interaction when hidden */
 }
 
 .dropdown:hover .dropdown-content,
 .dropdown.show-dropdown .dropdown-content {
-    display: block;
+    display: block; /* Show on hover for desktop */
     opacity: 1;
     transform: translateY(0);
-    pointer-events: all;
+    pointer-events: all; /* Allow interaction when visible */
 }
 
 .dropdown-content a {
@@ -252,6 +252,20 @@ nav {
 .dropdown-content a:hover {
     background-color: rgba(212, 175, 55, 0.2);
     color: #d4af37;
+}
+
+/* Add dropdown arrow for desktop */
+.nav-links .dropdown > a::after {
+    content: '▼'; /* Unicode for down arrow */
+    font-size: 0.7em;
+    margin-left: 8px;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+    display: inline-block; /* Ensure it's always visible on desktop */
+}
+
+.dropdown:hover > a::after {
+    transform: rotate(180deg);
 }
 
 /* Hamburger Menu for Mobile */
@@ -1078,19 +1092,6 @@ section {
     pointer-events: all;
 }
 
-.footer-language-dropdown-content a {
-    color: white;
-    padding: 10px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.footer-language-dropdown-content a:hover {
-    background-color: rgba(212, 175, 55, 0.2);
-}
-
 .dropdown-arrow {
     font-size: 12px;
 }
@@ -1124,8 +1125,6 @@ section {
         grid-template-columns: 1fr;
     }
 }
-
-/* REPLACE the entire @media (max-width: 768px) section with this: */
 
 @media (max-width: 768px) {
     /* Top header adjustments */
@@ -1263,8 +1262,6 @@ section {
     }
     
     /* COMPLETELY HIDE ALL DROPDOWNS ON MOBILE */
-    .nav-links .dropdown-content,
-    .nav-links.active .dropdown-content,
     .dropdown-content {
         display: none !important;
         opacity: 0 !important;
@@ -1273,10 +1270,10 @@ section {
         height: 0 !important;
         overflow: hidden !important;
         position: absolute !important;
-        left: -9999px !important;
+        left: -9999px !important; /* Move off-screen to ensure no layout issues */
     }
     
-    /* Remove dropdown hover effects */
+    /* Remove dropdown hover effects on mobile */
     .nav-links .dropdown:hover .dropdown-content,
     .nav-links.active .dropdown:hover .dropdown-content,
     .dropdown:hover .dropdown-content {
@@ -1286,14 +1283,14 @@ section {
         pointer-events: none !important;
     }
     
-    /* Remove dropdown arrows */
+    /* Remove dropdown arrows on mobile */
     .nav-links .dropdown > a::after,
     .nav-links.active .dropdown > a::after {
         display: none !important;
         content: none !important;
     }
     
-    /* Make dropdown links work as regular links */
+    /* Make dropdown links work as regular links on mobile */
     .nav-links .dropdown > a,
     .nav-links.active .dropdown > a {
         pointer-events: all !important;
@@ -1383,7 +1380,7 @@ section {
 
     .contact-details-container {
         padding: 2rem;
-        display: none;
+        display: none; /* Hidden on mobile as per user's original CSS */
     }
 
     .contact-details-container h3 {
@@ -1459,87 +1456,7 @@ section {
 
     .contact-details-container {
         padding: 1.5rem;
-        display: none;
-    }
-    
-    nav {
-        padding: 0.75rem 0;
-    }
-    
-    .hero {
-        padding-top: 1rem;
-    }
-}
-
-/* Fine-tune for very small screens */
-@media (max-width: 480px) {
-    .logo {
-        font-size: 2.2rem !important;
-        padding: 0.75rem 0 !important;
-    }
-
-    .logo-img {
-        height: 50px !important;
-    }
-    
-    .logo-text {
-        font-size: 2.2rem !important;
-    }
-
-    .hamburger-menu {
-        right: 15px !important;
-    }
-
-    .nav-links.active {
-        padding-top: 140px !important;
-    }
-
-    .hero-content h1 {
-        font-size: 2.2rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    .cta-button {
-        padding: 12px 25px;
-        font-size: 1rem;
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-    }
-
-    .about-text, .service-card p, .quality-feature-card p, .location-card p, .location-card address, .contact-info-item p {
-        font-size: 0.95rem;
-    }
-
-    .stat-number {
-        font-size: 2.5rem;
-    }
-
-    .process-table th,
-    .process-table td {
-        padding: 0.6rem;
-    }
-
-    .contact-form-container h3,
-    .contact-details-container h3 {
-        font-size: 1.4rem;
-    }
-
-    .contact-info-item h4 {
-        font-size: 1.2rem;
-    }
-
-    .contact-form-container {
-        padding: 1.5rem;
-    }
-
-    .contact-details-container {
-        padding: 1.5rem;
-        display: none;
+        display: none; /* Hidden on mobile as per user's original CSS */
     }
     
     nav {
