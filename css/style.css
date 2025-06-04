@@ -1383,6 +1383,7 @@ section {
 
     .contact-details-container {
         padding: 2rem;
+        display: none;
     }
 
     .contact-details-container h3 {
@@ -1452,9 +1453,13 @@ section {
         font-size: 1.2rem;
     }
 
-    .contact-form-container,
+    .contact-form-container {
+        padding: 1.5rem;
+    }
+
     .contact-details-container {
         padding: 1.5rem;
+        display: none;
     }
     
     nav {
@@ -1528,9 +1533,13 @@ section {
         font-size: 1.2rem;
     }
 
-    .contact-form-container,
+    .contact-form-container {
+        padding: 1.5rem;
+    }
+
     .contact-details-container {
         padding: 1.5rem;
+        display: none;
     }
     
     nav {
