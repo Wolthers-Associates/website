@@ -285,21 +285,40 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupLanguageSwitcher() {
         const langButtons = document.querySelectorAll('.lang-btn');
         const footerLangLinks = document.querySelectorAll('.footer-language-dropdown-content a');
-        
+
+        function applyTranslations(lang) {
+            if (typeof translations === 'undefined') return;
+
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                const text = translations[lang] && translations[lang][key];
+                if (!text) return;
+
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = text;
+                } else {
+                    el.textContent = text;
+                }
+            });
+        }
+
         function switchLanguage(lang) {
             // Update active state
             langButtons.forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
-            
+
             // Update footer current language
             const currentLangSpan = document.getElementById('current-lang');
             if (currentLangSpan) {
                 currentLangSpan.textContent = lang.toUpperCase();
             }
-            
-            // Here you would typically load language content
-            console.log(`Switched to language: ${lang}`);
+
+            // Apply translations if available
+            applyTranslations(lang);
+
+            // Store preference
+            localStorage.setItem('preferredLanguage', lang);
         }
         
         langButtons.forEach(button => {
@@ -314,6 +333,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 switchLanguage(this.dataset.lang);
             });
         });
+
+        const preferred = localStorage.getItem('preferredLanguage') || 'en';
+        switchLanguage(preferred);
     }
     
     // Apply mobile fixes for logo centering
