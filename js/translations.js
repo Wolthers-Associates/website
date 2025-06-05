@@ -97,7 +97,9 @@ const translations = {
         logisticsSupport: 'Logistics Support',
         logisticsDesc: 'For shipping coordination, sample requests, vessel booking, and logistics assistance.',
         headquarters: 'Our Global Headquarters',
-        
+        danielDescription: 'Partner and COO, daily on global trade, overseeing company operations and trading activities with deep knowledge of supply chains and strategic development. Nespresso Cluster Administrator.',
+        svennDescription: 'Oversees our Guatemala and Colombia labs, frequently traveling across Brazil and Latin America while supporting marketing efforts. Svenn is also a great host and experienced inland travel agent.',
+
         // Common
         tel: 'Tel',
         address: 'Address',
@@ -219,7 +221,9 @@ const translations = {
         logisticsSupport: 'Suporte Logístico',
         logisticsDesc: 'Para coordenação de envio, solicitações de amostras, reserva de navios e assistência logística.',
         headquarters: 'Nossa Sede Global',
-        
+        danielDescription: 'Sócio e COO, diariamente no comércio global, supervisionando as operações da empresa e atividades de trading com profundo conhecimento das cadeias de suprimentos e desenvolvimento estratégico. Administrador do Cluster Nespresso.',
+        svennDescription: 'Supervisiona nossos laboratórios na Guatemala e na Colômbia, viajando frequentemente pelo Brasil e pela América Latina enquanto apoia os esforços de marketing. Svenn também é um ótimo anfitrião e experiente agente de viagens terrestres.',
+
         // Common
         tel: 'Tel',
         address: 'Endereço',
@@ -341,7 +345,9 @@ const translations = {
         logisticsSupport: 'Soporte Logístico',
         logisticsDesc: 'Para coordinación de envío, solicitudes de muestras, reserva de buques y asistencia logística.',
         headquarters: 'Nuestra Sede Global',
-        
+        danielDescription: 'Socio y COO, dedicado al comercio global a diario, supervisando las operaciones de la empresa y las actividades de trading con profundo conocimiento de las cadenas de suministro y el desarrollo estratégico. Administrador del Clúster Nespresso.',
+        svennDescription: 'Supervisa nuestros laboratorios en Guatemala y Colombia, viajando con frecuencia por Brasil y América Latina mientras apoya los esfuerzos de marketing. Svenn también es un gran anfitrión y experimentado agente de viajes terrestres.',
+
         // Common
         tel: 'Tel',
         address: 'Dirección',
