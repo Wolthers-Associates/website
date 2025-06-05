@@ -5,10 +5,9 @@
     box-sizing: border-box;
 }
 
-/* Remove white line/flash on page load */
 html {
     scroll-behavior: smooth;
-    background-color: #2c5530; /* Match header background initially */
+    background-color: #2c5530;
     height: 100%;
 }
 
@@ -16,18 +15,12 @@ body {
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #2c5530; /* Start with header color to prevent flash */
+    background-color: #f4f4f4;
     min-height: 100vh;
     overflow-x: hidden;
     transition: background-color 0.3s ease;
 }
 
-/* Set proper background after page loads */
-body.loaded {
-    background-color: #f4f4f4;
-}
-
-/* Container for consistent content width */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -211,14 +204,14 @@ nav {
     background: #d4af37;
 }
 
-/* Dropdown Menu */
+/* Dropdown Menu - ONLY FOR DESKTOP */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
 .dropdown-content {
-    display: none; /* Hidden by default */
+    display: none;
     position: absolute;
     background-color: rgba(44, 85, 48, 0.98);
     min-width: 180px;
@@ -230,15 +223,15 @@ nav {
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none; /* Prevents interaction when hidden */
+    pointer-events: none;
 }
 
 .dropdown:hover .dropdown-content,
 .dropdown.show-dropdown .dropdown-content {
-    display: block; /* Show on hover for desktop */
+    display: block;
     opacity: 1;
     transform: translateY(0);
-    pointer-events: all; /* Allow interaction when visible */
+    pointer-events: all;
 }
 
 .dropdown-content a {
@@ -252,20 +245,6 @@ nav {
 .dropdown-content a:hover {
     background-color: rgba(212, 175, 55, 0.2);
     color: #d4af37;
-}
-
-/* Add dropdown arrow for desktop */
-.nav-links .dropdown > a::after {
-    content: '▼'; /* Unicode for down arrow */
-    font-size: 0.7em;
-    margin-left: 8px;
-    vertical-align: middle;
-    transition: transform 0.3s ease;
-    display: inline-block; /* Ensure it's always visible on desktop */
-}
-
-.dropdown:hover > a::after {
-    transform: rotate(180deg);
 }
 
 /* Hamburger Menu for Mobile */
@@ -763,7 +742,7 @@ section {
     font-style: normal;
 }
 
-/* Contact Section (Redesigned) */
+/* Contact Section */
 .contact {
     background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%);
     color: white;
@@ -773,7 +752,6 @@ section {
     color: white;
 }
 
-/* Contact Form Container - Now appears first */
 .contact-form-container {
     background: rgba(255, 255, 255, 0.9);
     padding: 3rem;
@@ -880,7 +858,6 @@ section {
     transform: none;
 }
 
-/* Contact Details Container - Now appears below form */
 .contact-details-container {
     background: rgba(255, 255, 255, 0.1);
     padding: 3rem;
@@ -1092,6 +1069,19 @@ section {
     pointer-events: all;
 }
 
+.footer-language-dropdown-content a {
+    color: white;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.footer-language-dropdown-content a:hover {
+    background-color: rgba(212, 175, 55, 0.2);
+}
+
 .dropdown-arrow {
     font-size: 12px;
 }
@@ -1126,8 +1116,9 @@ section {
     }
 }
 
+/* ===== MOBILE RESPONSIVE DESIGN - COMPLETELY REWRITTEN ===== */
 @media (max-width: 768px) {
-    /* Top header adjustments */
+    /* Top header mobile adjustments */
     .top-header-content {
         flex-direction: column;
         gap: 15px;
@@ -1144,14 +1135,11 @@ section {
         justify-content: center;
     }
 
-    /* Header and navigation layout fixes */
+    /* Header mobile layout - COMPLETE REBUILD */
     header {
-        padding: 0.5rem 0;
-        margin-bottom: 0;
-        position: fixed;
+        padding: 0;
+        margin: 0;
         top: 40px;
-        width: 100%;
-        z-index: 1001;
         background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%);
     }
     
@@ -1159,15 +1147,14 @@ section {
         top: 0;
     }
     
-    /* Center navigation and logo */
+    /* Navigation container - mobile centered layout */
     nav {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: 0.5rem 0;
-        position: relative;
+        display: block !important;
         width: 100%;
+        padding: 0;
+        margin: 0;
+        min-height: auto;
+        position: relative;
     }
     
     nav .container {
@@ -1176,46 +1163,54 @@ section {
         align-items: center !important;
         justify-content: center !important;
         width: 100%;
+        padding: 0 20px;
         position: relative;
     }
     
-    /* Logo centering and sizing */
+    /* LOGO - PERFECT CENTERING */
     .logo {
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
         text-align: center !important;
         width: 100% !important;
-        margin: 0 auto !important;
-        padding: 1rem 0 !important;
-        font-size: 2.6rem !important;
+        margin: 0 !important;
+        padding: 20px 0 !important;
+        font-size: 2.4rem !important;
+        font-weight: bold !important;
+        color: #f4f4f4 !important;
         order: 1;
-        opacity: 1 !important;
-        visibility: visible !important;
+        position: relative;
+        z-index: 1002;
     }
     
     .logo-img {
-        height: 60px !important;
+        height: 55px !important;
         width: auto !important;
         display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
+        margin: 0 auto !important;
     }
     
     .logo-text {
-        display: none;
-        font-size: 2.6rem !important;
+        font-size: 2.4rem !important;
+        font-weight: bold !important;
         color: #f4f4f4 !important;
         text-align: center !important;
+        display: none;
     }
     
-    /* Show logo text if image fails */
+    /* Show text logo if image fails to load */
     .logo-img:not([src]) + .logo-text,
-    .logo-img[src=""] + .logo-text {
+    .logo-img[src=""] + .logo-text,
+    .logo.show-text .logo-text {
         display: block !important;
     }
     
-    /* Hide hamburger menu initially, show on mobile */
+    .logo.show-text .logo-img {
+        display: none !important;
+    }
+    
+    /* HAMBURGER MENU POSITIONING */
     .hamburger-menu {
         display: flex !important;
         position: absolute !important;
@@ -1223,22 +1218,23 @@ section {
         right: 20px !important;
         transform: translateY(-50%) !important;
         z-index: 1005 !important;
-        flex-direction: column;
-        justify-content: space-around;
         width: 30px;
         height: 20px;
+        flex-direction: column;
+        justify-content: space-around;
         background: transparent;
         border: none;
         cursor: pointer;
         padding: 0;
+        order: 2;
     }
     
-    /* Hide main navigation links on mobile */
+    /* COMPLETELY HIDE DESKTOP NAV LINKS */
     .nav-links {
-        display: none;
+        display: none !important;
     }
     
-    /* Mobile navigation overlay */
+    /* MOBILE NAVIGATION OVERLAY */
     .nav-links.active {
         display: flex !important;
         flex-direction: column !important;
@@ -1247,22 +1243,59 @@ section {
         left: 0 !important;
         width: 100% !important;
         height: 100vh !important;
-        background: rgba(44, 85, 48, 0.95) !important;
-        padding-top: 160px !important;
+        background: rgba(44, 85, 48, 0.97) !important;
+        backdrop-filter: blur(10px) !important;
+        padding: 150px 20px 20px 20px !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        gap: 1.5rem !important;
+        gap: 2rem !important;
         z-index: 1000 !important;
         transform: translateX(100%) !important;
-        transition: transform 0.4s ease-out !important;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+        list-style: none !important;
     }
     
     .nav-links.active.open {
         transform: translateX(0) !important;
     }
     
-    /* COMPLETELY HIDE ALL DROPDOWNS ON MOBILE */
-    .dropdown-content {
+    .nav-links.active li {
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .nav-links.active a {
+        display: block !important;
+        padding: 15px 20px !important;
+        color: white !important;
+        text-decoration: none !important;
+        font-size: 1.3rem !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+        min-width: 200px !important;
+    }
+    
+    .nav-links.active a:hover {
+        background: rgba(212, 175, 55, 0.2) !important;
+        color: #d4af37 !important;
+        transform: translateY(-2px) !important;
+    }
+    
+    /* COMPLETELY REMOVE ALL DROPDOWNS ON MOBILE - NUCLEAR OPTION */
+    .dropdown,
+    .nav-links .dropdown,
+    .nav-links.active .dropdown {
+        position: static !important;
+    }
+    
+    .dropdown-content,
+    .nav-links .dropdown-content,
+    .nav-links.active .dropdown-content,
+    .dropdown:hover .dropdown-content,
+    .dropdown.show-dropdown .dropdown-content {
         display: none !important;
         opacity: 0 !important;
         visibility: hidden !important;
@@ -1270,108 +1303,107 @@ section {
         height: 0 !important;
         overflow: hidden !important;
         position: absolute !important;
-        left: -9999px !important; /* Move off-screen to ensure no layout issues */
+        left: -99999px !important;
+        top: -99999px !important;
     }
     
-    /* Remove dropdown hover effects on mobile */
-    .nav-links .dropdown:hover .dropdown-content,
-    .nav-links.active .dropdown:hover .dropdown-content,
-    .dropdown:hover .dropdown-content {
-        display: none !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-    }
-    
-    /* Remove dropdown arrows on mobile */
+    /* Remove all dropdown styling and arrows */
     .nav-links .dropdown > a::after,
-    .nav-links.active .dropdown > a::after {
+    .nav-links.active .dropdown > a::after,
+    .dropdown > a::after {
         display: none !important;
         content: none !important;
     }
     
-    /* Make dropdown links work as regular links on mobile */
+    /* Make dropdown parent links work normally */
     .nav-links .dropdown > a,
     .nav-links.active .dropdown > a {
         pointer-events: all !important;
         cursor: pointer !important;
         display: block !important;
+        position: relative !important;
     }
     
-    /* Content spacing fixes */
+    /* CONTENT SPACING ADJUSTMENTS */
     .main-content {
-        margin-top: calc(40px + 100px) !important;
-        position: relative;
-        z-index: 1;
+        margin-top: 140px !important;
     }
     
     .top-header.hidden ~ .main-content {
         margin-top: 100px !important;
     }
     
-    /* Remove white space */
+    /* Hero section mobile adjustments */
     .hero {
-        margin-top: 0 !important;
-        padding-top: 2rem !important;
+        height: calc(100vh - 140px) !important;
+        padding: 2rem 1rem !important;
+        background-attachment: scroll !important;
     }
     
-    section {
-        margin-top: 0 !important;
-    }
-    
-    /* Remove any default margins that might cause white space */
-    body {
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Other mobile adjustments */
     .hero-content h1 {
         font-size: 2.8rem;
+        line-height: 1.2;
     }
 
     .hero-content p {
         font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+
+    /* Section adjustments */
+    section {
+        padding: 60px 0;
     }
 
     .section-title {
         font-size: 2rem;
+        margin-bottom: 2rem;
     }
 
+    /* About section mobile */
     .about-content {
         grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
     .about-image {
         height: 300px;
     }
 
+    /* Grid layouts mobile */
     .heritage-stats,
     .services-grid,
     .quality-features-grid,
     .locations-grid,
     .footer-content {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
+    /* Table mobile */
     .process-table {
-        font-size: 0.9rem;
-        min-width: unset;
+        font-size: 0.85rem;
+        min-width: 500px;
     }
 
     .process-table th,
     .process-table td {
-        padding: 0.8rem;
+        padding: 0.8rem 0.5rem;
     }
 
-    .footer-language-dropdown,
-    .footer-language-btn,
-    .footer-language-dropdown-content {
-        width: 100%;
+    .check-mark {
+        font-size: 1.4rem;
     }
 
+    /* Contact form mobile */
     .contact-form-container {
-        padding: 2rem;
+        padding: 2rem 1.5rem;
+        margin: 2rem 1rem;
     }
 
     .contact-form-container h3 {
@@ -1379,36 +1411,69 @@ section {
     }
 
     .contact-details-container {
-        padding: 2rem;
-        display: none; /* Hidden on mobile as per user's original CSS */
+        padding: 2rem 1.5rem;
+        margin-top: 2rem;
     }
 
     .contact-details-container h3 {
         font-size: 1.6rem;
     }
+
+    /* Footer mobile */
+    .footer-content {
+        gap: 30px;
+    }
+
+    .footer-language-dropdown,
+    .footer-language-btn,
+    .footer-language-dropdown-content {
+        width: 100%;
+    }
 }
 
-/* Fine-tune for very small screens */
+/* Extra small mobile devices */
 @media (max-width: 480px) {
     .logo {
-        font-size: 2.2rem !important;
-        padding: 0.75rem 0 !important;
+        font-size: 2rem !important;
+        padding: 15px 0 !important;
     }
 
     .logo-img {
-        height: 50px !important;
+        height: 45px !important;
     }
     
     .logo-text {
-        font-size: 2.2rem !important;
+        font-size: 2rem !important;
     }
 
     .hamburger-menu {
         right: 15px !important;
+        width: 25px !important;
+        height: 18px !important;
     }
 
     .nav-links.active {
-        padding-top: 140px !important;
+        padding: 130px 15px 15px 15px !important;
+        gap: 1.5rem !important;
+    }
+
+    .nav-links.active a {
+        font-size: 1.1rem !important;
+        padding: 12px 15px !important;
+        min-width: 180px !important;
+    }
+
+    .main-content {
+        margin-top: 120px !important;
+    }
+
+    .top-header.hidden ~ .main-content {
+        margin-top: 85px !important;
+    }
+
+    .hero {
+        height: calc(100vh - 120px) !important;
+        padding: 1rem !important;
     }
 
     .hero-content h1 {
@@ -1419,26 +1484,17 @@ section {
         font-size: 1rem;
     }
 
-    .cta-button {
-        padding: 12px 25px;
-        font-size: 1rem;
-    }
-
     .section-title {
         font-size: 1.8rem;
-    }
-
-    .about-text, .service-card p, .quality-feature-card p, .location-card p, .location-card address, .contact-info-item p {
-        font-size: 0.95rem;
     }
 
     .stat-number {
         font-size: 2.5rem;
     }
 
-    .process-table th,
-    .process-table td {
-        padding: 0.6rem;
+    .contact-form-container {
+        padding: 1.5rem;
+        margin: 1.5rem 0.5rem;
     }
 
     .contact-form-container h3,
@@ -1446,24 +1502,17 @@ section {
         font-size: 1.4rem;
     }
 
-    .contact-info-item h4 {
-        font-size: 1.2rem;
-    }
-
-    .contact-form-container {
-        padding: 1.5rem;
-    }
-
     .contact-details-container {
         padding: 1.5rem;
-        display: none; /* Hidden on mobile as per user's original CSS */
     }
-    
-    nav {
-        padding: 0.75rem 0;
+
+    .process-table {
+        min-width: 450px;
+        font-size: 0.8rem;
     }
-    
-    .hero {
-        padding-top: 1rem;
+
+    .process-table th,
+    .process-table td {
+        padding: 0.6rem 0.4rem;
     }
 }
