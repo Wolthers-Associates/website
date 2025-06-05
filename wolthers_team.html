@@ -433,109 +433,167 @@
 
         /* ===== CONTACT SECTION COMPONENT ===== */
         .contact {
-            background: #f8f9fa;
-            padding: 80px 0;
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c4a 100%);
+            color: white;
         }
 
-        .contact-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #2c5530;
-            font-weight: 300;
+        .contact .section-title {
+            color: white;
         }
 
-        .contact-subtitle {
-            text-align: center;
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 4rem;
+        .contact-form-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            color: #333;
+            margin: 3rem auto;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        .contact-sections {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 0;
-            background: white;
-            border-radius: 12px;
+        .contact-form-container h3 {
+            color: #2c5530;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .contact-form-container p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #555;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form label.visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            margin-bottom: 40px;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
 
-        .contact-section {
-            padding: 40px 30px;
-            border-right: 1px solid #e9ecef;
-            transition: all 0.3s ease;
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            background-color: white;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .contact-section:last-child {
-            border-right: none;
+        .contact-form select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+            cursor: pointer;
         }
 
-        .contact-section:hover {
-            background: #f8f9fa;
+        .contact-form input[type="text"]::placeholder,
+        .contact-form input[type="email"]::placeholder,
+        .contact-form textarea::placeholder {
+            color: #999;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+            outline: none;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .submit-btn {
+            width: 100%;
+            padding: 15px 20px;
+            background: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .contact-form .submit-btn:hover {
+            background: #b8941f;
             transform: translateY(-2px);
         }
 
-        .contact-section h3 {
-            font-size: 1.2rem;
-            color: #2c5530;
-            margin-bottom: 15px;
-            font-weight: 600;
+        .contact-form .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .contact-email {
-            display: inline-block;
+        .contact-details-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-details-container h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+
+        .contact-info-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid #d4af37;
+        }
+
+        .contact-info-item h4 {
+            color: #d4af37;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-info-item p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-info-item a {
             color: #d4af37;
             text-decoration: none;
-            font-weight: 500;
-            margin-bottom: 10px;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
-        .contact-email:hover {
-            color: #b8941f;
-        }
-
-        .contact-description {
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .headquarters {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .headquarters h3 {
-            color: #2c5530;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .headquarters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .headquarters-location h4 {
-            color: #d4af37;
-            margin-bottom: 15px;
-        }
-
-        .headquarters-location p {
-            color: #666;
-            margin-bottom: 5px;
+        .contact-info-item a:hover {
+            color: white;
+            text-decoration: underline;
         }
 
         /* ===== FOOTER COMPONENT ===== */
@@ -1237,55 +1295,9 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="contact">
+        <section id="contact" class="contact fade-in">
             <div class="container">
-                <h2 class="contact-title" data-lang-key="contactTitle">Contact Us</h2>
-                <p class="contact-subtitle" data-lang-key="contactSubtitle">Connect with our global team of coffee trading experts. We're here to support your business across all origins.</p>
-                
-                <div class="contact-sections">
-                    <div class="contact-section">
-                        <h3 data-lang-key="tradingInquiries">Trading Inquiries</h3>
-                        <a href="mailto:trading@wolthers.com" class="contact-email">trading@wolthers.com</a>
-                        <p class="contact-description" data-lang-key="tradingDesc">For all trading and brokerage related questions and new business opportunities.</p>
-                    </div>
-                    <div class="contact-section">
-                        <h3 data-lang-key="qualityControl">Quality Control</h3>
-                        <a href="mailto:qualitycontrol@wolthers.com" class="contact-email">qualitycontrol@wolthers.com</a>
-                        <p class="contact-description" data-lang-key="qualityDesc">For quality control services and testing across all origins including Brazil, Colombia, and Guatemala.</p>
-                    </div>
-                    <div class="contact-section">
-                        <h3 data-lang-key="logisticsSupport">Logistics Support</h3>
-                        <a href="mailto:wolthers@wolthers.com" class="contact-email">wolthers@wolthers.com</a>
-                        <p class="contact-description" data-lang-key="logisticsDesc">For shipping coordination, sample requests, vessel booking, and logistics assistance.</p>
-                    </div>
-                </div>
-
-                <div class="headquarters">
-                    <h3 data-lang-key="headquarters">Our Global Headquarters</h3>
-                    <div class="headquarters-grid">
-                        <div class="headquarters-location">
-                            <h4 data-lang-key="santosBrazil">Santos, Brazil</h4>
-                            <p>Rua Quinze de Novembro 96</p>
-                            <p>Santos, SP 11010-150</p>
-                            <p>Brasil</p>
-                            <p style="color: #2c5530; font-weight: 500; margin-top: 10px;"><span data-lang-key="tel">Tel</span>: +55 (13) 2127-4144</p>
-                        </div>
-                        <div class="headquarters-location">
-                            <h4 data-lang-key="buenaventuraColombia">Buenaventura, Colombia</h4>
-                            <p>Street 2 #1a-18</p>
-                            <p>Edificio del Cafe Building</p>
-                            <p>Office 1004</p>
-                            <p style="color: #2c5530; font-weight: 500; margin-top: 10px;"><span data-lang-key="tel">Tel</span>: +57 032 297-9189</p>
-                        </div>
-                        <div class="headquarters-location">
-                            <h4 data-lang-key="guatemalaCity">Guatemala City, Guatemala</h4>
-                            <p>12-01 Avenida Reforma</p>
-                            <p>Edificio Reforma Montufar</p>
-                            <p>Oficina 9-01</p>
-                            <p style="color: #2c5530; font-weight: 500; margin-top: 10px;"><span data-lang-key="tel">Tel</span>: +502 4669-0057</p>
-                        </div>
-                    </div>
-                </div>
+                <h2 class="section-title" data-lang-key="contactTitle">Contact Us</h2>
 
                 <!-- Contact Form Container -->
                 <div class="contact-form-container">
@@ -1324,6 +1336,28 @@
                         </div>
                         <button type="submit" class="submit-btn" data-lang-key="formSendButton">Send Message</button>
                     </form>
+                </div>
+
+                <!-- Contact Details Container (moved below form) -->
+                <div class="contact-details-container">
+                    <h3 data-lang-key="ourContactDetails">Our Contact Details</h3>
+                    <div class="contact-info-item">
+                        <h4 data-lang-key="tradingInquiries">Trading Inquiries</h4>
+                        <p><strong data-lang-key="email">Email:</strong> <a href="mailto:trading@wolthers.com">trading@wolthers.com</a></p>
+                        <p data-lang-key="tradingDesc">For all trading and brokerage related questions, quality control services, and new business opportunities.</p>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <h4 data-lang-key="logisticsSupport">Logistics Support</h4>
+                        <p><strong data-lang-key="email">Email:</strong> <a href="mailto:logistics@wolthers.com">logistics@wolthers.com</a></p>
+                        <p data-lang-key="logisticsDesc">For shipping coordination, sample requests, vessel booking, and logistics assistance.</p>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <h4>Quality Control Services</h4>
+                        <p><strong data-lang-key="email">Email:</strong> <a href="mailto:qualitycontrol@wolthers.com">qualitycontrol@wolthers.com</a></p>
+                        <p>For quality control services and testing across all origins including Brazil, Colombia, and Guatemala.</p>
+                    </div>
                 </div>
             </div>
         </section>
