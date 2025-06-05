@@ -227,7 +227,7 @@ const styleSheet = document.createElement('style');
 styleSheet.textContent = mobileCSS;
 document.head.appendChild(styleSheet);
 
-// ADD this code to the END of your main.js file
+// This section should remain at the bottom of main.js
 
 // Mobile fixes for logo and menu
 function applyMobileFixes() {
