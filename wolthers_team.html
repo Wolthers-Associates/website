@@ -1196,6 +1196,45 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Contact Form Container -->
+                <div class="contact-form-container">
+                    <h3 data-lang-key="sendUsMessage">Send Us a Message</h3>
+                    <p data-lang-key="formInstructions">Please fill out the form below and we'll get back to you shortly.</p>
+                    <form class="contact-form" id="contactForm" name="contact" method="POST" action="/?success=true" data-netlify="true" netlify-honeypot="bot-field">
+                        <!-- Hidden honeypot field for spam protection -->
+                        <input type="hidden" name="bot-field">
+                        <!-- Hidden field to capture the selected department email -->
+                        <input type="hidden" name="department-email" id="department-email-hidden">
+
+                        <div class="form-group">
+                            <label for="name" class="visually-hidden">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" data-lang-key="formNamePlaceholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="visually-hidden">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" data-lang-key="formEmailPlaceholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="department" class="visually-hidden">Department</label>
+                            <select id="department" name="department" required>
+                                <option value="">Select Department</option>
+                                <option value="trading@wolthers.com">Trading Inquiries</option>
+                                <option value="logistics@wolthers.com">Logistics Support</option>
+                                <option value="qualitycontrol@wolthers.com">Quality Control Services</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="visually-hidden">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="Subject" data-lang-key="formSubjectPlaceholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="visually-hidden">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" data-lang-key="formMessagePlaceholder" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" data-lang-key="formSendButton">Send Message</button>
+                    </form>
+                </div>
             </div>
         </section>
     </div>
@@ -1699,6 +1738,27 @@
                 observer.observe(card);
             });
         });
+
+        // Contact form handling
+        const contactForm = document.getElementById('contactForm');
+        const departmentSelect = document.getElementById('department');
+        const departmentEmailHidden = document.getElementById('department-email-hidden');
+
+        if (departmentSelect && departmentEmailHidden) {
+            departmentSelect.addEventListener('change', function() {
+                departmentEmailHidden.value = this.value;
+            });
+        }
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function() {
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                }
+            });
+        }
     </script>
 </body>
 </html>
