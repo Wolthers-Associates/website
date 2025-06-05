@@ -1,83 +1,77 @@
-// Add this JavaScript to your main.js file to fix mobile issues
-
-document.addEventListener('DOMContentLoaded', () => {
+// Enhanced Mobile Navigation with Perfect Logo Centering
+document.addEventListener('DOMContentLoaded', function() {
     
-    // Fix 1: Ensure logo displays immediately
-    function ensureLogoVisibility() {
+    // Logo handling with fallback
+    function setupLogo() {
         const logo = document.querySelector('.logo');
         const logoImg = document.querySelector('.logo-img');
         const logoText = document.querySelector('.logo-text');
         
-        if (logo) {
-            logo.style.display = 'flex';
-            logo.style.opacity = '1';
-            logo.style.visibility = 'visible';
-        }
+        if (!logo) return;
         
-        // Handle logo image loading
-        if (logoImg) {
-            logoImg.style.opacity = '1';
-            logoImg.style.visibility = 'visible';
-            
-            // If image fails to load, show text
-            logoImg.addEventListener('error', () => {
-                logoImg.style.display = 'none';
-                if (logoText) {
-                    logoText.style.display = 'block';
-                }
-            });
-            
-            // If image loads successfully, hide text
-            logoImg.addEventListener('load', () => {
-                if (logoText) {
-                    logoText.style.display = 'none';
-                }
-            });
-        }
-        
-        // Ensure logo text is available as fallback
+        // Set fallback text
         if (logoText) {
             logoText.textContent = 'Wolthers & Associates';
         }
+        
+        // Handle image loading
+        if (logoImg) {
+            logoImg.addEventListener('error', () => {
+                logo.classList.add('show-text');
+            });
+            
+            logoImg.addEventListener('load', () => {
+                logo.classList.remove('show-text');
+            });
+            
+            // Check if image is already loaded or failed
+            if (logoImg.complete) {
+                if (logoImg.naturalWidth === 0) {
+                    logo.classList.add('show-text');
+                }
+            }
+        }
     }
     
-    // Fix 2: Mobile menu improvements with no submenus
+    // Mobile menu functionality
     function setupMobileMenu() {
         const hamburger = document.querySelector('.hamburger-menu');
         const navLinks = document.querySelector('.nav-links');
         
-        // Hamburger menu functionality
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', (e) => {
-                e.preventDefault();
+        if (!hamburger || !navLinks) return;
+        
+        // Toggle mobile menu
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isActive = navLinks.classList.contains('active');
+            
+            if (isActive) {
+                // Close menu
+                navLinks.classList.remove('open');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
                 
-                navLinks.classList.toggle('active');
-                hamburger.classList.toggle('active');
+                setTimeout(() => {
+                    navLinks.classList.remove('active');
+                }, 400);
+            } else {
+                // Open menu
+                navLinks.classList.add('active');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden';
                 
-                if (navLinks.classList.contains('active')) {
-                    // Calculate proper padding
-                    const header = document.querySelector('header');
-                    const headerHeight = header ? header.offsetHeight : 100;
-                    navLinks.style.paddingTop = `${headerHeight + 40}px`;
-                    
-                    // Add opening animation
-                    setTimeout(() => {
-                        navLinks.classList.add('open');
-                    }, 10);
-                    
-                    // Prevent body scroll
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    navLinks.classList.remove('open');
-                    document.body.style.overflow = '';
-                }
-            });
-        }
+                setTimeout(() => {
+                    navLinks.classList.add('open');
+                }, 10);
+            }
+        });
         
         // Close menu when clicking links
-        const navLinksItems = navLinks?.querySelectorAll('a') || [];
-        navLinksItems.forEach(link => {
-            link.addEventListener('click', () => {
+        const menuLinks = navLinks.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('open');
                     hamburger.classList.remove('active');
@@ -91,13 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (navLinks?.classList.contains('active') && 
+        document.addEventListener('click', function(e) {
+            if (navLinks.classList.contains('active') && 
                 !navLinks.contains(e.target) && 
-                !hamburger?.contains(e.target)) {
+                !hamburger.contains(e.target)) {
                 
                 navLinks.classList.remove('open');
-                hamburger?.classList.remove('active');
+                hamburger.classList.remove('active');
                 document.body.style.overflow = '';
                 
                 setTimeout(() => {
@@ -105,104 +99,323 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 400);
             }
         });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active', 'open');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
     }
     
-    // Fix 3: Force center logo on mobile
-    function centerLogoOnMobile() {
-        const isMobile = () => window.innerWidth <= 768;
+    // Smooth scrolling for anchor links
+    function setupSmoothScrolling() {
+        const links = document.querySelectorAll('a[href^="#"]');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        const headerHeight = document.querySelector('header').offsetHeight + 20;
+                        const targetPosition = target.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    }
+    
+    // Top header hide/show on scroll
+    function setupHeaderScroll() {
+        const topHeader = document.querySelector('.top-header');
+        let lastScrollTop = 0;
         
-        function adjustLogoPosition() {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down
+                topHeader.classList.add('hidden');
+            } else {
+                // Scrolling up
+                topHeader.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    }
+    
+    // Fade in animation on scroll
+    function setupFadeInAnimation() {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFadeIn() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFadeIn);
+        checkFadeIn(); // Check on load
+    }
+    
+    // Contact form handling
+    function setupContactForm() {
+        const form = document.getElementById('contactForm');
+        const departmentSelect = document.getElementById('department');
+        const departmentEmailHidden = document.getElementById('department-email-hidden');
+        
+        if (departmentSelect && departmentEmailHidden) {
+            departmentSelect.addEventListener('change', function() {
+                departmentEmailHidden.value = this.value;
+            });
+        }
+        
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const submitBtn = form.querySelector('.submit-btn');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                }
+            });
+        }
+    }
+    
+    // Search functionality
+    function setupSearch() {
+        const searchInputs = document.querySelectorAll('.search-input, .footer-search-input');
+        const searchButtons = document.querySelectorAll('.search-btn, .footer-search-btn');
+        
+        // Simple search functionality
+        function performSearch(query) {
+            if (!query.trim()) return;
+            
+            // Remove previous highlights
+            document.querySelectorAll('.search-highlight').forEach(highlight => {
+                const parent = highlight.parentNode;
+                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                parent.normalize();
+            });
+            
+            // Find and highlight matching text
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            const textNodes = [];
+            let node;
+            
+            while (node = walker.nextNode()) {
+                if (node.parentNode.tagName !== 'SCRIPT' && 
+                    node.parentNode.tagName !== 'STYLE' &&
+                    !node.parentNode.classList.contains('search-input') &&
+                    !node.parentNode.classList.contains('footer-search-input')) {
+                    textNodes.push(node);
+                }
+            }
+            
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            let matchCount = 0;
+            
+            textNodes.forEach(textNode => {
+                if (regex.test(textNode.textContent)) {
+                    const highlightedText = textNode.textContent.replace(regex, '<span class="search-highlight">$1</span>');
+                    const wrapper = document.createElement('div');
+                    wrapper.innerHTML = highlightedText;
+                    
+                    while (wrapper.firstChild) {
+                        textNode.parentNode.insertBefore(wrapper.firstChild, textNode);
+                    }
+                    
+                    textNode.parentNode.removeChild(textNode);
+                    matchCount++;
+                }
+            });
+            
+            // Scroll to first match
+            const firstMatch = document.querySelector('.search-highlight');
+            if (firstMatch) {
+                firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            console.log(`Found ${matchCount} matches for "${query}"`);
+        }
+        
+        // Handle search input
+        searchInputs.forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch(this.value);
+                }
+            });
+        });
+        
+        // Handle search buttons
+        searchButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const input = this.previousElementSibling || 
+                             this.parentNode.querySelector('.search-input, .footer-search-input');
+                if (input) {
+                    performSearch(input.value);
+                }
+            });
+        });
+    }
+    
+    // Language switcher functionality
+    function setupLanguageSwitcher() {
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const footerLangLinks = document.querySelectorAll('.footer-language-dropdown-content a');
+        
+        function switchLanguage(lang) {
+            // Update active state
+            langButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            
+            // Update footer current language
+            const currentLangSpan = document.getElementById('current-lang');
+            if (currentLangSpan) {
+                currentLangSpan.textContent = lang.toUpperCase();
+            }
+            
+            // Here you would typically load language content
+            console.log(`Switched to language: ${lang}`);
+        }
+        
+        langButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                switchLanguage(this.dataset.lang);
+            });
+        });
+        
+        footerLangLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                switchLanguage(this.dataset.lang);
+            });
+        });
+    }
+    
+    // Apply mobile fixes for logo centering
+    function applyMobileFixes() {
+        if (window.innerWidth <= 768) {
+            const logo = document.querySelector('.logo');
             const nav = document.querySelector('nav');
             const navContainer = document.querySelector('nav .container');
-            const logo = document.querySelector('.logo');
             
-            if (isMobile()) {
-                if (nav) {
-                    nav.style.setProperty('display', 'flex', 'important');
-                    nav.style.setProperty('flex-direction', 'column', 'important');
-                    nav.style.setProperty('align-items', 'center', 'important');
-                    nav.style.setProperty('justify-content', 'center', 'important');
-                }
-                
-                if (navContainer) {
-                    navContainer.style.setProperty('display', 'flex', 'important');
-                    navContainer.style.setProperty('flex-direction', 'column', 'important');
-                    navContainer.style.setProperty('align-items', 'center', 'important');
-                    navContainer.style.setProperty('justify-content', 'center', 'important');
-                }
-                
-                if (logo) {
-                    logo.style.setProperty('display', 'flex', 'important');
-                    logo.style.setProperty('justify-content', 'center', 'important');
-                    logo.style.setProperty('align-items', 'center', 'important');
-                    logo.style.setProperty('text-align', 'center', 'important');
-                    logo.style.setProperty('width', '100%', 'important');
-                    logo.style.setProperty('margin', '0 auto', 'important');
-                }
-            } else {
-                // Reset styles for desktop if needed, though CSS media queries should handle this
-                if (nav) {
-                    nav.style.removeProperty('display');
-                    nav.style.removeProperty('flex-direction');
-                    nav.style.removeProperty('align-items');
-                    nav.style.removeProperty('justify-content');
-                }
-                if (navContainer) {
-                    navContainer.style.removeProperty('display');
-                    navContainer.style.removeProperty('flex-direction');
-                    navContainer.style.removeProperty('align-items');
-                    navContainer.style.removeProperty('justify-content');
-                }
-                if (logo) {
-                    logo.style.removeProperty('display');
-                    logo.style.removeProperty('justify-content');
-                    logo.style.removeProperty('align-items');
-                    logo.style.removeProperty('text-align');
-                    logo.style.removeProperty('width');
-                    logo.style.removeProperty('margin');
-                }
+            if (logo) {
+                logo.style.setProperty('display', 'flex', 'important');
+                logo.style.setProperty('justify-content', 'center', 'important');
+                logo.style.setProperty('align-items', 'center', 'important');
+                logo.style.setProperty('width', '100%', 'important');
+                logo.style.setProperty('text-align', 'center', 'important');
+            }
+            
+            if (nav) {
+                nav.style.setProperty('display', 'block', 'important');
+            }
+            
+            if (navContainer) {
+                navContainer.style.setProperty('display', 'flex', 'important');
+                navContainer.style.setProperty('flex-direction', 'column', 'important');
+                navContainer.style.setProperty('align-items', 'center', 'important');
+            }
+            
+            // Force hide all dropdowns on mobile
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+            dropdowns.forEach(dropdown => {
+                dropdown.style.setProperty('display', 'none', 'important');
+                dropdown.style.setProperty('opacity', '0', 'important');
+                dropdown.style.setProperty('visibility', 'hidden', 'important');
+                dropdown.style.setProperty('pointer-events', 'none', 'important');
+                dropdown.style.setProperty('height', '0', 'important');
+                dropdown.style.setProperty('overflow', 'hidden', 'important');
+            });
+            
+            // Remove dropdown arrows
+            const dropdownLinks = document.querySelectorAll('.dropdown > a');
+            dropdownLinks.forEach(link => {
+                link.style.setProperty('--after-display', 'none', 'important');
+            });
+        }
+    }
+    
+    // Initialize all functionality
+    setupLogo();
+    setupMobileMenu();
+    setupSmoothScrolling();
+    setupHeaderScroll();
+    setupFadeInAnimation();
+    setupContactForm();
+    setupSearch();
+    setupLanguageSwitcher();
+    
+    // Apply fixes immediately and on resize
+    applyMobileFixes();
+    window.addEventListener('resize', applyMobileFixes);
+    
+    // Ensure fixes are applied after any DOM changes
+    setTimeout(applyMobileFixes, 100);
+    setTimeout(applyMobileFixes, 500);
+    
+    // Additional mobile optimizations
+    function optimizeMobilePerformance() {
+        // Disable CSS hover effects on touch devices
+        if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+        }
+        
+        // Optimize scroll performance
+        let ticking = false;
+        
+        function updateOnScroll() {
+            // Throttle scroll events for better performance
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    ticking = false;
+                });
+                ticking = true;
             }
         }
         
-        adjustLogoPosition();
-        window.addEventListener('resize', adjustLogoPosition);
+        window.addEventListener('scroll', updateOnScroll, { passive: true });
+        
+        // Preload critical images
+        const criticalImages = [
+            'images/wolthers-logo-off-white.svg',
+            'images/hero-coffee-bg.png'
+        ];
+        
+        criticalImages.forEach(src => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.href = src;
+            link.as = 'image';
+            document.head.appendChild(link);
+        });
     }
     
-    // Initialize all fixes
-    ensureLogoVisibility();
-    setupMobileMenu();
-    centerLogoOnMobile();
+    optimizeMobilePerformance();
     
-    // Fix logo display after a short delay (in case of loading issues)
-    setTimeout(ensureLogoVisibility, 100);
-    setTimeout(ensureLogoVisibility, 500);
-    
-    console.log('Mobile fixes applied successfully');
+    console.log('Wolthers & Associates website initialized successfully');
 });
-
-// Additional CSS injection to ensure dropdown hiding on mobile
-const mobileCSS = `
-@media (max-width: 768px) {
-    .dropdown-content {
-        display: none !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-        height: 0 !important;
-        overflow: hidden !important;
-        position: absolute !important;
-        left: -9999px !important; /* Move off-screen to ensure no layout issues */
-    }
-    
-    .nav-links .dropdown > a::after,
-    .nav-links.active .dropdown > a::after {
-        display: none !important;
-        content: none !important; /* Ensure the arrow is gone */
-    }
-}
-`;
-
-// Inject the CSS
-const styleSheet = document.createElement('style');
-styleSheet.textContent = mobileCSS;
-document.head.appendChild(styleSheet);
