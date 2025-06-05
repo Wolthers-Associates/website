@@ -1128,6 +1128,11 @@ section {
     .search-container {
         max-width: 100%;
         min-width: unset;
+        display: none;
+    }
+
+    .footer-search-container {
+        display: none;
     }
 
     .language-switcher {
