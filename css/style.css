@@ -109,9 +109,9 @@ body {
 }
 
 .lang-btn {
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
+    background: #1a3d1e;
+    border: 1px solid #1a3d1e;
+    color: #ffffff;
     padding: 5px 12px;
     border-radius: 20px;
     cursor: pointer;
@@ -126,7 +126,9 @@ body {
 }
 
 .lang-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: #d4af37;
+    border-color: #d4af37;
+    color: #1a3d1e;
 }
 
 /* ===== MAIN HEADER COMPONENT ===== */
