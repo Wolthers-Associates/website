@@ -283,8 +283,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Language switcher functionality
     function setupLanguageSwitcher() {
-        const langButtons = document.querySelectorAll('.lang-btn');
-        const footerLangLinks = document.querySelectorAll('.footer-language-dropdown-content a');
+        const langButtons = document.querySelectorAll('.language-switcher .lang-btn');
+        const footerLangLinks = document.querySelectorAll('.footer-language-switcher .lang-btn');
 
         function applyTranslations(lang) {
             if (typeof translations === 'undefined') return;
@@ -308,11 +308,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
 
-            // Update footer current language
-            const currentLangSpan = document.getElementById('current-lang');
-            if (currentLangSpan) {
-                currentLangSpan.textContent = lang.toUpperCase();
-            }
+            // Highlight active footer button
+            footerLangLinks.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
 
             // Apply translations if available
             applyTranslations(lang);
