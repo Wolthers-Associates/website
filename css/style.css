@@ -12,13 +12,18 @@ html {
 }
 
 body {
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Marcellus', 'DM Sans', sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #f4f4f4;
     min-height: 100vh;
     overflow-x: hidden;
     transition: background-color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', 'Source Sans Pro', serif;
+    text-shadow: none;
 }
 
 .container {
@@ -337,6 +342,8 @@ section {
     margin-bottom: 3rem;
     color: #2c5530;
     font-weight: 600;
+    font-family: 'Playfair Display', 'Source Sans Pro', serif;
+    text-shadow: none;
 }
 
 /* Fade-in on scroll effect */
@@ -353,7 +360,7 @@ section {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(44, 85, 48, 0.85), rgba(74, 124, 74, 0.85)), url('../images/hero-coffee-bg.png') no-repeat center center / cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../images/hero-coffee-bg.png') no-repeat center center / cover;
     height: calc(100vh - 100px);
     display: flex;
     align-items: center;
@@ -367,7 +374,7 @@ section {
     font-size: 4rem;
     margin-bottom: 1rem;
     font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: none;
 }
 
 .hero-content p {
@@ -1379,6 +1386,8 @@ section {
     .section-title {
         font-size: 2rem;
         margin-bottom: 2rem;
+        font-family: 'Playfair Display', 'Source Sans Pro', serif;
+        text-shadow: none;
     }
 
     /* About section mobile */
@@ -1502,6 +1511,8 @@ section {
 
     .section-title {
         font-size: 1.8rem;
+        font-family: 'Playfair Display', 'Source Sans Pro', serif;
+        text-shadow: none;
     }
 
     .stat-number {
