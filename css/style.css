@@ -166,7 +166,7 @@ nav {
 }
 
 .logo-img {
-    height: 50px;
+    height: 60px;
     width: auto;
 }
 
@@ -1201,7 +1201,7 @@ section {
     }
     
     .logo-img {
-        height: 60px !important;
+        height: 70px !important;
         width: auto !important;
         display: block !important;
         margin: 0 auto !important;
@@ -1455,7 +1455,7 @@ section {
     }
 
     .logo-img {
-        height: 50px !important;
+        height: 60px !important;
     }
     
     .logo-text {
