@@ -199,9 +199,41 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupSearch() {
         const searchInputs = document.querySelectorAll('.search-input, .footer-search-input');
         const searchButtons = document.querySelectorAll('.search-btn, .footer-search-btn');
+
+        const pages = ['index.html', 'wolthers_team.html', 'contact.php'];
+
+        function searchOtherPages(query) {
+            const current = window.location.pathname.split('/').pop() || 'index.html';
+            const targets = pages.filter(p => p !== current);
+
+            Promise.all(targets.map(url => {
+                return fetch(url)
+                    .then(r => r.text())
+                    .then(text => ({ url, text }))
+                    .catch(() => null);
+            })).then(results => {
+                for (const res of results) {
+                    if (res && new RegExp(query, 'i').test(res.text)) {
+                        window.location.href = `${res.url}?q=${encodeURIComponent(query)}`;
+                        return;
+                    }
+                }
+                alert(`No results found for: ${query}`);
+            });
+        }
+
+        function checkURLQuery() {
+            const params = new URLSearchParams(window.location.search);
+            const q = params.get('q');
+            if (q) {
+                const input = document.querySelector('.search-input');
+                if (input) input.value = q;
+                performSearch(q, false);
+            }
+        }
         
         // Simple search functionality
-        function performSearch(query) {
+        function performSearch(query, checkOtherPages = true) {
             if (!query.trim()) return;
             
             // Remove previous highlights
@@ -256,6 +288,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             console.log(`Found ${matchCount} matches for "${query}"`);
+            if (matchCount === 0 && checkOtherPages) {
+                searchOtherPages(query);
+            }
         }
         
         // Handle search input
@@ -272,13 +307,15 @@ document.addEventListener('DOMContentLoaded', function() {
         searchButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-                const input = this.previousElementSibling || 
+                const input = this.previousElementSibling ||
                              this.parentNode.querySelector('.search-input, .footer-search-input');
                 if (input) {
                     performSearch(input.value);
                 }
             });
         });
+
+        checkURLQuery();
     }
     
     // Language switcher functionality
