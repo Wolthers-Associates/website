@@ -129,11 +129,20 @@ body {
     padding: 30px;
 }
 
+
 .day {
     margin-bottom: 40px;
     border-left: 4px solid var(--light-green);
     padding-left: 20px;
     position: relative;
+}
+
+.day.current {
+    border-left-color: #D4AF37;
+}
+
+.day.past {
+    border-left-color: #555;
 }
 
 .day::before {
@@ -147,6 +156,14 @@ body {
     border-radius: 50%;
 }
 
+.day.current::before {
+    background: #D4AF37;
+}
+
+.day.past::before {
+    background: #555;
+}
+
 .day-header {
     background: linear-gradient(90deg, var(--medium-green), var(--light-green));
     color: var(--white);
@@ -157,6 +174,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.day.current .day-header {
+    background: linear-gradient(90deg, #D4AF37, #FFE08A);
+    color: #333;
+}
+
+.day.past .day-header {
+    background: #555;
+    color: #fff;
 }
 
 .day-date {
@@ -200,18 +227,19 @@ body {
     position: relative;
 }
 
+
 .activity.past {
-    background: #e8e8e8;
-    color: #666;
-    border-left-color: #999;
+    background: #555;
+    color: #fff;
+    border-left-color: #777;
 }
 
 .activity.past .activity-time {
-    color: #666 !important;
+    color: #fff !important;
 }
 
 .activity.past .activity-description {
-    color: #666 !important;
+    color: #fff !important;
 }
 
 .activity.current {
@@ -282,13 +310,13 @@ body {
 }
 
 .trip-conclusion {
-    background: linear-gradient(135deg, #3E2723 0%, #4E342E 100%);
-    color: var(--white);
-    padding: 40px 30px;
+    background: none;
+    color: #4e342e;
+    padding: 0;
     text-align: center;
-    margin: 40px 0 0 0;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(62, 39, 35, 0.3);
+    margin: 40px 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .conclusion-content h2 {
@@ -298,15 +326,13 @@ body {
     font-weight: 700;
 }
 
-.conclusion-content p {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 1.1rem;
-    opacity: 0.9;
-    line-height: 1.6;
-}
 
 .hidden {
     display: none;
+}
+
+.print-hide {
+    display: none !important;
 }
 
 .print-button {
@@ -484,16 +510,13 @@ body {
     
     .trip-conclusion {
         border-radius: 0;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding: 30px 20px;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
     }
     
     .conclusion-content h2 {
         font-size: 1.5rem;
     }
     
-    .conclusion-content p {
-        font-size: 1rem;
-    }
 }
