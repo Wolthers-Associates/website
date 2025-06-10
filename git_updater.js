@@ -1,4 +1,5 @@
 // git-updater.js - Enhanced trip scanner with Git integration
+// git-updater.js - Configuration for your existing repo
 const { exec } = require('child_process');
 const util = require('util');
 const execAsync = util.promisify(exec);
@@ -9,6 +10,7 @@ class GitTripUpdater extends TripScanner {
         super(tripsDirectory);
         this.gitBranch = gitBranch;
         this.commitMessage = `Auto-update trips - ${new Date().toISOString().split('T')[0]}`;
+        this.repoUrl = 'https://github.com/Wolthers-Associates/website.git'; // Your existing repo
     }
 
     async checkGitStatus() {
