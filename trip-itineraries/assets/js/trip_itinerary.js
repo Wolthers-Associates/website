@@ -79,6 +79,9 @@ function updateTimelineStatus() {
         const isPast = dayDate < now && !isToday;
         
         if (isToday) {
+            day.classList.add('current');
+            day.classList.remove('past');
+
             let currentActivityFound = false;
             
             activities.forEach(activity => {
@@ -99,11 +102,15 @@ function updateTimelineStatus() {
                 }
             });
         } else if (isPast) {
+            day.classList.add('past');
+            day.classList.remove('current');
+
             activities.forEach(activity => {
                 activity.classList.add('past');
                 activity.classList.remove('current');
             });
         } else {
+            day.classList.remove('past', 'current');
             activities.forEach(activity => {
                 activity.classList.remove('past', 'current');
             });
