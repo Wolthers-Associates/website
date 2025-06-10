@@ -634,14 +634,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Contact Form Submission (PHP Backend) ---
+    // --- Contact Form Submission (Netlify Forms) ---
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            
-            // Get form elements
+        contactForm.addEventListener('submit', function(event) {
             const submitBtn = this.querySelector('.submit-btn');
             const nameField = this.querySelector('#name');
             const emailField = this.querySelector('#email');
@@ -649,78 +646,39 @@ document.addEventListener('DOMContentLoaded', () => {
             const subjectField = this.querySelector('#subject');
             const messageField = this.querySelector('#message');
             
-            // Validation
+            // Basic validation
             if (!nameField.value.trim() || !emailField.value.trim() || 
                 !departmentField.value || !subjectField.value.trim() || 
                 !messageField.value.trim()) {
+                event.preventDefault();
                 showFormMessage('Please fill in all required fields.', 'error');
                 return;
             }
             
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(emailField.value)) {
+            if (!emailField.value || !emailRegex.test(emailField.value)) {
+                event.preventDefault();
                 showFormMessage('Please enter a valid email address.', 'error');
                 return;
             }
             
-            // Disable submit button
+            // Show loading state
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
             
-            try {
-                // Prepare form data
-                const formData = {
-                    name: nameField.value.trim(),
-                    email: emailField.value.trim(),
-                    department: departmentField.value,
-                    subject: subjectField.value.trim(),
-                    message: messageField.value.trim()
-                };
-                
-                // Send to PHP backend
-                const response = await fetch('contact.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showFormMessage(result.message, 'success');
-                    this.reset(); // Reset form on success
-                } else {
-                    showFormMessage(result.message, 'error');
-                }
-                
-            } catch (error) {
-                console.error('Error sending form:', error);
-                
-                // Fallback to mailto if server is unavailable
-                const toEmail = departmentField.value;
-                const subject = encodeURIComponent(`Website Contact: ${subjectField.value}`);
-                const body = encodeURIComponent(
-                    `Name: ${nameField.value}\n` +
-                    `Email: ${emailField.value}\n` +
-                    `Subject: ${subjectField.value}\n\n` +
-                    `Message:\n${messageField.value}\n\n` +
-                    `---\n` +
-                    `This message was sent from the Wolthers & Associates website contact form.`
-                );
-                
-                const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-                window.location.href = mailtoLink;
-                
-                showFormMessage('Server temporarily unavailable. Your email client has been opened with your message.', 'error');
-            } finally {
-                // Re-enable submit button
-                submitBtn.disabled = false;
-                submitBtn.textContent = translations[currentLang].formSendButton || 'Send Message';
-            }
+            // Let Netlify handle the form submission
         });
+        
+        // Check URL for success parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('success')) {
+            showFormMessage('Thank you! Your message has been sent successfully. We will get back to you soon.', 'success');
+            // Reset form
+            contactForm.reset();
+            // Clean up URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
     }
     
     /**
