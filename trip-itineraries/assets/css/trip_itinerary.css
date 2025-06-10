@@ -129,11 +129,20 @@ body {
     padding: 30px;
 }
 
+
 .day {
     margin-bottom: 40px;
     border-left: 4px solid var(--light-green);
     padding-left: 20px;
     position: relative;
+}
+
+.day.current {
+    border-left-color: #D4AF37;
+}
+
+.day.past {
+    border-left-color: #555;
 }
 
 .day::before {
@@ -147,6 +156,14 @@ body {
     border-radius: 50%;
 }
 
+.day.current::before {
+    background: #D4AF37;
+}
+
+.day.past::before {
+    background: #555;
+}
+
 .day-header {
     background: linear-gradient(90deg, var(--medium-green), var(--light-green));
     color: var(--white);
@@ -157,6 +174,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.day.current .day-header {
+    background: linear-gradient(90deg, #D4AF37, #FFE08A);
+    color: #333;
+}
+
+.day.past .day-header {
+    background: #555;
+    color: #fff;
 }
 
 .day-date {
@@ -200,18 +227,19 @@ body {
     position: relative;
 }
 
+
 .activity.past {
-    background: #e8e8e8;
-    color: #666;
-    border-left-color: #999;
+    background: #555;
+    color: #fff;
+    border-left-color: #777;
 }
 
 .activity.past .activity-time {
-    color: #666 !important;
+    color: #fff !important;
 }
 
 .activity.past .activity-description {
-    color: #666 !important;
+    color: #fff !important;
 }
 
 .activity.current {
