@@ -310,7 +310,7 @@ body {
 }
 
 .trip-conclusion {
-    background: linear-gradient(135deg, #3E2723 0%, #4E342E 100%);
+    background: #9b8261;
     color: var(--white);
     padding: 40px 30px;
     text-align: center;
