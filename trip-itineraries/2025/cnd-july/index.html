@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cada Uno and CND trip - Jul 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&family=Marcellus&family=DM+Sans:wght@400;500;600&family=Version+72:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/trip_itinerary.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="../../assets/images/wolthers-logo-off-white.svg" alt="Wolthers Logo" style="height: 60px; margin-bottom: 20px;">
+            <h1>Cada Uno and CND Trip</h1>
+            <p>South of Minas and Cerrado trip to visit multiple suppliers - Jul 2025</p>
+            <div class="guests-info">
+                Guests: Yong, Kathy, Daniel and Mauricio from Paragon | <img src="../../assets/images/disco-icon.png" alt="Jeep" style="height: 14px; vertical-align: middle; margin: 0 4px;"> Car: Jeep Wrangler
+            </div>
+        </div>
+
+        <div class="calendar-options">
+            <button class="calendar-button" onclick="downloadICal()" id="btnCalendar">Add to Calendar</button>
+        </div>
+
+        <div class="map-container">
+            <div class="map-header">
+                Trip Map - South of Minas and Cerrado
+            </div>
+            <img
+                class="map-embed"
+                src="images/map.png"
+                alt="Trip map"
+                style="width: 100%; height: 400px; object-fit: cover; display: block;">
+        </div>
+
+        <div class="itinerary" id="itinerary">
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Sunday, June 29, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-06-29')">+ Add Day</button>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">17:45</div>
+                    <div class="activity-description">Arrival TK15 GRU – drive to Juquehy beach village (Øko Villa)</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Monday, June 30, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-06-30')">+ Add Day</button>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">All day</div>
+                    <div class="activity-description">Relax at Øko Villa - Juquehy Beach</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Tuesday, July 1, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-01')">+ Add Day</button>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">09:00</div>
+                    <div class="activity-description">Drive to Santos (1h30)</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">11:00</div>
+                    <div class="activity-description">Visit Wolthers & Associates office and lab followed by lunch</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">13:00</div>
+                    <div class="activity-description">Tour on Coffee Museum</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">14:00</div>
+                    <div class="activity-description">Visit Comexim - Host: Mauricio Di Cunto</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">15:00</div>
+                    <div class="activity-description">Visit Unicafe - Host: Fabio Mattos</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">16:30</div>
+                    <div class="activity-description">Visit EISA - Host: Carlos Santana</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">20:00</div>
+                    <div class="activity-description">Check-in and overnight at Sheraton Hotel in Santos</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Wednesday, July 2, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-02')">+ Add Day</button>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">07:00</div>
+                    <div class="activity-description">Drive to Varginha with Maurício from Paragon</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">12:00</div>
+                    <div class="activity-description">Lunch in Varginha City with Brascof - hosts Wilian and Thiago</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">13:00</div>
+                    <div class="activity-description">Visit Brascof</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">15:00</div>
+                    <div class="activity-description">Visit Minasul - Host: Caroline Nery</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">17:00</div>
+                    <div class="activity-description">Visit Cocatrel - Host: Gabriel Miari</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">19:00</div>
+                    <div class="activity-description">Dinner and overnight at Class Hotel in Varginha</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Thursday, July 3, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-03')">+ Add Day</button>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">08:30</div>
+                    <div class="activity-description">Visit exporter Stonex - Host: Luciano Gonzales</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">09:30</div>
+                    <div class="activity-description">Visit Porto Seco in Varginha - Host: Matheus Paiva</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">12:00</div>
+                    <div class="activity-description">Visit Coomap in Paraguaçu - Hosts: Sávio and Raphael</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">13:00</div>
+                    <div class="activity-description">Lunch with Coomap</div>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">15:30</div>
+                    <div class="activity-description">Drive to Poços de Caldas city (1h45)</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">19:00</div>
+                    <div class="activity-description">Dinner and overnight in Poços de Caldas city - Ibis Hotel</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Friday, July 4, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-04')">+ Add Day</button>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">08:30</div>
+                    <div class="activity-description">Visit Exp. Bourbon - Host: Icaro Carneiro</div>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">11:00</div>
+                    <div class="activity-description">Mauricio from Paragon drives to Campinas with Daniel</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">12:00</div>
+                    <div class="activity-description">Lunch at local restaurant with Yong, Kathy and Svenn</div>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">13:00</div>
+                    <div class="activity-description">Kathy and Yong drive to Fazenda Santa Alina with Svenn - Vale da Grama tour</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">18:00</div>
+                    <div class="activity-description">Dinner and overnight at Santa Alina Farm</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Saturday, July 5, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-05')">+ Add Day</button>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">08:30</div>
+                    <div class="activity-description">Vale da Grama coffee tour in the morning</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">12:00</div>
+                    <div class="activity-description">Lunch at the farm house</div>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">15:00</div>
+                    <div class="activity-description">Departure to Fazenda Santa Edwirges in Boa Esperança (3h) - Host: Mr. Hugo Brito</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">19:00</div>
+                    <div class="activity-description">Dinner and overnight at Santa Edwirges farm</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Sunday, July 6, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-06')">+ Add Day</button>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">08:30</div>
+                    <div class="activity-description">Morning visit at the farm</div>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">12:30</div>
+                    <div class="activity-description">Drive to Veloso farm in Carmo do Paranaiba (6h)</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">19:00</div>
+                    <div class="activity-description">Dinner and overnight at Fazenda Paraiso / Veloso Estate</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Monday, July 7, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-07')">+ Add Day</button>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">08:30</div>
+                    <div class="activity-description">Visit Veloso Farm - Host: Paulo Veloso Junior</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">12:30</div>
+                    <div class="activity-description">Lunch at Veloso Farm</div>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">15:00</div>
+                    <div class="activity-description">Departure to Farroupilha Group (30 min)</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">16:00</div>
+                    <div class="activity-description">Visit Farroupilha Group - Grano Trading - Host: Glauber Queiroz</div>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">19:00</div>
+                    <div class="activity-description">Drive to Patos de Minas for dinner and overnight - Fratele Business Hotel</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Tuesday, July 8, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-08')">+ Add Day</button>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">08:30</div>
+                    <div class="activity-description">Visit Fazenda Bau</div>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">17:00</div>
+                    <div class="activity-description">Drive to Patrocínio (35 min) for dinner and overnight - Guines Palace Hotel</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Wednesday, July 9, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-09')">+ Add Day</button>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">08:00</div>
+                    <div class="activity-description">Visit Expocacer - Host: Mr. Italo Henrique</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">14:00</div>
+                    <div class="activity-description">Visit Alto Cafezal - Grossi farms - Host: Mr. José Carlos Grossi Segundo</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">19:00</div>
+                    <div class="activity-description">Overnight at the Guines Palace Hotel</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Thursday, July 10, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-10')">+ Add Day</button>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">08:30</div>
+                    <div class="activity-description">Drive to Monte Carmelo to visit Cooxupé (1h)</div>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">13:00</div>
+                    <div class="activity-description">Cooxupé flight to Guaxupé to visit headquarters (1h20 flight)</div>
+                </div>
+                <div class="activity">
+                    <div class="activity-time">19:00</div>
+                    <div class="activity-description">Dinner and overnight in Guaxupé city - Ibis Hotel</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-date">Friday, July 11, 2025</div>
+                    <button class="day-calendar-btn" onclick="downloadDayICal('2025-07-11')">+ Add Day</button>
+                </div>
+                <div class="activity travel-day">
+                    <div class="activity-time">08:00</div>
+                    <div class="activity-description">Departure back to Santos City (5h drive)</div>
+                </div>
+                <div class="activity supplier-visit">
+                    <div class="activity-time">13:00</div>
+                    <div class="activity-description">Lunch and visit Wolthers & Associates / flats available for shower and relax before late flight</div>
+                </div>
+            </div>
+
+            <div class="trip-conclusion">
+                End of Coffee Trip
+            </div>
+        </div>
+    </div>
+
+    <button class="print-button">Print</button>
+
+    <script src="../../assets/js/trip_itinerary.js"></script>
+    <script>
+        // Trip-specific event data for Cada Uno and CND trip July 2025
+        window.eventsByDate = {
+            '2025-06-29': [
+                { summary: 'Arrival TK15 GRU', start: '20250629T174500', end: '20250629T184500', description: 'Arrival at GRU' },
+                { summary: 'Drive to Øko Villa', start: '20250629T184500', end: '20250629T204500', description: 'Drive to Juquehy beach village' }
+            ],
+            '2025-06-30': [
+                { summary: 'Relax at Øko Villa', start: '20250630T090000', end: '20250630T170000', description: 'Juquehy Beach day' }
+            ],
+            '2025-07-01': [
+                { summary: 'Drive to Santos', start: '20250701T090000', end: '20250701T103000', description: 'Drive to Santos' },
+                { summary: 'Visit Wolthers office', start: '20250701T110000', end: '20250701T130000', description: 'Office and lab visit with lunch' },
+                { summary: 'Coffee Museum tour', start: '20250701T130000', end: '20250701T140000', description: 'Tour on Coffee Museum' },
+                { summary: 'Visit Comexim', start: '20250701T140000', end: '20250701T150000', description: 'Host Mauricio Di Cunto' },
+                { summary: 'Visit Unicafe', start: '20250701T150000', end: '20250701T160000', description: 'Host Fabio Mattos' },
+                { summary: 'Visit EISA', start: '20250701T163000', end: '20250701T173000', description: 'Host Carlos Santana' },
+                { summary: 'Overnight Sheraton Santos', start: '20250701T200000', end: '20250702T070000', description: 'Check-in Sheraton Hotel' }
+            ],
+            '2025-07-02': [
+                { summary: 'Drive to Varginha', start: '20250702T070000', end: '20250702T120000', description: 'With Mauricio from Paragon' },
+                { summary: 'Lunch with Brascof', start: '20250702T120000', end: '20250702T130000', description: 'Hosts Wilian and Thiago' },
+                { summary: 'Visit Brascof', start: '20250702T130000', end: '20250702T140000', description: 'Brascof visit' },
+                { summary: 'Visit Minasul', start: '20250702T150000', end: '20250702T160000', description: 'Host Caroline Nery' },
+                { summary: 'Visit Cocatrel', start: '20250702T170000', end: '20250702T180000', description: 'Host Gabriel Miari' },
+                { summary: 'Overnight Class Hotel', start: '20250702T190000', end: '20250703T083000', description: 'Dinner and overnight' }
+            ],
+            '2025-07-03': [
+                { summary: 'Visit Stonex', start: '20250703T083000', end: '20250703T093000', description: 'Host Luciano Gonzales' },
+                { summary: 'Visit Porto Seco', start: '20250703T093000', end: '20250703T103000', description: 'Host Matheus Paiva' },
+                { summary: 'Visit Coomap', start: '20250703T120000', end: '20250703T130000', description: 'Hosts Sávio and Raphael' },
+                { summary: 'Lunch with Coomap', start: '20250703T130000', end: '20250703T140000', description: 'Lunch with Coomap' },
+                { summary: 'Drive to Poços de Caldas', start: '20250703T153000', end: '20250703T171500', description: 'Drive to Poços de Caldas' },
+                { summary: 'Overnight Poços de Caldas', start: '20250703T190000', end: '20250704T083000', description: 'Dinner and overnight at Ibis' }
+            ],
+            '2025-07-04': [
+                { summary: 'Visit Exp. Bourbon', start: '20250704T083000', end: '20250704T093000', description: 'Host Icaro Carneiro' },
+                { summary: 'Drive to Campinas', start: '20250704T110000', end: '20250704T133000', description: 'Mauricio drives with Daniel' },
+                { summary: 'Lunch with Svenn', start: '20250704T120000', end: '20250704T130000', description: 'Local restaurant' },
+                { summary: 'Drive to Santa Alina', start: '20250704T130000', end: '20250704T140000', description: 'With Svenn Wolthers' },
+                { summary: 'Overnight Santa Alina', start: '20250704T180000', end: '20250705T083000', description: 'Dinner and overnight at farm' }
+            ],
+            '2025-07-05': [
+                { summary: 'Vale da Grama tour', start: '20250705T083000', end: '20250705T120000', description: 'Morning tour' },
+                { summary: 'Lunch at farm house', start: '20250705T120000', end: '20250705T130000', description: 'Lunch' },
+                { summary: 'Drive to Santa Edwirges', start: '20250705T150000', end: '20250705T180000', description: 'Visit Fazenda Santa Edwirges' },
+                { summary: 'Overnight Santa Edwirges', start: '20250705T190000', end: '20250706T083000', description: 'Dinner and overnight' }
+            ],
+            '2025-07-06': [
+                { summary: 'Morning farm visit', start: '20250706T083000', end: '20250706T120000', description: 'Farm activities' },
+                { summary: 'Drive to Veloso farm', start: '20250706T123000', end: '20250706T183000', description: 'Long drive to Carmo do Paranaiba' },
+                { summary: 'Overnight Veloso Estate', start: '20250706T190000', end: '20250707T083000', description: 'Dinner and overnight' }
+            ],
+            '2025-07-07': [
+                { summary: 'Visit Veloso Farm', start: '20250707T083000', end: '20250707T123000', description: 'Host Paulo Veloso Junior' },
+                { summary: 'Lunch at Veloso', start: '20250707T123000', end: '20250707T133000', description: 'Lunch' },
+                { summary: 'Drive to Farroupilha', start: '20250707T150000', end: '20250707T153000', description: 'Drive' },
+                { summary: 'Visit Farroupilha Group', start: '20250707T160000', end: '20250707T170000', description: 'Host Glauber Queiroz' },
+                { summary: 'Drive to Patos de Minas', start: '20250707T190000', end: '20250707T193500', description: 'Overnight Fratele Business Hotel' }
+            ],
+            '2025-07-08': [
+                { summary: 'Visit Fazenda Bau', start: '20250708T083000', end: '20250708T120000', description: 'Farm visit' },
+                { summary: 'Drive to Patrocínio', start: '20250708T170000', end: '20250708T173500', description: 'To Guines Palace Hotel' }
+            ],
+            '2025-07-09': [
+                { summary: 'Visit Expocacer', start: '20250709T080000', end: '20250709T120000', description: 'Host Italo Henrique' },
+                { summary: 'Visit Alto Cafezal', start: '20250709T140000', end: '20250709T170000', description: 'Host José Carlos Grossi Segundo' },
+                { summary: 'Overnight Guines Palace', start: '20250709T190000', end: '20250710T083000', description: 'Overnight stay' }
+            ],
+            '2025-07-10': [
+                { summary: 'Drive to Monte Carmelo', start: '20250710T083000', end: '20250710T093000', description: 'Visit Cooxupé' },
+                { summary: 'Flight to Guaxupé', start: '20250710T130000', end: '20250710T142000', description: 'Visit headquarters' },
+                { summary: 'Overnight Guaxupé', start: '20250710T190000', end: '20250711T080000', description: 'Ibis Hotel' }
+            ],
+            '2025-07-11': [
+                { summary: 'Drive to Santos', start: '20250711T080000', end: '20250711T130000', description: 'Return drive' },
+                { summary: 'Visit Wolthers & Associates', start: '20250711T130000', end: '20250711T150000', description: 'Lunch and showers before flight' }
+            ]
+        };
+
+        // All events for complete calendar download
+        window.allEvents = [
+            // Day 1
+            { summary: 'Arrival TK15 GRU', start: '20250629T174500', end: '20250629T184500', description: 'Arrival at GRU' },
+            { summary: 'Drive to Øko Villa', start: '20250629T184500', end: '20250629T204500', description: 'Drive to Juquehy beach village' },
+            // Day 2
+            { summary: 'Relax at Øko Villa', start: '20250630T090000', end: '20250630T170000', description: 'Juquehy Beach day' },
+            // Day 3
+            { summary: 'Drive to Santos', start: '20250701T090000', end: '20250701T103000', description: 'Drive to Santos' },
+            { summary: 'Visit Wolthers office', start: '20250701T110000', end: '20250701T130000', description: 'Office and lab visit with lunch' },
+            { summary: 'Coffee Museum tour', start: '20250701T130000', end: '20250701T140000', description: 'Tour on Coffee Museum' },
+            { summary: 'Visit Comexim', start: '20250701T140000', end: '20250701T150000', description: 'Host Mauricio Di Cunto' },
+            { summary: 'Visit Unicafe', start: '20250701T150000', end: '20250701T160000', description: 'Host Fabio Mattos' },
+            { summary: 'Visit EISA', start: '20250701T163000', end: '20250701T173000', description: 'Host Carlos Santana' },
+            { summary: 'Overnight Sheraton Santos', start: '20250701T200000', end: '20250702T070000', description: 'Check-in Sheraton Hotel' },
+            // Day 4
+            { summary: 'Drive to Varginha', start: '20250702T070000', end: '20250702T120000', description: 'With Mauricio from Paragon' },
+            { summary: 'Lunch with Brascof', start: '20250702T120000', end: '20250702T130000', description: 'Hosts Wilian and Thiago' },
+            { summary: 'Visit Brascof', start: '20250702T130000', end: '20250702T140000', description: 'Brascof visit' },
+            { summary: 'Visit Minasul', start: '20250702T150000', end: '20250702T160000', description: 'Host Caroline Nery' },
+            { summary: 'Visit Cocatrel', start: '20250702T170000', end: '20250702T180000', description: 'Host Gabriel Miari' },
+            { summary: 'Overnight Class Hotel', start: '20250702T190000', end: '20250703T083000', description: 'Dinner and overnight' },
+            // Day 5
+            { summary: 'Visit Stonex', start: '20250703T083000', end: '20250703T093000', description: 'Host Luciano Gonzales' },
+            { summary: 'Visit Porto Seco', start: '20250703T093000', end: '20250703T103000', description: 'Host Matheus Paiva' },
+            { summary: 'Visit Coomap', start: '20250703T120000', end: '20250703T130000', description: 'Hosts Sávio and Raphael' },
+            { summary: 'Lunch with Coomap', start: '20250703T130000', end: '20250703T140000', description: 'Lunch with Coomap' },
+            { summary: 'Drive to Poços de Caldas', start: '20250703T153000', end: '20250703T171500', description: 'Drive to Poços de Caldas' },
+            { summary: 'Overnight Poços de Caldas', start: '20250703T190000', end: '20250704T083000', description: 'Dinner and overnight at Ibis' },
+            // Day 6
+            { summary: 'Visit Exp. Bourbon', start: '20250704T083000', end: '20250704T093000', description: 'Host Icaro Carneiro' },
+            { summary: 'Drive to Campinas', start: '20250704T110000', end: '20250704T133000', description: 'Mauricio drives with Daniel' },
+            { summary: 'Lunch with Svenn', start: '20250704T120000', end: '20250704T130000', description: 'Local restaurant' },
+            { summary: 'Drive to Santa Alina', start: '20250704T130000', end: '20250704T140000', description: 'With Svenn Wolthers' },
+            { summary: 'Overnight Santa Alina', start: '20250704T180000', end: '20250705T083000', description: 'Dinner and overnight at farm' },
+            // Day 7
+            { summary: 'Vale da Grama tour', start: '20250705T083000', end: '20250705T120000', description: 'Morning tour' },
+            { summary: 'Lunch at farm house', start: '20250705T120000', end: '20250705T130000', description: 'Lunch' },
+            { summary: 'Drive to Santa Edwirges', start: '20250705T150000', end: '20250705T180000', description: 'Visit Fazenda Santa Edwirges' },
+            { summary: 'Overnight Santa Edwirges', start: '20250705T190000', end: '20250706T083000', description: 'Dinner and overnight' },
+            // Day 8
+            { summary: 'Morning farm visit', start: '20250706T083000', end: '20250706T120000', description: 'Farm activities' },
+            { summary: 'Drive to Veloso farm', start: '20250706T123000', end: '20250706T183000', description: 'Long drive to Carmo do Paranaiba' },
+            { summary: 'Overnight Veloso Estate', start: '20250706T190000', end: '20250707T083000', description: 'Dinner and overnight' },
+            // Day 9
+            { summary: 'Visit Veloso Farm', start: '20250707T083000', end: '20250707T123000', description: 'Host Paulo Veloso Junior' },
+            { summary: 'Lunch at Veloso', start: '20250707T123000', end: '20250707T133000', description: 'Lunch' },
+            { summary: 'Drive to Farroupilha', start: '20250707T150000', end: '20250707T153000', description: 'Drive' },
+            { summary: 'Visit Farroupilha Group', start: '20250707T160000', end: '20250707T170000', description: 'Host Glauber Queiroz' },
+            { summary: 'Drive to Patos de Minas', start: '20250707T190000', end: '20250707T193500', description: 'Overnight Fratele Business Hotel' },
+            // Day 10
+            { summary: 'Visit Fazenda Bau', start: '20250708T083000', end: '20250708T120000', description: 'Farm visit' },
+            { summary: 'Drive to Patrocínio', start: '20250708T170000', end: '20250708T173500', description: 'To Guines Palace Hotel' },
+            // Day 11
+            { summary: 'Visit Expocacer', start: '20250709T080000', end: '20250709T120000', description: 'Host Italo Henrique' },
+            { summary: 'Visit Alto Cafezal', start: '20250709T140000', end: '20250709T170000', description: 'Host José Carlos Grossi Segundo' },
+            { summary: 'Overnight Guines Palace', start: '20250709T190000', end: '20250710T083000', description: 'Overnight stay' },
+            // Day 12
+            { summary: 'Drive to Monte Carmelo', start: '20250710T083000', end: '20250710T093000', description: 'Visit Cooxupé' },
+            { summary: 'Flight to Guaxupé', start: '20250710T130000', end: '20250710T142000', description: 'Visit headquarters' },
+            { summary: 'Overnight Guaxupé', start: '20250710T190000', end: '20250711T080000', description: 'Ibis Hotel' },
+            // Day 13
+            { summary: 'Drive to Santos', start: '20250711T080000', end: '20250711T130000', description: 'Return drive' },
+            { summary: 'Visit Wolthers & Associates', start: '20250711T130000', end: '20250711T150000', description: 'Lunch and showers before flight' }
+        ];
+    </script>
+</body>
+</html>
