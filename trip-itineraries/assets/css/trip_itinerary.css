@@ -310,9 +310,9 @@ body {
 }
 
 .trip-conclusion {
-    background: none;
-    color: #000;
-    padding: 20px 0;
+    background: #9b8261;
+    color: var(--white);
+    padding: 40px 30px;
     text-align: center;
     margin: 40px 0;
     border-radius: 0;
@@ -322,9 +322,8 @@ body {
 .conclusion-content h2 {
     font-family: 'Playfair Display', serif;
     font-size: 2rem;
-    margin-bottom: 0;
+    margin-bottom: 15px;
     font-weight: 700;
-    color: #000;
 }
 
 
