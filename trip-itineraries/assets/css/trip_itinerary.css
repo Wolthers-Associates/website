@@ -310,9 +310,9 @@ body {
 }
 
 .trip-conclusion {
-    background: #9b8261;
-    color: var(--white);
-    padding: 40px 30px;
+    background: none;
+    color: #3e2723;
+    padding: 0;
     text-align: center;
     margin: 40px 0;
     border-radius: 0;
@@ -510,9 +510,9 @@ body {
     
     .trip-conclusion {
         border-radius: 0;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding: 30px 20px;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
     }
     
     .conclusion-content h2 {
