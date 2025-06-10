@@ -79,6 +79,9 @@ function updateTimelineStatus() {
         const isPast = dayDate < now && !isToday;
         
         if (isToday) {
+            day.classList.add('current');
+            day.classList.remove('past');
+
             let currentActivityFound = false;
             
             activities.forEach(activity => {
@@ -99,11 +102,15 @@ function updateTimelineStatus() {
                 }
             });
         } else if (isPast) {
+            day.classList.add('past');
+            day.classList.remove('current');
+
             activities.forEach(activity => {
                 activity.classList.add('past');
                 activity.classList.remove('current');
             });
         } else {
+            day.classList.remove('past', 'current');
             activities.forEach(activity => {
                 activity.classList.remove('past', 'current');
             });
@@ -186,7 +193,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const printButton = document.querySelector('.print-button');
     if (printButton) {
         printButton.addEventListener('click', function() {
+            const header = document.querySelector('.header');
+            const map = document.querySelector('.map-container');
+
+            if (header) header.classList.add('print-hide');
+            if (map) map.classList.add('print-hide');
+
             window.print();
+
+            if (header) header.classList.remove('print-hide');
+            if (map) map.classList.remove('print-hide');
         });
     }
 });
