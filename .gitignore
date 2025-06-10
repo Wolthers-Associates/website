@@ -1,0 +1,167 @@
+# ===== SENSITIVE FILES =====
+# Environment variables and configuration files with secrets
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+.env.test
+
+# Configuration files that might contain credentials
+config.php
+smtp-config.php
+database-config.php
+secrets.php
+
+# Any file containing "secret", "key", or "password" in the name
+*secret*
+*key*
+*password*
+
+# ===== LOG FILES =====
+# All types of log files
+*.log
+logs/
+error.log
+access.log
+debug.log
+php_errors.log
+
+# ===== TEMPORARY FILES =====
+# Temporary and cache files
+*.tmp
+*.temp
+*.cache
+cache/
+tmp/
+temp/
+
+# ===== BACKUP FILES =====
+# Backup files (often created by editors or hosting panels)
+*.bak
+*.backup
+*.old
+*~
+*.orig
+
+# ===== SYSTEM FILES =====
+# Operating system files
+.DS_Store              # macOS
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db            # Windows
+Thumbs.db
+Desktop.ini
+
+# ===== IDE/EDITOR FILES =====
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# PhpStorm/IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# ===== DEPENDENCY DIRECTORIES =====
+# If you ever add dependencies
+node_modules/
+vendor/
+composer.phar
+package-lock.json
+yarn.lock
+
+# ===== DEVELOPMENT TOOLS =====
+# PHPUnit and testing
+phpunit.xml
+.phpunit.result.cache
+tests/_output/
+coverage/
+
+# Sass/SCSS cache (if you use it)
+.sass-cache/
+*.css.map
+
+# ===== HOSTING/DEPLOYMENT SPECIFIC =====
+# FTP deployment
+.ftpconfig
+.ftppass
+sftp-config.json
+
+# cPanel/Hostinger specific
+.well-known/           # Unless you specifically need it
+public_html.zip
+backup-*.tar.gz
+
+# ===== SECURITY RELATED =====
+# SSL certificates and keys
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+
+# SSH keys
+id_rsa
+id_rsa.pub
+known_hosts
+
+# ===== LARGE FILES =====
+# Large media files that shouldn't be in Git
+*.mov
+*.mp4
+*.avi
+*.mkv
+*.zip
+*.tar.gz
+*.rar
+
+# ===== PROJECT SPECIFIC =====
+# Your specific test files
+test-*.php
+debug-*.php
+smtp-test.php
+graph-test.php
+test-env.php
+
+# Database dumps
+*.sql
+*.sqlite
+*.db
+
+# Documentation drafts
+TODO.md
+NOTES.md
+DRAFT-*
+
+# ===== COMMON MISTAKES =====
+# Files people often accidentally commit
+.htpasswd
+wp-config.php         # If you ever use WordPress
+config.inc.php        # phpMyAdmin config
+settings.php          # Drupal
+
+# ===== COMMENTS FOR REFERENCE =====
+# Add specific patterns here:
+# myspecificfile.php   # Uncomment to ignore specific files
+# uploads/large-files/ # Uncomment to ignore specific directories
