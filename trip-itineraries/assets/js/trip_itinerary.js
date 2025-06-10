@@ -193,7 +193,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const printButton = document.querySelector('.print-button');
     if (printButton) {
         printButton.addEventListener('click', function() {
+            const header = document.querySelector('.header');
+            const map = document.querySelector('.map-container');
+
+            if (header) header.classList.add('print-hide');
+            if (map) map.classList.add('print-hide');
+
             window.print();
+
+            if (header) header.classList.remove('print-hide');
+            if (map) map.classList.remove('print-hide');
         });
     }
 });
