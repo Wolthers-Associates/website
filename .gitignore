@@ -13,6 +13,20 @@ smtp-config.php
 database-config.php
 secrets.php
 
+# Trip system sensitive files
+trip-itineraries/config/config.php
+trip-itineraries/api/config.php
+trip-itineraries/logs/
+trip-itineraries/vendor/
+trip-itineraries/.env
+
+# Database backups
+*.sql.backup
+trip-itineraries/backup/
+
+# Auto-generated trip folders with user data
+trip-itineraries/2025/*/images/
+trip-itineraries/uploads/
 # Any file containing "secret", "key", or "password" in the name
 *secret*
 *key*
