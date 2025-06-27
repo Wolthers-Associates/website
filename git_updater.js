@@ -6,7 +6,7 @@ const execAsync = util.promisify(exec);
 const TripScanner = require('./trip-scanner');
 
 class GitTripUpdater extends TripScanner {
-    constructor(tripsDirectory = './trips', gitBranch = 'main') {
+    constructor(tripsDirectory = './trip-itineraries', gitBranch = 'main') {
         super(tripsDirectory);
         this.gitBranch = gitBranch;
         this.commitMessage = `Auto-update trips - ${new Date().toISOString().split('T')[0]}`;
