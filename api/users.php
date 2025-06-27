@@ -57,9 +57,19 @@ function updateUser($id) {
 
     try {
         $pdo = getPDO();
+        // Ensure the user exists before attempting to update
+        $checkStmt = $pdo->prepare('SELECT COUNT(*) FROM users WHERE id = :id');
+        $checkStmt->execute([':id' => $id]);
+        if ($checkStmt->fetchColumn() == 0) {
+            http_response_code(404);
+            echo json_encode(['error' => 'Not found']);
+            return;
+        }
+
         $sql = 'UPDATE users SET ' . implode(', ', $fields) . ' WHERE id = :id';
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
+
         echo json_encode(['success' => true]);
     } catch (Exception $e) {
         http_response_code(500);
